@@ -36,6 +36,9 @@ set foldlevel=0
 set hlsearch
 set incsearch
 
+" 配置tag
+set tags=./.tags;
+
 " key bindings
 map <C-n> :NERDTreeToggle<CR>
 
