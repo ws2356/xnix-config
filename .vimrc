@@ -1,16 +1,19 @@
+set nocompatible
+
+
 let mapleader = ","
+
 
 " vim-plug插件 {{{
 call plug#begin('~/.vim/plugged')
-" On-demand loading
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
-" Initialize plugin system
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer' }
 call plug#end()
 " }}}
+"
 
-set nocompatible
 
 " Switch syntax highlighting on, when the terminal has colors
 syntax on
@@ -19,19 +22,19 @@ set nu
 set ruler
 set tabstop=2
 set expandtab
-
 set foldmethod=indent
 set shiftwidth=2
 set foldlevel=0
-
 " 搜索逐字符高亮
 set hlsearch
 set incsearch
 
+
 " hack {{{
-" trick netrm not to load
+" 关闭netrw
 let loaded_netrwPlugin = 1
 " }}}
+"
 
 " 配置tag
 set tags=./.tags;
@@ -71,6 +74,7 @@ nnoremap <leader>g :silent execute "grep! -R " . shellescape(expand("<cword>")) 
 " 编辑快捷键
 inoremap <C-d> <esc>ddi
 " }}}
+"
 
 " 自动命令 ---------------------- {{{
 augroup mygroup
@@ -78,7 +82,6 @@ augroup mygroup
     autocmd FileType vim setlocal foldmethod=marker
 		autocmd VimEnter * call MyOpenNERDTreeIfNeeded()
 augroup END
-" }}}
 
 function! MyOpenNERDTreeIfNeeded()
 	if argc() == 0 || getftype(expand('%:p')) ==# "dir"
@@ -86,3 +89,4 @@ function! MyOpenNERDTreeIfNeeded()
 	endif
 endfunction
 
+" }}}
