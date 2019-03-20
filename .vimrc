@@ -1,9 +1,5 @@
 set encoding=utf-8
-
 set nocompatible
-
-
-let mapleader = ","
 
 
 " vim-plug插件 {{{
@@ -14,8 +10,9 @@ Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer' }
 call plug#end()
 " }}}
-"
 
+
+let mapleader = ","
 
 " Switch syntax highlighting on, when the terminal has colors
 syntax on
@@ -32,14 +29,14 @@ set hlsearch
 set incsearch
 
 
-" hack {{{
-" 关闭netrw
+" 关闭netrw {{{
 let loaded_netrwPlugin = 1
 " }}}
-"
+
 
 " 配置tag
 set tags=./.tags;
+
 
 " 配置gutentags {{{
 " gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
@@ -64,7 +61,6 @@ endif
 " }}}
 
 
-
 " key bindings {{{
 noremap <C-n> :NERDTreeToggle<CR>
 
@@ -75,8 +71,13 @@ nnoremap <leader>g :silent execute "grep! -R " . shellescape(expand("<cword>")) 
 
 " 编辑快捷键
 inoremap <C-d> <esc>ddi
+" 向前/后跳转至{/}符号
+map [[ ?{<CR>w99[{
+map ][ /}<CR>b99]}
+map ]] j0[[%/{<CR>
+map [] k$][%?}<CR>
 " }}}
-"
+
 
 " 自动命令 ---------------------- {{{
 augroup mygroup
@@ -92,3 +93,4 @@ function! MyOpenNERDTreeIfNeeded()
 endfunction
 
 " }}}
+
