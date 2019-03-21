@@ -1,6 +1,9 @@
 set encoding=utf-8
 set nocompatible
 
+" 自带的插件 {{{
+packadd! matchit
+" }}}
 
 " vim-plug插件 {{{
 call plug#begin('~/.vim/plugged')
@@ -34,8 +37,9 @@ let loaded_netrwPlugin = 1
 " }}}
 
 
-" 配置tag
+" 配置tag {{{
 set tags=./.tags;
+" }}}
 
 
 " 配置gutentags {{{
@@ -63,7 +67,7 @@ endif
 
 " key bindings {{{
 noremap <C-n> :NERDTreeToggle<CR>
-
+nnoremap <leader>msg :messages<CR>
 nnoremap <leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
 " 练习
@@ -84,13 +88,27 @@ augroup mygroup
     autocmd!
     autocmd FileType vim setlocal foldmethod=marker
 		autocmd VimEnter * call MyOpenNERDTreeIfNeeded()
+    autocmd TextChangedI * call TryDetectFileType()
+    autocmd TextChanged * call TryDetectFileType()
 augroup END
 
+" 不带参数或当前文件是文件夹时打开NERDTree
 function! MyOpenNERDTreeIfNeeded()
 	if argc() == 0 || getftype(expand('%:p')) ==# "dir"
     NERDTree
 	endif
 endfunction
 
+" 前三行文字改变时立即检测ft
+function! TryDetectFileType()
+	if !exists("b:TryDetectFileTypeTrialCountdown")
+    let b:TryDetectFileTypeTrialCountdown = ""
+	endif
+  let l:TryDetectFileTypeTrialCountdown = join(getline(1, 3), ':')
+  if l:TryDetectFileTypeTrialCountdown !=# b:TryDetectFileTypeTrialCountdown
+    let b:TryDetectFileTypeTrialCountdown = l:TryDetectFileTypeTrialCountdown
+    filetype detect
+  endif
+endfunction
 " }}}
 
