@@ -98,8 +98,9 @@ augroup mygroup
 augroup END
 
 " 不带参数或当前文件是文件夹时打开NERDTree
+" TODO: 支持不打开任何东西的情况
 function! MyOpenNERDTreeIfNeeded()
-	if argc() == 0 || getftype(expand('%:p')) ==# "dir"
+	if getftype(expand('%:p')) ==# "dir"
     NERDTree
 	endif
 endfunction
