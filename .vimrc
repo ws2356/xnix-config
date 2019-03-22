@@ -90,6 +90,11 @@ augroup mygroup
 		autocmd VimEnter * call MyOpenNERDTreeIfNeeded()
     autocmd TextChangedI * call TryDetectFileType()
     autocmd TextChanged * call TryDetectFileType()
+    " 打开文件时光标自动定位到上次退出时的位置
+    autocmd BufReadPost *
+         \ if line("'\"") > 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+         \ |   exe "normal! g`\""
+         \ | endif
 augroup END
 
 " 不带参数或当前文件是文件夹时打开NERDTree
