@@ -110,7 +110,7 @@ function! TryDetectFileType()
 	if !exists("b:TryDetectFileTypeTrialCountdown")
     let b:TryDetectFileTypeTrialCountdown = ""
 	endif
-  let l:TryDetectFileTypeTrialCountdown = join(getline(1, 3), ':')
+  let l:TryDetectFileTypeTrialCountdown = getline(1)
   if l:TryDetectFileTypeTrialCountdown !=# b:TryDetectFileTypeTrialCountdown
     let b:TryDetectFileTypeTrialCountdown = l:TryDetectFileTypeTrialCountdown
     filetype detect
