@@ -75,6 +75,8 @@ nnoremap <leader>g :silent execute "grep! -R " . shellescape(expand("<cword>")) 
 
 " 编辑快捷键
 inoremap <C-d> <esc>ddi
+" 快速保存
+inoremap <Esc><Esc> <Esc>:w<CR>
 " 向前/后跳转至{/}符号
 map [[ ?{<CR>w99[{
 map ][ /}<CR>b99]}
@@ -111,7 +113,7 @@ function! TryDetectFileType()
     let b:TryDetectFileTypeTrialCountdown = ""
 	endif
   let l:TryDetectFileTypeTrialCountdown = getline(1)
-  if l:TryDetectFileTypeTrialCountdown !=# b:TryDetectFileTypeTrialCountdown
+  if b:TryDetectFileTypeTrialCountdown !=# l:TryDetectFileTypeTrialCountdown
     let b:TryDetectFileTypeTrialCountdown = l:TryDetectFileTypeTrialCountdown
     filetype detect
   endif
