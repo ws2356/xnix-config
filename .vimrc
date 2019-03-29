@@ -77,6 +77,8 @@ nnoremap <leader>g :silent execute "grep! -R " . shellescape(expand("<cword>")) 
 inoremap <C-d> <esc>ddi
 " 快速保存
 inoremap <Esc><Esc> <Esc>:w<CR>
+" 关闭高亮
+nnoremap <leader>nh :noh<CR>
 " 向前/后跳转至{/}符号
 map [[ ?{<CR>w99[{
 map ][ /}<CR>b99]}
