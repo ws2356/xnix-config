@@ -67,7 +67,6 @@ map [] k$][%?}<CR>
 augroup mygroup
     autocmd!
     autocmd FileType vim setlocal foldmethod=marker
-		autocmd VimEnter * call MyOpenNERDTreeIfNeeded()
     autocmd TextChangedI * call TryDetectFileType()
     autocmd TextChanged * call TryDetectFileType()
     " 打开文件时光标自动定位到上次退出时的位置
@@ -77,22 +76,14 @@ augroup mygroup
          \ | endif
 augroup END
 
-" 不带参数或当前文件是文件夹时打开NERDTree
-" TODO: 支持不打开任何东西的情况
-function! MyOpenNERDTreeIfNeeded()
-	if getftype(expand('%:p')) ==# "dir"
-    NERDTree
-	endif
-endfunction
-
-" 前三行文字改变时立即检测ft
+"第一行文字改变时立即检测ft
 function! TryDetectFileType()
-	if !exists("b:TryDetectFileTypeTrialCountdown")
-    let b:TryDetectFileTypeTrialCountdown = ""
+	if !exists("b:FirstLineContent")
+    let b:FirstLineContent = ""
 	endif
-  let l:TryDetectFileTypeTrialCountdown = getline(1)
-  if b:TryDetectFileTypeTrialCountdown !=# l:TryDetectFileTypeTrialCountdown
-    let b:TryDetectFileTypeTrialCountdown = l:TryDetectFileTypeTrialCountdown
+  let l:FirstLineContent = getline(1)
+  if b:FirstLineContent !=# l:FirstLineContent
+    let b:FirstLineContent = l:FirstLineContent
     filetype detect
   endif
 endfunction
