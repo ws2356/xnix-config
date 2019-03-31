@@ -15,6 +15,8 @@ Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer' }
+Plug 'w0rp/ale'
+Plug 'bestofsong/vimconfig'
 call plug#end()
 " }}}
 

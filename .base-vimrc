@@ -5,6 +5,7 @@ let mapleader = ","
 
 " Switch syntax highlighting on, when the terminal has colors
 syntax on
+filetype plugin indent on
 
 set nu
 set ruler
@@ -12,11 +13,10 @@ set tabstop=2
 set expandtab
 set foldmethod=indent
 set shiftwidth=2
-set foldlevel=0
+set foldlevel=2
 " 搜索逐字符高亮
 set hlsearch
 set incsearch
-
 
 
 " 配置tag {{{
@@ -34,10 +34,10 @@ let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
 let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
 let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 
+set statusline+=%{gutentags#statusline()}
+
 " NERDTree
 let NERDTreeShowHidden=1
-
-set statusline+=%{gutentags#statusline()}
 " }}}
 
 
@@ -74,6 +74,8 @@ augroup mygroup
          \ if line("'\"") > 1 && line("'\"") <= line("$") && &ft !~# 'commit'
          \ |   exe "normal! g`\""
          \ | endif
+    " autocmd FileType python setlocal equalprg=~/Developer/python/utils/reindent.py
+    " autocmd FileType python setlocal equalprg=autopep8\ -
 augroup END
 
 "第一行文字改变时立即检测ft
