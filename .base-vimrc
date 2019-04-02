@@ -51,6 +51,11 @@ let g:ycm_semantic_triggers['typescript'] = ['.']
 " }}}
 
 
+" 配置ctrlp {{{
+let g:ctrlp_map = '<c-p>'
+" }}}
+
+
 " key bindings {{{
 noremap <C-n> :NERDTreeToggle<CR>
 nnoremap <leader>msg :messages<CR>
