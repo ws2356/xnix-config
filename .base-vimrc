@@ -55,6 +55,11 @@ let g:ycm_semantic_triggers['typescript'] = ['.']
 let g:ctrlp_map = '<c-p>'
 " }}}
 
+" 配置tsuquyomi {{{
+set ballooneval
+autocmd FileType typescript setlocal balloonexpr=tsuquyomi#balloonexpr()
+autocmd FileType typescript nmap <buffer> <Leader>t : <C-u>echo tsuquyomi#hint()<CR>
+" }}}
 
 " key bindings {{{
 noremap <C-n> :NERDTreeToggle<CR>
