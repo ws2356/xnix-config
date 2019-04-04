@@ -82,6 +82,27 @@ map ]] j0[[%/{<CR>
 map [] k$][%?}<CR>
 " }}}
 
+" 自定义命令 {{{
+command! -nargs=+ -complete=file Gr call CGrepSourceCode(<f-args>)
+command! -nargs=+ -complete=file Gr2 call GrepSourceCode(<f-args>)
+
+function! CGrepSourceCode(...)
+  let l:word = expand('<cword>')
+  let l:args = a:000[0:]
+  let l:prepended = reverse(add(reverse(l:args), l:word))
+  call call(function('GrepSourceCode'), l:prepended)
+endfunction
+
+function! GrepSourceCode(...)
+  execute 'grep -RE '
+  \ . '--exclude-dir .git '
+  \ . '--exclude-dir node_modules '
+  \ . '--exclude-dir tmp '
+  \ . '--exclude-dir build '
+  \ . '--exclude-dir built '
+  \ . join(a:000)
+endfunction
+" }}}
 
 " 自动命令 ---------------------- {{{
 augroup mygroup
