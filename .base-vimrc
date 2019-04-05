@@ -33,6 +33,7 @@ let g:gutentags_ctags_tagfile = '.tags'
 let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
 let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
 let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+let g:gutentags_ctags_exclude = ['node_modules']
 
 set statusline+=%{gutentags#statusline()}
 " }}}
@@ -53,13 +54,16 @@ let g:ycm_semantic_triggers['typescript'] = ['.']
 
 " 配置ctrlp {{{
 let g:ctrlp_map = '<c-p>'
+let g:ctrlp_custom_ignore = '\v[\/](node_modules|(\.(swp|ico|git|svn)))$'
 " }}}
+
 
 " 配置tsuquyomi {{{
 set ballooneval
 autocmd FileType typescript setlocal balloonexpr=tsuquyomi#balloonexpr()
 autocmd FileType typescript nmap <buffer> <Leader>t : <C-u>echo tsuquyomi#hint()<CR>
 " }}}
+
 
 " key bindings {{{
 noremap <C-n> :NERDTreeToggle<CR>
@@ -80,7 +84,43 @@ map [[ ?{<CR>w99[{
 map ][ /}<CR>b99]}
 map ]] j0[[%/{<CR>
 map [] k$][%?}<CR>
+
+nnoremap <leader>zj :call GoNextFold()<CR>
+nnoremap <leader>zk :call GoPrevFold()<CR>
+
+function! GoNextFold()
+  let l:initial_line = line('.')
+  let l:lnum = foldclosedend(l:initial_line) + 1
+  if l:lnum ==# 0
+    let l:lnum = l:initial_line
+  endif 
+  let l:end_line = line('$')
+  while foldclosed(l:lnum) ==# -1 && l:lnum <=# l:end_line
+    let l:lnum += 1
+  endwhile
+  if l:lnum ># l:end_line
+    return
+  endif
+  execute 'normal! ' . l:lnum . 'G'
+endfunction
+
+function! GoPrevFold()
+  let l:initial_line = line('.')
+  let l:lnum = foldclosed(l:initial_line) - 1
+  if l:lnum ==# -2
+    let l:lnum = l:initial_line
+  endif 
+  let l:end_line = 1
+  while foldclosed(l:lnum) ==# -1 && l:lnum >=# l:end_line
+    let l:lnum -= 1
+  endwhile
+  if l:lnum <# l:end_line
+    return
+  endif
+  execute 'normal! ' . l:lnum . 'G'
+endfunction
 " }}}
+
 
 " 自定义命令 {{{
 command! -nargs=+ -complete=file Gr call CGrepSourceCode(<f-args>)
@@ -103,6 +143,7 @@ function! GrepSourceCode(...)
   \ . join(a:000)
 endfunction
 " }}}
+
 
 " 自动命令 ---------------------- {{{
 augroup mygroup
