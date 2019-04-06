@@ -58,10 +58,16 @@ let g:ctrlp_custom_ignore = '\v[\/](node_modules|(\.(swp|ico|git|svn)))$'
 " }}}
 
 
-" 配置tsuquyomi {{{
-set ballooneval
-autocmd FileType typescript setlocal balloonexpr=tsuquyomi#balloonexpr()
-autocmd FileType typescript nmap <buffer> <Leader>t : <C-u>echo tsuquyomi#hint()<CR>
+" 配置tsuquyomi：不好用，有性能问题，而且可以被ale完美替代 {{{
+" set ballooneval
+"autocmd FileType typescript setlocal balloonexpr=tsuquyomi#balloonexpr()
+"autocmd FileType typescript nmap <buffer> <Leader>t : <C-u>echo tsuquyomi#hint()<CR>
+" }}}
+
+
+" 配置ale {{{
+nnoremap <leader>] :ALEGoToDefinition<CR>
+nnoremap <leader>^ :ALEFindReferences<CR>
 " }}}
 
 
