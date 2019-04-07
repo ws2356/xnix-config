@@ -42,6 +42,7 @@ set statusline+=%{gutentags#statusline()}
 " 配置NERDTree {{{
 let NERDTreeShowHidden=1
 noremap <C-n> :NERDTreeToggle<CR>
+noremap <leader>e :NERDTreeFind<CR>
 " }}}
 
 
