@@ -71,6 +71,11 @@ nnoremap <leader>^ :ALEFindReferences<CR>
 " }}}
 
 
+" 配置indentLine {{{
+let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+" }}}
+
+
 " key bindings {{{
 noremap <C-n> :NERDTreeToggle<CR>
 nnoremap <leader>msg :messages<CR>

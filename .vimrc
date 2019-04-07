@@ -20,6 +20,7 @@ Plug 'bestofsong/vimconfig'
 Plug 'leafgarland/typescript-vim'
 " Plug 'Quramy/tsuquyomi'
 Plug 'kien/ctrlp.vim'
+Plug 'Yggdroot/indentLine'
 call plug#end()
 " }}}
 
