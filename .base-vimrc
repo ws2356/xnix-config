@@ -87,7 +87,6 @@ nnoremap <leader>sv :source $MYVIMRC<CR>
 nnoremap <leader>g :silent execute "grep! -R " . shellescape(expand("<cword>")) . " ."<cr>:copen<cr>
 
 " 编辑快捷键
-inoremap <C-d> <esc>ddi
 " 快速保存
 inoremap <Esc><Esc> <Esc>:w<CR>
 " 关闭高亮
