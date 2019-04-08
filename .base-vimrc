@@ -71,6 +71,9 @@ let g:ctrlp_custom_ignore = '\v[\/](node_modules|(\.(swp|ico|git|svn)))$'
 nnoremap <leader>] :ALEGoToDefinition<CR>
 nnoremap <leader>^ :ALEFindReferences<CR>
 let g:ale_lint_delay = 2000
+" ycm semantic completion does not quite work, so i'm gonna: use ale to do lint and
+" semantic completion, use ycm to do tag based completion
+let g:ale_completion_enabled = 1
 " }}}
 
 
