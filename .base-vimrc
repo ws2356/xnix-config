@@ -70,7 +70,6 @@ let g:ctrlp_custom_ignore = '\v[\/](node_modules|(\.(swp|ico|git|svn)))$'
 " 配置ale {{{
 nnoremap <leader>] :ALEGoToDefinition<CR>
 nnoremap <leader>^ :ALEFindReferences<CR>
-let g:ale_lint_delay = 2000
 " ycm semantic completion does not quite work, so i'm gonna: use ale to do lint and
 " semantic completion, use ycm to do tag based completion
 let g:ale_completion_enabled = 1
@@ -164,8 +163,10 @@ endfunction
 augroup mygroup
     autocmd!
     autocmd FileType vim setlocal foldmethod=marker
-    autocmd TextChangedI * call TryDetectFileType()
-    autocmd TextChanged * call TryDetectFileType()
+    " Not very usefull ;]
+    "autocmd TextChangedI * call TryDetectFileType()
+    "autocmd TextChanged * call TryDetectFileType()
+    
     " 打开文件时光标自动定位到上次退出时的位置
     autocmd BufReadPost *
          \ if line("'\"") > 1 && line("'\"") <= line("$") && &ft !~# 'commit'
@@ -176,15 +177,15 @@ augroup mygroup
 augroup END
 
 "第一行文字改变时立即检测ft
-function! TryDetectFileType()
-	if !exists("b:FirstLineContent")
-    let b:FirstLineContent = ""
-	endif
-  let l:FirstLineContent = getline(1)
-  if b:FirstLineContent !=# l:FirstLineContent
-    let b:FirstLineContent = l:FirstLineContent
-    filetype detect
-  endif
-endfunction
+"function! TryDetectFileType()
+"	if !exists("b:FirstLineContent")
+"    let b:FirstLineContent = ""
+"	endif
+"  let l:FirstLineContent = getline(1)
+"  if b:FirstLineContent !=# l:FirstLineContent
+"    let b:FirstLineContent = l:FirstLineContent
+"    filetype detect
+"  endif
+"endfunction
 " }}}
 
