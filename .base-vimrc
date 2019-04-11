@@ -13,7 +13,8 @@ set tabstop=2
 set expandtab
 set foldmethod=indent
 set shiftwidth=2
-set foldlevel=2
+" foldlevel初始值，高于此值的fold会默认关闭
+set foldlevelstart=4
 " 搜索逐字符高亮
 set hlsearch
 set incsearch
@@ -163,7 +164,7 @@ endfunction
 augroup mygroup
     autocmd!
     autocmd FileType vim setlocal foldmethod=marker
-    " Not very usefull ;]
+    " 没有太大卵用 ;]
     "autocmd TextChangedI * call TryDetectFileType()
     "autocmd TextChanged * call TryDetectFileType()
     
@@ -172,6 +173,8 @@ augroup mygroup
          \ if line("'\"") > 1 && line("'\"") <= line("$") && &ft !~# 'commit'
          \ |   exe "normal! g`\""
          \ | endif
+
+    " 不好用
     " autocmd FileType python setlocal equalprg=~/Developer/python/utils/reindent.py
     " autocmd FileType python setlocal equalprg=autopep8\ -
 augroup END
