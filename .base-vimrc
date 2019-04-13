@@ -7,6 +7,7 @@ let mapleader = ","
 syntax on
 filetype plugin indent on
 
+set cursorline
 set nu
 set ruler
 set tabstop=2
@@ -18,7 +19,6 @@ set foldlevelstart=4
 " 搜索逐字符高亮
 set hlsearch
 set incsearch
-
 
 " 配置tag {{{
 set tags=./.tags;
