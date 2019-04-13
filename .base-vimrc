@@ -100,10 +100,16 @@ map ][ /}<CR>b99]}
 map ]] j0[[%/{<CR>
 map [] k$][%?}<CR>
 
-nnoremap <leader>zj :call GoNextFold()<CR>
-nnoremap <leader>zk :call GoPrevFold()<CR>
+command! -nargs=1 CMDGoNextFold call GoNextFold(<args>)
+command! -nargs=1 CMDGoPrevFold call GoPrevFold(<args>)
+" 此处的c-u说是要清楚什么范围，没看懂文档;[
+nnoremap <leader>zj :call :<C-U>CMDGoNextFold(v:count1)<CR>
+nnoremap <leader>zk :call :<C-U>CMDGoPrevFold(v:count1)<CR>
 
-function! GoNextFold()
+function! GoNextFold(cnt)
+  if a:cnt ==# 0
+    return
+  endif
   let l:initial_line = line('.')
   let l:lnum = foldclosedend(l:initial_line) + 1
   if l:lnum ==# 0
@@ -117,9 +123,13 @@ function! GoNextFold()
     return
   endif
   execute 'normal! ' . l:lnum . 'G'
+  call GoNextFold(a:cnt - 1)
 endfunction
 
-function! GoPrevFold()
+function! GoPrevFold(cnt)
+  if a:cnt ==# 0
+    return
+  endif
   let l:initial_line = line('.')
   let l:lnum = foldclosed(l:initial_line) - 1
   if l:lnum ==# -2
@@ -133,6 +143,7 @@ function! GoPrevFold()
     return
   endif
   execute 'normal! ' . l:lnum . 'G'
+  call GoPrevFold(a:cnt - 1)
 endfunction
 " }}}
 
@@ -150,33 +161,33 @@ endfunction
 
 function! GrepSourceCode(...)
   execute 'grep -RE '
-  \ . '--exclude-dir .git '
-  \ . '--exclude-dir node_modules '
-  \ . '--exclude-dir tmp '
-  \ . '--exclude-dir build '
-  \ . '--exclude-dir built '
-  \ . join(a:000)
+        \ . '--exclude-dir .git '
+        \ . '--exclude-dir node_modules '
+        \ . '--exclude-dir tmp '
+        \ . '--exclude-dir build '
+        \ . '--exclude-dir built '
+        \ . join(a:000)
 endfunction
 " }}}
 
 
 " 自动命令 ---------------------- {{{
 augroup mygroup
-    autocmd!
-    autocmd FileType vim setlocal foldmethod=marker
-    " 没有太大卵用 ;]
-    "autocmd TextChangedI * call TryDetectFileType()
-    "autocmd TextChanged * call TryDetectFileType()
-    
-    " 打开文件时光标自动定位到上次退出时的位置
-    autocmd BufReadPost *
-         \ if line("'\"") > 1 && line("'\"") <= line("$") && &ft !~# 'commit'
-         \ |   exe "normal! g`\""
-         \ | endif
+  autocmd!
+  autocmd FileType vim setlocal foldmethod=marker
+  " 没有太大卵用 ;]
+  "autocmd TextChangedI * call TryDetectFileType()
+  "autocmd TextChanged * call TryDetectFileType()
 
-    " 不好用
-    " autocmd FileType python setlocal equalprg=~/Developer/python/utils/reindent.py
-    " autocmd FileType python setlocal equalprg=autopep8\ -
+  " 打开文件时光标自动定位到上次退出时的位置
+  autocmd BufReadPost *
+        \ if line("'\"") > 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+        \ |   exe "normal! g`\""
+        \ | endif
+
+  " 不好用
+  " autocmd FileType python setlocal equalprg=~/Developer/python/utils/reindent.py
+  " autocmd FileType python setlocal equalprg=autopep8\ -
 augroup END
 
 "第一行文字改变时立即检测ft
