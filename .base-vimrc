@@ -19,6 +19,7 @@ set foldlevelstart=4
 " 搜索逐字符高亮
 set hlsearch
 set incsearch
+set completeopt=menu,menuone,preview,noselect,noinsert
 
 " 配置tag {{{
 set tags=./.tags;
