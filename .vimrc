@@ -21,6 +21,8 @@ Plug 'leafgarland/typescript-vim'
 " Plug 'Quramy/tsuquyomi'
 Plug 'kien/ctrlp.vim'
 Plug 'Yggdroot/indentLine'
+Plug 'gabrielelana/vim-markdown'
+Plug 'godlygeek/tabular'
 call plug#end()
 " }}}
 
