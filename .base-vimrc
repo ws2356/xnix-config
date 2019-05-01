@@ -53,6 +53,7 @@ if !exists("g:ycm_semantic_triggers")
   let g:ycm_semantic_triggers = {}
 endif
 let g:ycm_semantic_triggers['typescript'] = ['.']
+noremap <leader>ja :YcmCompleter GoTo<CR>
 " }}}
 
 
@@ -87,9 +88,6 @@ let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 nnoremap <leader>msg :messages<CR>
 nnoremap <leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
-" 练习
-nnoremap <leader>g :silent execute "grep! -R " . shellescape(expand("<cword>")) . " ."<cr>:copen<cr>
-
 " 编辑快捷键
 " 快速保存
 inoremap <Esc><Esc> <Esc>:w<CR>
@@ -176,31 +174,11 @@ endfunction
 augroup mygroup
   autocmd!
   autocmd FileType vim setlocal foldmethod=marker
-  " 没有太大卵用 ;]
-  "autocmd TextChangedI * call TryDetectFileType()
-  "autocmd TextChanged * call TryDetectFileType()
-
   " 打开文件时光标自动定位到上次退出时的位置
   autocmd BufReadPost *
         \ if line("'\"") > 1 && line("'\"") <= line("$") && &ft !~# 'commit'
         \ |   exe "normal! g`\""
         \ | endif
-
-  " 不好用
-  " autocmd FileType python setlocal equalprg=~/Developer/python/utils/reindent.py
-  " autocmd FileType python setlocal equalprg=autopep8\ -
 augroup END
-
-"第一行文字改变时立即检测ft
-"function! TryDetectFileType()
-"	if !exists("b:FirstLineContent")
-"    let b:FirstLineContent = ""
-"	endif
-"  let l:FirstLineContent = getline(1)
-"  if b:FirstLineContent !=# l:FirstLineContent
-"    let b:FirstLineContent = l:FirstLineContent
-"    filetype detect
-"  endif
-"endfunction
 " }}}
 
