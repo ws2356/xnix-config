@@ -18,12 +18,9 @@ Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer' }
 Plug 'w0rp/ale'
 Plug 'bestofsong/vimconfig'
 Plug 'leafgarland/typescript-vim'
-" Plug 'Quramy/tsuquyomi'
 Plug 'kien/ctrlp.vim'
 Plug 'Yggdroot/indentLine'
 Plug 'gabrielelana/vim-markdown'
 Plug 'godlygeek/tabular'
 call plug#end()
 " }}}
-
-

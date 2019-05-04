@@ -53,6 +53,8 @@ if !exists("g:ycm_semantic_triggers")
   let g:ycm_semantic_triggers = {}
 endif
 let g:ycm_semantic_triggers['typescript'] = ['.']
+highlight YcmErrorSection ctermbg=DarkRed
+highlight YcmErrorSign ctermbg=DarkRed
 noremap <leader>ja :YcmCompleter GoTo<CR>
 " }}}
 
@@ -63,19 +65,13 @@ let g:ctrlp_custom_ignore = '\v[\/](node_modules|(\.(swp|ico|git|svn)))$'
 " }}}
 
 
-" 配置tsuquyomi：不好用，有性能问题，而且可以被ale完美替代 {{{
-" set ballooneval
-"autocmd FileType typescript setlocal balloonexpr=tsuquyomi#balloonexpr()
-"autocmd FileType typescript nmap <buffer> <Leader>t : <C-u>echo tsuquyomi#hint()<CR>
-" }}}
-
-
 " 配置ale {{{
 nnoremap <leader>] :ALEGoToDefinition<CR>
 nnoremap <leader>^ :ALEFindReferences<CR>
 " ycm semantic completion does not quite work, so i'm gonna: use ale to do lint and
 " semantic completion, use ycm to do tag based completion
 let g:ale_completion_enabled = 1
+let g:ale_set_highlights = 0 " Disable highligting
 " }}}
 
 
