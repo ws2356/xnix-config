@@ -84,6 +84,8 @@ let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 nnoremap <leader>msg :messages<CR>
 nnoremap <leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
+" FIXME: wansong, make it portable?
+nnoremap <leader>vm :!open -a 'Google Chrome' %<CR><CR>
 " 编辑快捷键
 " 快速保存
 inoremap <Esc><Esc> <Esc>:w<CR>
