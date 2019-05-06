@@ -23,5 +23,6 @@ Plug 'Yggdroot/indentLine'
 Plug 'gabrielelana/vim-markdown'
 Plug 'godlygeek/tabular'
 Plug 'wellle/targets.vim'
+Plug 'easymotion/vim-easymotion'
 call plug#end()
 " }}}
