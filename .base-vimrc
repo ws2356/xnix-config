@@ -146,8 +146,8 @@ endfunction
 
 
 " 自定义命令 {{{
-command! -nargs=+ -complete=file Gr call CGrepSourceCode(<f-args>)
-command! -nargs=+ -complete=file Gr2 call GrepSourceCode(<f-args>)
+command! -nargs=+ -complete=file GR call CGrepSourceCode(<f-args>)
+command! -nargs=+ -complete=file GR2 call GrepSourceCode(<f-args>)
 
 function! CGrepSourceCode(...)
   let l:word = expand('<cword>')
@@ -163,6 +163,8 @@ function! GrepSourceCode(...)
         \ . '--exclude-dir tmp '
         \ . '--exclude-dir build '
         \ . '--exclude-dir built '
+        \ . '--exclude .tags '
+        \ . '--exclude *.swp '
         \ . join(a:000)
 endfunction
 " }}}
