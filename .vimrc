@@ -22,5 +22,6 @@ Plug 'kien/ctrlp.vim'
 Plug 'Yggdroot/indentLine'
 Plug 'gabrielelana/vim-markdown'
 Plug 'godlygeek/tabular'
+Plug 'wellle/targets.vim'
 call plug#end()
 " }}}
