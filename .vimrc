@@ -24,5 +24,6 @@ Plug 'gabrielelana/vim-markdown'
 Plug 'godlygeek/tabular'
 Plug 'wellle/targets.vim'
 Plug 'easymotion/vim-easymotion'
+Plug 'tpope/vim-fugitive'
 call plug#end()
 " }}}
