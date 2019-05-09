@@ -80,6 +80,11 @@ let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 " }}}
 
 
+" 配置vim-diminactive {{{
+highlight ColorColumn ctermbg=DarkGray
+" }}}
+
+
 " key bindings {{{
 nnoremap <leader>msg :messages<CR>
 nnoremap <leader>ev :vsplit $MYVIMRC<CR>
