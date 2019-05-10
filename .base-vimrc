@@ -21,6 +21,15 @@ set hlsearch
 set incsearch
 set completeopt=menu,menuone,preview,noselect,noinsert
 
+
+" 配置window style {{{
+set fillchars+=vert:\ 
+highlight VertSplit ctermfg=LightGreen
+highlight StatusLine ctermfg=Green
+highlight StatusLineNC ctermfg=LightGreen
+" }}}
+
+
 " 配置tag {{{
 set tags=./.tags;
 " }}}
