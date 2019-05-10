@@ -89,6 +89,11 @@ let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 " }}}
 
 
+" 配置SirVer/ultisnips {{{
+let g:UltiSnipsExpandTrigger = "<c-y>"
+" }}}
+
+
 " key bindings {{{
 nnoremap <leader>msg :messages<CR>
 nnoremap <leader>ev :vsplit $MYVIMRC<CR>
