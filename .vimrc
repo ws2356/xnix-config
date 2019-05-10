@@ -27,5 +27,6 @@ Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-fugitive'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+Plug 'ervandew/supertab'
 call plug#end()
 " }}}
