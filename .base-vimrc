@@ -103,6 +103,7 @@ nnoremap <leader>^ :ALEFindReferences<CR>
 " semantic completion, use ycm to do tag based completion
 let g:ale_completion_enabled = 1
 let g:ale_set_highlights = 0 " Disable highligting
+let g:ale_linters = { 'javascript': ['eslint', 'tsserver'] }
 " }}}
 
 

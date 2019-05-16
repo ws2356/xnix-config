@@ -28,5 +28,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'ervandew/supertab'
+Plug 'tpope/vim-commentary'
 call plug#end()
 " }}}
