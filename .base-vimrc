@@ -257,6 +257,7 @@ function! StartPlug(plugInDir)
   Plug 'honza/vim-snippets'
   Plug 'ervandew/supertab'
   Plug 'tpope/vim-commentary'
+  Plug 'tpope/vim-surround'
 endfunction
 
 function! EndPlug()
