@@ -10,3 +10,4 @@ packadd! matchit
 " }}}
 
 call StartPlug('~/.vim/plugged')
+call EndPlug()
