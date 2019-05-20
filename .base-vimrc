@@ -90,11 +90,6 @@ let g:ale_linters = { 'javascript': ['eslint', 'tsserver'] }
 " }}}
 
 
-" 配置indentLine {{{
-let g:indentLine_char_list = ['|', '¦', '┆', '┊']
-" }}}
-
-
 " 配置SirVer/ultisnips, keep ycm ultisnips from fighting {{{
 " make YCM compatible with UltiSnips (using supertab)
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
@@ -106,6 +101,14 @@ let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 " }}}
+
+
+" Config indent-guides {{{
+let g:indent_guides_start_level = 1
+let g:indent_guides_guide_size = 1
+highlight IndentGuidesOdd  ctermbg=DarkGray
+highlight IndentGuidesEven ctermbg=LightGray
+"}}}
 
 
 " key bindings {{{
@@ -235,7 +238,6 @@ function! StartPlug(plugInDir)
   Plug 'bestofsong/vimconfig'
   Plug 'leafgarland/typescript-vim'
   Plug 'kien/ctrlp.vim'
-  Plug 'Yggdroot/indentLine'
   Plug 'gabrielelana/vim-markdown'
   Plug 'godlygeek/tabular'
   Plug 'wellle/targets.vim'
@@ -246,6 +248,7 @@ function! StartPlug(plugInDir)
   Plug 'ervandew/supertab'
   Plug 'tpope/vim-commentary'
   Plug 'tpope/vim-surround'
+  Plug 'nathanaelkane/vim-indent-guides'
 endfunction
 
 function! EndPlug()
