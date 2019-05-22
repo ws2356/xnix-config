@@ -249,6 +249,7 @@ function! StartPlug(plugInDir)
   Plug 'tpope/vim-commentary'
   Plug 'tpope/vim-surround'
   Plug 'nathanaelkane/vim-indent-guides'
+  Plug 'tpope/vim-dispatch'
 endfunction
 
 function! EndPlug()
