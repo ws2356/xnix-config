@@ -51,3 +51,5 @@ export HISTFILESIZE=$HISTSIZE
 
 test -f ~/.git-completion.bash && . $_
 
+
+set -o vi
