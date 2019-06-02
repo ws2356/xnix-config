@@ -257,7 +257,3 @@ function! EndPlug()
   call plug#end()
 endfunction
 " }}}
-
-" Color theme {{{
-colorscheme gruvbox
-" }}}

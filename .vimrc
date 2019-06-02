@@ -11,3 +11,7 @@ packadd! matchit
 
 call StartPlug('~/.vim/plugged')
 call EndPlug()
+
+" Color theme {{{
+colorscheme gruvbox
+" }}}
