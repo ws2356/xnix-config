@@ -250,9 +250,14 @@ function! StartPlug(plugInDir)
   Plug 'tpope/vim-surround'
   Plug 'nathanaelkane/vim-indent-guides'
   Plug 'tpope/vim-dispatch'
+  Plug 'morhetz/gruvbox'
 endfunction
 
 function! EndPlug()
   call plug#end()
 endfunction
+" }}}
+
+" Color theme {{{
+colorscheme gruvbox
 " }}}
