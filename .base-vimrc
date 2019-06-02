@@ -35,6 +35,9 @@ highlight StatusLine ctermfg=Green
 highlight StatusLineNC ctermfg=LightGreen
 " }}}
 
+" Color theme {{{
+set background=dark
+" }}}
 
 " 配置tag {{{
 set tags=./.tags;
