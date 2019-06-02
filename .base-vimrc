@@ -1,5 +1,6 @@
 set encoding=utf-8
 set nocompatible
+set termguicolors
 
 if $VIRTUAL_ENV != ''
   let g:python3_host_prog = $VIRTUAL_ENV . '/bin/python3'

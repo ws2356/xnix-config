@@ -6,3 +6,8 @@ let s:base_rc = s:vim_conf_dir . '/.base-vimrc'
 :execute 'source ' . s:base_rc
 
 call StartPlug('~/.local/share/nvim/plugged')
+call EndPlug()
+
+" Color theme {{{
+colorscheme gruvbox
+" }}}
