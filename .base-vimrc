@@ -229,6 +229,15 @@ augroup mygroup
 augroup END
 " }}}
 
+" emmet-vim {{{
+let g:user_emmet_install_global = 0
+let g:user_emmet_settings = {
+      \  'javascript.jsx' : {
+      \      'extends' : 'jsx',
+      \  },
+      \}
+autocmd FileType html,css,javascript,typescript,jsx EmmetInstall
+" }}}
 
 " vim-plug插件 {{{
 " plug begin with given dir; add common plugins
@@ -255,6 +264,9 @@ function! StartPlug(plugInDir)
   Plug 'nathanaelkane/vim-indent-guides'
   Plug 'tpope/vim-dispatch'
   Plug 'morhetz/gruvbox'
+  Plug 'pangloss/vim-javascript'
+  Plug 'mxw/vim-jsx'
+  Plug 'mattn/emmet-vim', { 'commit': 'd698f1658770ca5fa58c87e80421c8d65bbe9065' }
 endfunction
 
 function! EndPlug()
