@@ -267,6 +267,7 @@ function! StartPlug(plugInDir)
   Plug 'pangloss/vim-javascript'
   Plug 'mxw/vim-jsx'
   Plug 'mattn/emmet-vim', { 'commit': 'd698f1658770ca5fa58c87e80421c8d65bbe9065' }
+  Plug 'ap/vim-css-color'
 endfunction
 
 function! EndPlug()
