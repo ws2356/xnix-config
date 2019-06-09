@@ -195,6 +195,7 @@ noremap <C-l> <C-w>l
 " 自定义命令 {{{
 command! -nargs=+ -complete=file GR call CGrepSourceCode(<f-args>)
 command! -nargs=+ -complete=file GR2 call GrepSourceCode(<f-args>)
+nnoremap <leader>g :GR2 <cword> .<CR>
 
 function! CGrepSourceCode(...)
   let l:word = expand('<cword>')
