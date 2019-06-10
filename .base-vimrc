@@ -194,18 +194,28 @@ noremap <C-l> <C-w>l
 
 " 自定义命令 {{{
 command! -nargs=+ -complete=file GR call CGrepSourceCode(<f-args>)
-command! -nargs=+ -complete=file GR2 call GrepSourceCode(<f-args>)
-nnoremap <leader>g :GR2 <cword> .<CR>
+command! -nargs=+ -complete=file GR2 call GrepSourceCodeRaw(<f-args>)
+command! -complete=file GR3 call VGrepSourceCode()
+" 根据正则表达式匹配，其他的是匹配原始字符
+command! -nargs=+ -complete=file GRE call GrepSourceCode(<f-args>)
+
+nnoremap <leader>cgr :GR2 <cword> .<CR>
+vnoremap <leader>vgr :<C-u>GR3<CR>
 
 function! CGrepSourceCode(...)
   let l:word = expand('<cword>')
   let l:args = a:000[0:]
   let l:prepended = reverse(add(reverse(l:args), l:word))
-  call call(function('GrepSourceCode'), l:prepended)
+  call call(function('GrepSourceCodeRaw'), l:prepended)
 endfunction
 
-function! GrepSourceCode(...)
-  execute 'grep -RE '
+function! VGrepSourceCode()
+  let l:word = s:get_visual_selection()
+  call GrepSourceCodeRaw(shellescape(l:word), '.')
+endfunction
+
+function! GetGrepSourceCode(opts)
+  return 'grep -R '
         \ . '--exclude-dir .git '
         \ . '--exclude-dir node_modules '
         \ . '--exclude-dir tmp '
@@ -213,7 +223,35 @@ function! GrepSourceCode(...)
         \ . '--exclude-dir built '
         \ . '--exclude .tags '
         \ . '--exclude *.swp '
+        \ . a:opts
+        \ . ' '
+endfunction
+
+function! GrepSourceCodeRaw(...)
+  execute GetGrepSourceCode('')
         \ . join(a:000)
+endfunction
+
+function! GrepSourceCode(...)
+  execute GetGrepSourceCode('-E')
+        \ . join(a:000)
+endfunction
+" }}}
+
+
+" 封装的通用函数 {{{
+" 代码搬运自https://stackoverflow.com/questions/1533565/how-to-get-visually-selected-text-in-vimscript/6271254#6271254
+function! s:get_visual_selection()
+  " Why is this not a built-in Vim script function?!
+  let [line_start, column_start] = getpos("'<")[1:2]
+  let [line_end, column_end] = getpos("'>")[1:2]
+  let lines = getline(line_start, line_end)
+  if len(lines) == 0
+    return ''
+  endif
+  let lines[-1] = lines[-1][: column_end - (&selection == 'inclusive' ? 1 : 2)]
+  let lines[0] = lines[0][column_start - 1:]
+  return join(lines, "\n")
 endfunction
 " }}}
 
