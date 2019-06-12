@@ -132,9 +132,11 @@ map ][ /}<CR>b99]}
 map ]] j0[[%/{<CR>
 map [] k$][%?}<CR>
 
+nnoremap <leader>p :set paste<CR>
+nnoremap <leader>np :set nopaste<CR>
+
 command! -nargs=1 CMDGoNextFold call GoNextFold(<args>)
 command! -nargs=1 CMDGoPrevFold call GoPrevFold(<args>)
-" 此处的c-u说是要清楚什么范围，没看懂文档;[
 nnoremap <leader>zj :call :<C-U>CMDGoNextFold(v:count1)<CR>
 nnoremap <leader>zk :call :<C-U>CMDGoPrevFold(v:count1)<CR>
 
