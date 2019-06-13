@@ -17,10 +17,11 @@ filetype plugin indent on
 set cursorline
 set nu
 set ruler
-set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set linebreak
 set expandtab
 set foldmethod=indent
-set shiftwidth=2
 " foldlevel初始值，高于此值的fold会默认关闭
 set foldlevelstart=4
 " 搜索逐字符高亮
@@ -191,6 +192,9 @@ noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
+
+map <Up> gk
+map <Down> gj
 " }}}
 
 
