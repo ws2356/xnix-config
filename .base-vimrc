@@ -221,9 +221,11 @@ function! GetGrepSourceCode(opts)
         \ . '--exclude-dir .git '
         \ . '--exclude-dir node_modules '
         \ . '--exclude-dir tmp '
+        \ . '--exclude-dir TMP '
         \ . '--exclude-dir build '
         \ . '--exclude-dir built '
         \ . '--exclude .tags '
+        \ . '--exclude *.pyc '
         \ . '--exclude *.swp '
         \ . a:opts
         \ . ' '
