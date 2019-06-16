@@ -67,17 +67,6 @@ noremap <leader>e :NERDTreeFind<CR>
 " }}}
 
 
-" 配置ycm {{{
-if !exists("g:ycm_semantic_triggers")
-  let g:ycm_semantic_triggers = {}
-endif
-let g:ycm_semantic_triggers['typescript'] = ['.']
-highlight YcmErrorSection ctermbg=DarkRed
-highlight YcmErrorSign ctermbg=DarkRed
-noremap <leader>ja :YcmCompleter GoTo<CR>
-" }}}
-
-
 " 配置ctrlp {{{
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_custom_ignore = '\v[\/](node_modules|(\.(swp|ico|git|svn)))$'
@@ -293,7 +282,6 @@ function! StartPlug(plugInDir)
   Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
   Plug 'ludovicchabant/vim-gutentags'
   Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
-  Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer' }
   Plug 'w0rp/ale'
   Plug 'bestofsong/vimconfig'
   Plug 'leafgarland/typescript-vim'
