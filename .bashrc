@@ -94,9 +94,21 @@ function vpy3 {
 }
 
 function kubesel {
-  local pat=$1
+  if [ $# -lt 2 ] ; then
+    return 1
+  fi
 
-  local lines=$(kube get po | grep -E "$pat")
+  local env=$1
+  local pat=$2
+
+  local lines
+  case "$env" in
+    dev) lines=$(kube get po | grep -E "$pat") ;;
+    sim) lines=$(kubesim get po | grep -E "$pat") ;;
+    prod) lines=$(kubeprod get po | grep -E "$pat") ;;
+    *) echo "Bad args" ; return
+  esac
+
   local IFSBack=$IFS
   IFS=$'\n'
   local lines=($lines)
@@ -115,7 +127,13 @@ function kubesel {
   local pod_fields=($pod)
   local pod=${pod_fields[0]}
 
-  local cmds=("kube logs -f "'${pod}' "kube exec -it "'${pod}'" sh" "custom")
+  local cmds
+  case "$env" in
+    dev) cmds=("kube logs -f "'${pod}' "kube exec -it "'${pod}'" sh" "custom") ;;
+    sim) cmds=("kubesim logs -f "'${pod}' "kubesim exec -it "'${pod}'" sh" "custom") ;;
+    prod) cmds=("kubeprod logs -f "'${pod}' "kubeprod exec -it "'${pod}'" sh" "custom") ;;
+  esac
+
   local cmd=
   while [ -z "$cmd" ] ; do
     echo "选择命令：1，2执行预置命令，选择3输入自定义命令。"
