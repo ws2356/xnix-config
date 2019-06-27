@@ -133,7 +133,7 @@ function kubesel {
 }
 
 # github personal access token
-export PAT='02162745503af0c7018a657e141b9e151d98a868'
+export PAT='eac06752d723c203a098e81b4670a5ab68ff16e4'
 
 # 一键打包所有本地重要文档
 function packup() {
@@ -166,7 +166,7 @@ function packup() {
 set -o vi
 
 # 下载gitcompletion脚本
-git_completion_bash=.git-completion.bash
+git_completion_bash="${HOME}/.git-completion.bash"
 if [ ! -f $git_completion_bash ] ; then
   echo "Downloading config from github ..."
   curl -o $git_completion_bash -sL \
