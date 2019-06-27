@@ -115,6 +115,16 @@ highlight IndentGuidesOdd  ctermbg=DarkGray
 highlight IndentGuidesEven ctermbg=LightGray
 "}}}
 
+" 配置 vim-fugitive {{{
+nnoremap <leader>gb :Gblame<CR>
+nnoremap <leader>gs :Gstatus<CR>
+nnoremap <leader>gc :Gcommit -v<CR>
+nnoremap <leader>ga :Git add -p<CR>
+nnoremap <leader>gm :Gcommit --amend<CR>
+nnoremap <leader>gp :Gpush<CR>
+nnoremap <leader>gd :Gdiff<CR>
+nnoremap <leader>gw :Gwrite<CR>
+" }}}
 
 " key bindings {{{
 nnoremap <leader>msg :messages<CR>
