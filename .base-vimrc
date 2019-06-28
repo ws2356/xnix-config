@@ -104,6 +104,19 @@ highlight IndentGuidesOdd  ctermbg=DarkGray
 highlight IndentGuidesEven ctermbg=LightGray
 "}}}
 
+" 配置 vim-fugitive {{{
+nnoremap <leader>gb :Gblame<CR>
+nnoremap <leader>gbr :Gbrowse<CR>
+nnoremap <leader>gs :Gstatus<CR>
+nnoremap <leader>gc :Gcommit -v<CR>
+nnoremap <leader>ga :Git add -p<CR>
+nnoremap <leader>gm :Gcommit --amend<CR>
+nnoremap <leader>gp :Gpush<CR>
+nnoremap <leader>gd :Gdiff<CR>
+nnoremap <leader>gw :Gwrite<CR>
+nnoremap <leader>gl :Glog<CR>
+nnoremap <leader>gr :Gremove<CR>
+" }}}
 
 " key bindings {{{
 nnoremap <leader>msg :messages<CR>
@@ -265,6 +278,7 @@ augroup mygroup
 augroup END
 " }}}
 
+
 " emmet-vim {{{
 let g:user_emmet_install_global = 0
 let g:user_emmet_settings = {
@@ -274,6 +288,12 @@ let g:user_emmet_settings = {
       \}
 autocmd FileType html,css,javascript,typescript,jsx EmmetInstall
 " }}}
+
+
+" 配置fugitive-gitlab {{{
+let g:fugitive_gitlab_domains = ['https://code.smartstudy.com/']
+" }}}
+
 
 " vim-plug插件 {{{
 " plug begin with given dir; add common plugins
@@ -304,6 +324,8 @@ function! StartPlug(plugInDir)
   Plug 'mattn/emmet-vim', { 'commit': 'd698f1658770ca5fa58c87e80421c8d65bbe9065' }
   Plug 'ap/vim-css-color'
   Plug 'ekalinin/Dockerfile.vim'
+  Plug 'shumphrey/fugitive-gitlab.vim'
+  Plug 'tpope/vim-rhubarb'
 endfunction
 
 function! EndPlug()

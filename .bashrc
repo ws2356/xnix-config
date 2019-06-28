@@ -94,9 +94,21 @@ function vpy3 {
 }
 
 function kubesel {
-  local pat=$1
+  if [ $# -lt 2 ] ; then
+    return 1
+  fi
 
-  local lines=$(kube get po | grep -E "$pat")
+  local env=$1
+  local pat=$2
+
+  local lines
+  case "$env" in
+    dev) lines=$(kube get po | grep -E "$pat") ;;
+    sim) lines=$(kubesim get po | grep -E "$pat") ;;
+    prod) lines=$(kubeprod get po | grep -E "$pat") ;;
+    *) echo "Bad args" ; return
+  esac
+
   local IFSBack=$IFS
   IFS=$'\n'
   local lines=($lines)
@@ -115,7 +127,13 @@ function kubesel {
   local pod_fields=($pod)
   local pod=${pod_fields[0]}
 
-  local cmds=("kube logs -f "'${pod}' "kube exec -it "'${pod}'" sh" "custom")
+  local cmds
+  case "$env" in
+    dev) cmds=("kube logs -f "'${pod}' "kube exec -it "'${pod}'" sh" "custom") ;;
+    sim) cmds=("kubesim logs -f "'${pod}' "kubesim exec -it "'${pod}'" sh" "custom") ;;
+    prod) cmds=("kubeprod logs -f "'${pod}' "kubeprod exec -it "'${pod}'" sh" "custom") ;;
+  esac
+
   local cmd=
   while [ -z "$cmd" ] ; do
     echo "选择命令：1，2执行预置命令，选择3输入自定义命令。"
@@ -133,7 +151,7 @@ function kubesel {
 }
 
 # github personal access token
-export PAT='02162745503af0c7018a657e141b9e151d98a868'
+export PAT='eac06752d723c203a098e81b4670a5ab68ff16e4'
 
 # 一键打包所有本地重要文档
 function packup() {
@@ -166,7 +184,7 @@ function packup() {
 set -o vi
 
 # 下载gitcompletion脚本
-git_completion_bash=.git-completion.bash
+git_completion_bash="${HOME}/.git-completion.bash"
 if [ ! -f $git_completion_bash ] ; then
   echo "Downloading config from github ..."
   curl -o $git_completion_bash -sL \
