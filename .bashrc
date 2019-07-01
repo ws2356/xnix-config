@@ -200,3 +200,7 @@ fi
 test -f $git_completion_bash && source $_
 
 export TERM="xterm-256color"
+
+test -f /usr/local/etc/profile.d/autojump.sh && . $_
+
+export PATH="${PATH}:${HOME}/bin"
