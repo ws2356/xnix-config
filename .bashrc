@@ -94,12 +94,19 @@ function vpy3 {
 }
 
 function kubesel {
-  if [ $# -lt 2 ] ; then
+  if [ $# -lt 1 ] ; then
     return 1
+  elif [ $# -lt 2 ] ; then
+    case "$1" in
+      dev|sim|prod) true ;;
+      *) echo "Bad args" ;  return 2
+    esac
+    local env=$1
+    local pat=$(basename $(pwd))
+  else
+    local env=$1
+    local pat=$2
   fi
-
-  local env=$1
-  local pat=$2
 
   local lines
   case "$env" in
