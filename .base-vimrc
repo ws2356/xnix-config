@@ -116,23 +116,40 @@ highlight IndentGuidesEven ctermbg=LightGray
 "}}}
 
 " 配置 vim-fugitive {{{
+nnoremap <leader>ge :Gedit<CR>
 nnoremap <leader>gb :Gblame<CR>
 nnoremap <leader>gbr :Gbrowse<CR>
 nnoremap <leader>gs :Gstatus<CR>
-nnoremap <leader>gc :Gcommit -v<CR>
 nnoremap <leader>ga :Git add -p<CR>
-nnoremap <leader>gm :Gcommit --amend<CR>
+nnoremap <leader>gc :Gcommit -v<CR>
+nnoremap <leader>gcm :Gcommit --amend<CR>
 nnoremap <leader>gp :Gpush<CR>
 nnoremap <leader>gd :Gdiff<CR>
-nnoremap <leader>gw :Gwrite<CR>
-nnoremap <leader>gl :Glog<CR>
-nnoremap <leader>gr :Gremove<CR>
+nnoremap <leader>gdd :Git difftool --cached<CR>
+nnoremap <leader>gwr :Gwrite<CR>
+nnoremap <leader>grd :Gread<CR>
+nnoremap <leader>gll :Git ll<CR>
+nnoremap <leader>glg :Git lg<CR>
+nnoremap <leader>grm :Gremove<CR>
+nnoremap <leader>gmv :Gmove % 
 " }}}
 
 " key bindings {{{
 nnoremap <leader>msg :messages<CR>
 nnoremap <leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
+
+nnoremap <leader>zz :normal! ZZ<CR>
+nnoremap <leader>cz :normal! <C-z><CR>
+nnoremap <leader>qa :qa<CR>
+nnoremap <leader>qq :q!<CR>
+nnoremap <leader>w :w<CR>
+nnoremap <leader>ww :w!<CR>
+nnoremap <leader>wa :wa<CR>
+nnoremap <leader>vs :vsp 
+nnoremap <leader>11 :!
+nnoremap <leader>1r :!r 
+
 " FIXME: wansong, make it portable?
 nnoremap <leader>vm :!open -a 'Google Chrome' %<CR><CR>
 " 编辑快捷键
