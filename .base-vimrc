@@ -113,14 +113,20 @@ nnoremap <leader>ga :Git add -p<CR>
 nnoremap <leader>gc :Gcommit -v<CR>
 nnoremap <leader>gcm :Gcommit --amend<CR>
 nnoremap <leader>gp :Gpush<CR>
-nnoremap <leader>gd :Gdiff<CR>
-nnoremap <leader>gdd :Git difftool --cached<CR>
+nnoremap <leader>gd :Gvdiff<CR>
+nnoremap <leader>gd2 :Gvdiff @<CR>
+nnoremap <leader>gdt :Git difftool --cached<CR>
 nnoremap <leader>gwr :Gwrite<CR>
 nnoremap <leader>grd :Gread<CR>
 nnoremap <leader>gll :Git ll<CR>
 nnoremap <leader>glg :Git lg<CR>
 nnoremap <leader>grm :Gremove<CR>
+nnoremap <leader>gdel :Gdelete<CR>
 nnoremap <leader>gmv :Gmove % 
+nnoremap <leader>grst :Git reset %<CR>
+nnoremap <leader>grmt :r ! git remote get-url origin<CR>
+nnoremap <leader>gpsh :Gpush
+nnoremap <leader>gfth :Gfetch<CR>
 " }}}
 
 " key bindings {{{
@@ -135,7 +141,10 @@ nnoremap <leader>qq :q!<CR>
 nnoremap <leader>w :w<CR>
 nnoremap <leader>ww :w!<CR>
 nnoremap <leader>wa :wa<CR>
+nnoremap <leader>wq :wq<CR>
+nnoremap <leader>wqa :wqa<CR>
 nnoremap <leader>vs :vsp 
+nnoremap <leader>ed :edit 
 nnoremap <leader>11 :!
 nnoremap <leader>1r :!r 
 
