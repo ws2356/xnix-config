@@ -321,6 +321,12 @@ let g:fugitive_gitlab_domains = ['https://code.smartstudy.com/']
 " }}}
 
 
+" 配置tagbar {{{
+let g:tagbar_autoclose = 1
+noremap <silent> <F8> :TagbarToggle<CR>
+" }}}
+
+
 " vim-plug插件 {{{
 " plug begin with given dir; add common plugins
 function! StartPlug(plugInDir)
@@ -352,6 +358,7 @@ function! StartPlug(plugInDir)
   Plug 'ekalinin/Dockerfile.vim'
   Plug 'shumphrey/fugitive-gitlab.vim'
   Plug 'tpope/vim-rhubarb'
+  Plug 'majutsushi/tagbar'
 endfunction
 
 function! EndPlug()
