@@ -234,6 +234,7 @@ noremap <C-l> <C-w>l
 
 map <Up> gk
 map <Down> gj
+vnoremap // y/<C-R>"<CR>
 " }}}
 
 
