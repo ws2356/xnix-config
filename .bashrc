@@ -53,8 +53,8 @@ proml
 
 # refer to /usr/local/etc/privoxy/config
 function use_proxy {
-  export http_proxy='http://127.0.0.1:8118'
-  export https_proxy='http://127.0.0.1:8118'
+  export http_proxy='http://127.0.0.1:1087'
+  export https_proxy='http://127.0.0.1:1087'
 }
 
 function close_proxy {
@@ -199,3 +199,7 @@ export TERM="xterm-256color"
 test -f /usr/local/etc/profile.d/autojump.sh && . $_
 
 export PATH="${PATH}:${HOME}/bin"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

@@ -18,12 +18,3 @@ call EndPlug()
 " Color theme {{{
 colorscheme gruvbox
 " }}}
-
-if has('nvim')
-  let g:LanguageClient_serverCommands = {
-    \ 'cpp': ['clangd'],
-    \ 'objc': ['clangd'],
-    \ }
-  let g:LanguageClient_serverStderr = '/tmp/clangd.stderr'
-  nnoremap <leader>lspd :call LanguageClient#debugInfo()<CR>
-endif
