@@ -75,6 +75,11 @@ let g:ycm_semantic_triggers['typescript'] = ['.']
 highlight YcmErrorSection ctermbg=DarkRed
 highlight YcmErrorSign ctermbg=DarkRed
 noremap <leader>ja :YcmCompleter GoTo<CR>
+let g:ycm_clangd_args = ['-log=verbose', '-pretty', '-background-index']
+" Let clangd fully control code completion
+let g:ycm_clangd_uses_ycmd_caching = 0
+" Use installed clangd, not YCM-bundled clangd which doesn't get updates.
+" let g:ycm_clangd_binary_path = "/usr/local/opt/llvm/bin/clangd"
 " }}}
 
 
@@ -91,7 +96,12 @@ nnoremap <leader>^ :ALEFindReferences<CR>
 " semantic completion, use ycm to do tag based completion
 let g:ale_completion_enabled = 1
 let g:ale_set_highlights = 0 " Disable highligting
-let g:ale_linters = { 'javascript': ['eslint', 'tsserver'] }
+" let g:ale_set_signs = 0
+let g:ale_linters = {
+      \ 'javascript': ['eslint', 'tsserver'],
+      \ 'cpp': ['clangd'],
+      \ }
+let g:ale_cpp_clangd_executable = '/usr/local/opt/llvm/bin/clangd'
 " }}}
 
 
@@ -153,15 +163,12 @@ nnoremap <leader>qq :q!<CR>
 nnoremap <leader>ww :w<CR>
 nnoremap <leader>wa :wa<CR>
 nnoremap <leader>wq :wq<CR>
-nnoremap <leader>wqa :wqa<CR>
-nnoremap <leader>vs :vsp ~/ 
+nnoremap <leader>vs :vsp ~/
 nnoremap <leader>ed :edit 
 nnoremap <leader>11 :!
 nnoremap <leader>1r :!r 
 nnoremap <leader>st :Start! 
 
-" FIXME: wansong, make it portable?
-nnoremap <leader>vm :!open -a 'Google Chrome' %<CR><CR>
 " 编辑快捷键
 " 快速保存
 inoremap <Esc><Esc> <Esc>:w<CR>
@@ -346,13 +353,11 @@ function! StartPlug(plugInDir)
   call plug#begin(a:plugInDir)
   Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
   Plug 'ludovicchabant/vim-gutentags'
-  Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
   Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer' }
   Plug 'w0rp/ale'
   Plug 'bestofsong/vimconfig'
   Plug 'leafgarland/typescript-vim'
   Plug 'kien/ctrlp.vim'
-  Plug 'gabrielelana/vim-markdown'
   Plug 'godlygeek/tabular'
   Plug 'wellle/targets.vim'
   Plug 'easymotion/vim-easymotion'
