@@ -5,9 +5,12 @@ let s:vim_conf_dir = fnamemodify(resolve(expand('<sfile>:p')), ':h')
 let s:base_rc = s:vim_conf_dir . '/.base-vimrc'
 :execute 'source ' . s:base_rc
 
-" 自带的插件 {{{
-packadd! matchit
-" }}}
+" 否则报错
+if !has('nvim')
+  " 自带的插件 {{{
+  packadd! matchit
+  " }}}
+endif
 
 call StartPlug('~/.vim/plugged')
 call EndPlug()
@@ -15,3 +18,12 @@ call EndPlug()
 " Color theme {{{
 colorscheme gruvbox
 " }}}
+
+if has('nvim')
+  let g:LanguageClient_serverCommands = {
+    \ 'cpp': ['clangd'],
+    \ 'objc': ['clangd'],
+    \ }
+  let g:LanguageClient_serverStderr = '/tmp/clangd.stderr'
+  nnoremap <leader>lspd :call LanguageClient#debugInfo()<CR>
+endif
