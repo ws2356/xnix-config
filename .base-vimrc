@@ -149,6 +149,7 @@ nnoremap <leader>vs :vsp ~/
 nnoremap <leader>ed :edit<Space>
 nnoremap <leader>; :h<Space>
 nnoremap <leader>11 :<Space>
+nnoremap <leader>sh :!
 nnoremap <leader>1r :!r<Space>
 nnoremap <leader>st :Start!<Space>
 nnoremap <leader>dg :diffget<CR>
