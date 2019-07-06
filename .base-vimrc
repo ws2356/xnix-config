@@ -86,6 +86,7 @@ let g:ycm_clangd_uses_ycmd_caching = 0
 " 配置ctrlp {{{
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_custom_ignore = '\v[\/](node_modules|(\.(swp|ico|git|svn)))$'
+let g:ctrlp_show_hidden = 1
 " }}}
 
 
@@ -135,7 +136,7 @@ nnoremap <leader>ga :Git add -p<CR>
 nnoremap <leader>gc :Gcommit -v<CR>
 nnoremap <leader>gcm :Gcommit --amend<CR>
 nnoremap <leader>gp :Gpush<CR>
-nnoremap <leader>gd :Gvdiff<CR>
+nnoremap <leader>gvd :Gvdiff<CR>
 nnoremap <leader>gd2 :Gvdiff @<CR>
 nnoremap <leader>gdt :Git difftool --cached<CR>
 nnoremap <leader>gwr :Gwrite<CR>
@@ -147,8 +148,8 @@ nnoremap <leader>gdel :Gdelete<CR>
 nnoremap <leader>gmv :Gmove % 
 nnoremap <leader>grst :Git reset %<CR>
 nnoremap <leader>grmt :r ! git remote get-url origin<CR>
-nnoremap <leader>gpsh :Gpush
-nnoremap <leader>gfth :Gfetch<CR>
+nnoremap <leader>gph :Gpush
+nnoremap <leader>gfh :Gfetch<CR>
 " }}}
 
 " key bindings {{{
@@ -168,6 +169,7 @@ nnoremap <leader>ed :edit
 nnoremap <leader>11 :!
 nnoremap <leader>1r :!r 
 nnoremap <leader>st :Start! 
+nnoremap <leader>dg :diffget<CR>
 
 " 编辑快捷键
 " 快速保存
