@@ -157,8 +157,7 @@ function kubesel {
   done
 }
 
-# github personal access token
-export PAT='eac06752d723c203a098e81b4670a5ab68ff16e4'
+test -f ${HOME}/secrets/load.sh && . $_
 
 # 一键打包所有本地重要文档
 function packup() {
@@ -173,10 +172,6 @@ function packup() {
 
   # 导出一些配置数据
   ls /Applications > "${my_archives}Applications.txt"
-  echo -e "ec2-54-169-52-86.ap-southeast-1.compute.amazonaws.com\n" \
-    "2160\n" \
-    "816086ac\n" \
-    > "${my_archives}/shadowsocks.conf"
   zip -r "$output_zip" "$gitconfig" "$sshfiles" "$user_profile" "$local_only_dir" "$my_archives" "$kubeconfig"
 
   # 全局文档
