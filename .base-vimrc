@@ -380,6 +380,7 @@ function! StartPlug(plugInDir)
   Plug 'shumphrey/fugitive-gitlab.vim'
   Plug 'tpope/vim-rhubarb'
   Plug 'majutsushi/tagbar'
+  Plug 'jiangmiao/auto-pairs'
 endfunction
 
 function! EndPlug()
