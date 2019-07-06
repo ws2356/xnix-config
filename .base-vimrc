@@ -68,18 +68,16 @@ noremap <leader>e :NERDTreeFind<CR>
 
 
 " 配置ycm {{{
-if !exists("g:ycm_semantic_triggers")
-  let g:ycm_semantic_triggers = {}
-endif
-let g:ycm_semantic_triggers['typescript'] = ['.']
 highlight YcmErrorSection ctermbg=DarkRed
 highlight YcmErrorSign ctermbg=DarkRed
 noremap <leader>ja :YcmCompleter GoTo<CR>
+noremap <leader>jr :YcmCompleter GoToReferences<CR>
 let g:ycm_clangd_args = ['-log=verbose', '-pretty', '-background-index']
 " Let clangd fully control code completion
 let g:ycm_clangd_uses_ycmd_caching = 0
 " Use installed clangd, not YCM-bundled clangd which doesn't get updates.
-" let g:ycm_clangd_binary_path = "/usr/local/opt/llvm/bin/clangd"
+let g:ycm_clangd_binary_path = exepath('clangd')
+let g:ycm_autoclose_preview_window_after_insertion = 1
 " }}}
 
 
@@ -107,15 +105,13 @@ let g:ale_cpp_clangd_executable = '/usr/local/opt/llvm/bin/clangd'
 
 
 " 配置SirVer/ultisnips, keep ycm ultisnips from fighting {{{
-" make YCM compatible with UltiSnips (using supertab)
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:SuperTabDefaultCompletionType = '<C-n>'
 
 " better key bindings for UltiSnipsExpandTrigger
-let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+let g:UltiSnipsExpandTrigger = "<C-l>"
+let g:UltiSnipsJumpForwardTrigger = "<C-j>"
+let g:UltiSnipsJumpBackwardTrigger = "<C-k>"
 " }}}
 
 
@@ -145,10 +141,9 @@ nnoremap <leader>gll :Git ll<CR>
 nnoremap <leader>glg :Git lg<CR>
 nnoremap <leader>grm :Gremove<CR>
 nnoremap <leader>gdel :Gdelete<CR>
-nnoremap <leader>gmv :Gmove % 
-nnoremap <leader>grst :Git reset %<CR>
+nnoremap <leader>gmv :Gmove<Space>
 nnoremap <leader>grmt :r ! git remote get-url origin<CR>
-nnoremap <leader>gph :Gpush
+nnoremap <leader>gph :Gpush<Space>
 nnoremap <leader>gfh :Gfetch<CR>
 " }}}
 
@@ -165,11 +160,17 @@ nnoremap <leader>ww :w<CR>
 nnoremap <leader>wa :wa<CR>
 nnoremap <leader>wq :wq<CR>
 nnoremap <leader>vs :vsp ~/
-nnoremap <leader>ed :edit 
-nnoremap <leader>11 :!
-nnoremap <leader>1r :!r 
-nnoremap <leader>st :Start! 
+nnoremap <leader>ed :edit<Space>
+nnoremap <leader>; :h<Space>
+nnoremap <leader>11 :<Space>
+nnoremap <leader>1r :!r<Space>
+nnoremap <leader>st :Start!<Space>
 nnoremap <leader>dg :diffget<CR>
+nnoremap <leader>ma 99<C-w>+
+nnoremap <leader>mi 99<C-w>-
+nnoremap <leader>hma 99<C-w>>
+nnoremap <leader>hmi 99<C-w><
+
 
 " 编辑快捷键
 " 快速保存
@@ -366,7 +367,6 @@ function! StartPlug(plugInDir)
   Plug 'tpope/vim-fugitive'
   Plug 'SirVer/ultisnips'
   Plug 'honza/vim-snippets'
-  Plug 'ervandew/supertab'
   Plug 'tpope/vim-commentary'
   Plug 'tpope/vim-surround'
   Plug 'nathanaelkane/vim-indent-guides'
