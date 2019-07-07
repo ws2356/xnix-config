@@ -90,10 +90,7 @@ let g:ale_cpp_clangd_executable = '/usr/local/opt/llvm/bin/clangd'
 " }}}
 
 
-" 配置SirVer/ultisnips, keep ycm ultisnips from fighting {{{
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-
+" 配置SirVer/ultisnips {{{
 " better key bindings for UltiSnipsExpandTrigger
 let g:UltiSnipsExpandTrigger = "<C-l>"
 let g:UltiSnipsJumpForwardTrigger = "<C-j>"
@@ -151,7 +148,7 @@ nnoremap <leader>; :h<Space>
 nnoremap <leader>11 :<Space>
 nnoremap <leader>sh :!
 nnoremap <leader>ex :
-nnoremap <leader>1r :!r<Space>
+nnoremap <leader>rr :r<Space>
 nnoremap <leader>st :Start!<Space>
 nnoremap <leader>dg :diffget<CR>
 nnoremap <leader>ma 99<C-w>+
