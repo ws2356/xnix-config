@@ -232,3 +232,11 @@ if POSSIBLE_JAVA_HOME="$(/usr/libexec/java_home -v $REQUESTED_JAVA_VERSION 2>/de
 fi
 
 export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"
+if [ -d "${ANDROID_SDK_ROOT}" ] ; then
+  export PATH=$PATH:${ANDROID_SDK_ROOT}/emulator
+  export PATH=$PATH:${ANDROID_SDK_ROOT}/tools
+  export PATH=$PATH:${ANDROID_SDK_ROOT}/tools/bin
+  export PATH=$PATH:${ANDROID_SDK_ROOT}/platform-tools
+else
+  unset ANDROID_SDK_ROOT
+fi
