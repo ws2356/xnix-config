@@ -156,6 +156,7 @@ nnoremap <leader>mi 99<C-w>-
 nnoremap <leader>hma 99<C-w>>
 nnoremap <leader>hmi 99<C-w><
 
+nnoremap <C-W><C-F> <C-W>vgf
 
 " 编辑快捷键
 " 快速保存
