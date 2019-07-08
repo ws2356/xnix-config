@@ -67,6 +67,21 @@ noremap <leader>e :NERDTreeFind<CR>
 " }}}
 
 
+" 配置ycm {{{
+highlight YcmErrorSection ctermbg=DarkRed
+highlight YcmErrorSign ctermbg=DarkRed
+noremap <leader>ja :YcmCompleter GoTo<CR>
+noremap <leader>jr :YcmCompleter GoToReferences<CR>
+noremap <leader>ycmdbg :YcmDebugInfo<CR>
+let g:ycm_clangd_args = ['-log=verbose', '-pretty', '-background-index']
+" Let clangd fully control code completion
+let g:ycm_clangd_uses_ycmd_caching = 0
+" Use installed clangd, not YCM-bundled clangd which doesn't get updates.
+let g:ycm_clangd_binary_path = exepath('clangd')
+let g:ycm_autoclose_preview_window_after_insertion = 1
+" }}}
+
+
 " 配置ctrlp {{{
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_custom_ignore = '\v[\/](node_modules|(\.(swp|ico|git|svn)))$'
@@ -342,6 +357,7 @@ function! StartPlug(plugInDir)
   call plug#begin(a:plugInDir)
   Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
   Plug 'ludovicchabant/vim-gutentags'
+  Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clangd-completer --java-completer' }
   Plug 'w0rp/ale'
   Plug 'bestofsong/vimconfig'
   Plug 'leafgarland/typescript-vim'
