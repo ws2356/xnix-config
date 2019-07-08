@@ -207,7 +207,7 @@ export NVM_DIR="$HOME/.nvm"
 export PATH="/Users/ws/.rbenv/shims:${PATH}"
 export RBENV_SHELL=bash
 if command -v rbenv >/dev/null ; then
-  command rbenv rehash 2>/dev/null
+  eval "$(rbenv init -)"
 fi
 rbenv() {
   local command
@@ -241,3 +241,5 @@ if [ -d "${ANDROID_SDK_ROOT}" ] ; then
 else
   unset ANDROID_SDK_ROOT
 fi
+
+export HOMEBREW_NO_AUTO_UPDATE=1
