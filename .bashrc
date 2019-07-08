@@ -50,7 +50,6 @@ function proml {
 }
 proml
 
-
 # refer to /usr/local/etc/privoxy/config
 function use_proxy {
   export http_proxy='http://127.0.0.1:1087'
@@ -203,3 +202,24 @@ export PATH="${PATH}:${HOME}/bin"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# config rbenv
+export PATH="/Users/ws/.rbenv/shims:${PATH}"
+export RBENV_SHELL=bash
+if command -v rbenv >/dev/null ; then
+  command rbenv rehash 2>/dev/null
+fi
+rbenv() {
+  local command
+  command="$1"
+  if [ "$#" -gt 0 ]; then
+    shift
+  fi
+
+  case "$command" in
+  rehash|shell)
+    eval "$(rbenv "sh-$command" "$@")";;
+  *)
+    command rbenv "$command" "$@";;
+  esac
+}
