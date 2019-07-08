@@ -223,3 +223,10 @@ rbenv() {
     command rbenv "$command" "$@";;
   esac
 }
+
+REQUESTED_JAVA_VERSION='1.8'
+if POSSIBLE_JAVA_HOME="$(/usr/libexec/java_home -v $REQUESTED_JAVA_VERSION 2>/dev/null)"; then
+  # Do this if you want to export JAVA_HOME
+  export JAVA_HOME="$POSSIBLE_JAVA_HOME"
+  export PATH="${JAVA_HOME}/bin:${PATH}"
+fi
