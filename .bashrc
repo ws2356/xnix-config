@@ -230,3 +230,5 @@ if POSSIBLE_JAVA_HOME="$(/usr/libexec/java_home -v $REQUESTED_JAVA_VERSION 2>/de
   export JAVA_HOME="$POSSIBLE_JAVA_HOME"
   export PATH="${JAVA_HOME}/bin:${PATH}"
 fi
+
+export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"
