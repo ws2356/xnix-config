@@ -83,8 +83,8 @@ let g:ycm_autoclose_preview_window_after_insertion = 1
 
 
 " 配置ctrlp {{{
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_custom_ignore = '\v[\/](node_modules|(\.(swp|ico|git|svn)))$'
+let g:ctrlp_map = "<c-p>"
+let g:ctrlp_custom_ignore = '\v(\/node_modules|.swp|.ico|\/.git|\/.svn)$'
 let g:ctrlp_show_hidden = 1
 " }}}
 
