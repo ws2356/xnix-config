@@ -91,6 +91,7 @@ let g:ctrlp_show_hidden = 1
 
 " 配置ale {{{
 nnoremap <leader>] :ALEGoToDefinition<CR>
+nnoremap <leader>\ :ALEGoToDefinitionInVSplit<CR>
 nnoremap <leader>^ :ALEFindReferences<CR>
 " ycm semantic completion does not quite work, so i'm gonna: use ale to do lint and
 " semantic completion, use ycm to do tag based completion
