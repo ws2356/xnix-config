@@ -13,6 +13,7 @@ if !has('nvim')
 endif
 
 call StartPlug('~/.vim/plugged')
+" Plug 'xxx/xxx'
 call EndPlug()
 
 " Color theme {{{
