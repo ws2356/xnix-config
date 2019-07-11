@@ -63,7 +63,7 @@ set statusline+=%{gutentags#statusline()}
 " 配置NERDTree {{{
 let NERDTreeShowHidden=1
 noremap <C-n> :NERDTreeToggle<CR>
-noremap <leader>e :NERDTreeFind<CR>
+noremap <leader>ee :NERDTreeFocus <bar> NERDTreeFind<CR>
 " }}}
 
 
@@ -125,14 +125,14 @@ highlight IndentGuidesEven ctermbg=LightGray
 nnoremap <leader>ge :Gedit<CR>
 nnoremap <leader>gb :Gblame<CR>
 nnoremap <leader>gbr :Gbrowse<CR>
-vnoremap <leader>gbr :Gbrowse<CR>
 nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>ga :Git add -p<CR>
 nnoremap <leader>gc :Gcommit -v<CR>
 nnoremap <leader>gcm :Gcommit --amend<CR>
 nnoremap <leader>gp :Gpush<CR>
 nnoremap <leader>gvd :Gvdiff<CR>
-nnoremap <leader>gd2 :Gvdiff @<CR>
+nnoremap <leader>gdi :Gvdiff @<CR>
+nnoremap <leader>gdd :Gvdiff :%<Left><Left>
 nnoremap <leader>gdt :Git difftool --cached<CR>
 nnoremap <leader>gwr :Gwrite<CR>
 nnoremap <leader>grd :Gread<CR>
@@ -143,6 +143,7 @@ nnoremap <leader>gdel :Gdelete<CR>
 nnoremap <leader>gmv :Gmove<Space>
 nnoremap <leader>grmt :r ! git remote get-url origin<CR>
 nnoremap <leader>gph :Gpush<Space>
+nnoremap <leader>gpl :Gpull<Space>
 nnoremap <leader>gfh :Gfetch<CR>
 " }}}
 
@@ -152,7 +153,7 @@ nnoremap <leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
 
 nnoremap <leader>zz :normal! ZZ<CR>
-nnoremap <leader>cz :normal! <C-z><CR>
+nnoremap <leader>zs :normal! <C-z><CR>
 nnoremap <leader>qa :qa<CR>
 nnoremap <leader>qq :q!<CR>
 nnoremap <leader>ww :w<CR>
@@ -160,11 +161,10 @@ nnoremap <leader>wa :wa<CR>
 nnoremap <leader>wq :wq<CR>
 nnoremap <leader>vs :vsp ~/
 nnoremap <leader>ed :edit<Space>
-nnoremap <leader>; :h<Space>
-nnoremap <leader>11 :<Space>
+nnoremap <leader>; :<Space>
 nnoremap <leader>sh :!
-nnoremap <leader>ex :
 nnoremap <leader>rr :r<Space>
+nnoremap <leader>r1 :r!<Space>
 nnoremap <leader>st :Start!<Space>
 nnoremap <leader>dg :diffget<CR>
 nnoremap <leader>ma 99<C-w>+
@@ -356,7 +356,7 @@ noremap <silent> <F8> :TagbarToggle<CR>
 " plug begin with given dir; add common plugins
 function! StartPlug(plugInDir)
   call plug#begin(a:plugInDir)
-  Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+  Plug 'scrooloose/nerdtree'
   Plug 'ludovicchabant/vim-gutentags'
   Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clangd-completer --java-completer' }
   Plug 'w0rp/ale'
