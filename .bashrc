@@ -245,8 +245,8 @@ fi
 export HOMEBREW_NO_AUTO_UPDATE=1
 
 # maybe will cause bad things?
-if [ -d "/usr/local/opt/llvm/bin" ] ; then
-  export PATH="/usr/local/opt/llvm/bin:$PATH"
-  export LDFLAGS="-L/usr/local/opt/llvm/lib"
-  export CPPFLAGS="-I/usr/local/opt/llvm/include"
-fi
+#if [ -d "/usr/local/opt/llvm/bin" ] ; then
+#  export PATH="/usr/local/opt/llvm/bin:$PATH"
+#  export LDFLAGS="-L/usr/local/opt/llvm/lib"
+#  export CPPFLAGS="-I/usr/local/opt/llvm/include"
+#fi
