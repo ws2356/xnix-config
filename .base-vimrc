@@ -173,6 +173,10 @@ nnoremap <leader>hma 99<C-w>>
 nnoremap <leader>hmi 99<C-w><
 
 nnoremap <C-W><C-F> <C-W>vgf
+nnoremap <leader>cn :cn<CR>
+nnoremap <leader>cp :cp<CR>
+nnoremap <leader>cl :cl<CR>
+nnoremap <leader>cc :cc<Space>
 
 " 编辑快捷键
 " 快速保存
@@ -260,6 +264,7 @@ command! -nargs=+ -complete=file GRE call GrepSourceCode(<f-args>)
 
 nnoremap <leader>cgr :GR2 <cword> .<CR>
 vnoremap <leader>vgr :<C-u>GR3<CR>
+noremap <leader>gr :GR2<Space><Space>.<Left><Left>
 
 function! CGrepSourceCode(...)
   let l:word = expand('<cword>')
