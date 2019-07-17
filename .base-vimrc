@@ -124,7 +124,7 @@ highlight IndentGuidesEven ctermbg=LightGray
 " 配置 vim-fugitive {{{
 nnoremap <leader>ge :Gedit<CR>
 nnoremap <leader>gb :Gblame<CR>
-nnoremap <leader>gbr :Gbrowse<CR>
+noremap <leader>gbr :Gbrowse<CR>
 nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>ga :Git add -p<CR>
 nnoremap <leader>gc :Gcommit -v<CR>
