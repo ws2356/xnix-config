@@ -161,7 +161,7 @@ nnoremap <leader>wa :wa<CR>
 nnoremap <leader>wq :wq<CR>
 nnoremap <leader>vs :vsp ~/
 nnoremap <leader>ed :edit<Space>
-nnoremap <leader>; :<Space>
+nnoremap <leader>; :
 nnoremap <leader>sh :!
 nnoremap <leader>rr :r<Space>
 nnoremap <leader>r1 :r!<Space>
@@ -177,6 +177,7 @@ nnoremap <leader>cn :cn<CR>
 nnoremap <leader>cp :cp<CR>
 nnoremap <leader>cl :cl<CR>
 nnoremap <leader>cc :cc<Space>
+nnoremap <leader>bro :browse filter /\v/ oldfiles<S-Left><Left><Left>
 
 " 编辑快捷键
 " 快速保存
