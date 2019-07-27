@@ -74,7 +74,7 @@ highlight YcmErrorSign ctermbg=DarkRed
 noremap <leader>ja :YcmCompleter GoTo<CR>
 noremap <leader>jr :YcmCompleter GoToReferences<CR>
 noremap <leader>ycmdbg :YcmDebugInfo<CR>
-let g:ycm_clangd_args = ['-log=verbose', '-pretty', '-background-index']
+let g:ycm_clangd_args = ['-log=error', '-pretty', '-limit-results=100', '-j=4', '-pch-storage=memory']
 " Let clangd fully control code completion
 let g:ycm_clangd_uses_ycmd_caching = 0
 " Use installed clangd, not YCM-bundled clangd which doesn't get updates.
