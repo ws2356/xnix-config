@@ -1,6 +1,7 @@
 set encoding=utf-8
 set nocompatible
 set termguicolors
+set exrc
 
 if $VIRTUAL_ENV != ''
   let g:python3_host_prog = $VIRTUAL_ENV . '/bin/python3'
@@ -179,6 +180,10 @@ nnoremap <leader>cl :cl<CR>
 nnoremap <leader>cc :cc<Space>
 nnoremap <leader>bro :browse filter /\v/ oldfiles<S-Left><Left><Left>
 
+nnoremap <leader>dsp :.s/\s\+$//<CR>
+vnoremap <leader>dsp :g/\s\+$/s/\s\+$//<CR>
+vnoremap <leader>rev :<C-u>'<+1,'>g/^/move <C-r>=line("'<")-1<CR><CR>
+
 " 编辑快捷键
 " 快速保存
 inoremap <Esc><Esc> <Esc>:w<CR>
@@ -213,7 +218,7 @@ function! GoNextFold(cnt)
   let l:lnum = foldclosedend(l:initial_line) + 1
   if l:lnum ==# 0
     let l:lnum = l:initial_line
-  endif 
+  endif
   let l:end_line = line('$')
   while foldclosed(l:lnum) ==# -1 && l:lnum <=# l:end_line
     let l:lnum += 1
@@ -233,7 +238,7 @@ function! GoPrevFold(cnt)
   let l:lnum = foldclosed(l:initial_line) - 1
   if l:lnum ==# -2
     let l:lnum = l:initial_line
-  endif 
+  endif
   let l:end_line = 1
   while foldclosed(l:lnum) ==# -1 && l:lnum >=# l:end_line
     let l:lnum -= 1
