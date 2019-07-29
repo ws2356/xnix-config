@@ -327,6 +327,14 @@ function! s:get_visual_selection()
   let lines[0] = lines[0][column_start - 1:]
   return join(lines, "\n")
 endfunction
+
+function! Add_project_vim_dir()
+  let l:proj_root = expand('%:p:h')
+  let l:proj_runtime = l:proj_root . '/.vim'
+  if isdirectory(l:proj_runtime)
+    let &runtimepath = &runtimepath . ',' . l:proj_runtime
+  endif
+endfunction
 " }}}
 
 
