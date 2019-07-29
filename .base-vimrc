@@ -173,6 +173,7 @@ nnoremap <leader>ma 99<C-w>+
 nnoremap <leader>mi 99<C-w>-
 nnoremap <leader>hma 99<C-w>>
 nnoremap <leader>hmi 99<C-w><
+nnoremap <leader>2 @
 
 nnoremap <C-W><C-F> <C-W>vgf
 nnoremap <leader>cn :cn<CR>
