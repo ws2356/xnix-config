@@ -158,6 +158,7 @@ nnoremap <leader>zz :normal! ZZ<CR>
 nnoremap <leader>zs :normal! <C-z><CR>
 nnoremap <leader>qa :qa<CR>
 nnoremap <leader>qq :q!<CR>
+nnoremap <leader>qo :only<CR>
 nnoremap <leader>ww :w<CR>
 nnoremap <leader>wa :wa<CR>
 nnoremap <leader>wq :wq<CR>
