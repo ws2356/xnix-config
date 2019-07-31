@@ -257,6 +257,11 @@ noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
+noremap <leader>tb :tabnew<Space>
+noremap <leader>tbs :tabs<CR>
+noremap <leader>tbo :tabonly<CR>
+noremap <leader>tbl :tablast<CR>
+noremap <leader>tbf :tabfirst<CR>
 
 map <Up> gk
 map <Down> gj
