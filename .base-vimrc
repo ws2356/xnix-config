@@ -187,6 +187,8 @@ nnoremap <leader>dsp :.s/\s\+$//<CR>
 vnoremap <leader>dsp :g/\s\+$/s/\s\+$//<CR>
 vnoremap <leader>rev :<C-u>'<+1,'>g/^/move <C-r>=line("'<")-1<CR><CR>
 
+nnoremap <leader>od :!open <C-r>=expand('%:p:h')<CR><CR>
+
 " 编辑快捷键
 " 快速保存
 inoremap <Esc><Esc> <Esc>:w<CR>
