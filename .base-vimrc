@@ -168,7 +168,7 @@ nnoremap <leader>; :
 nnoremap <leader>sh :!
 nnoremap <leader>rr :r<Space>
 nnoremap <leader>r1 :r!<Space>
-nnoremap <leader>st :Spawn! -wait=always -dir=.<Space>
+nnoremap <leader>st :Spawn! -wait=always -dir=.
 nnoremap <leader>dg :diffget<CR>
 nnoremap <leader>ma 99<C-w>+
 nnoremap <leader>mi 99<C-w>-
