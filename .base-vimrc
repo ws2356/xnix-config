@@ -279,6 +279,8 @@ noremap <leader>tbf :tabfirst<CR>
 map <Up> gk
 map <Down> gj
 vnoremap // y/<C-R>"<CR>
+
+nnoremap gb :normal `[v`]<CR>
 " }}}
 
 
