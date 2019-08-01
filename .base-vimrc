@@ -199,6 +199,9 @@ nnoremap <leader>of :!open <C-r>=expand('%:p')<CR><C-b><S-Right>
 nnoremap <leader>owd :!open .<CR>
 
 nnoremap <leader>dl cc<Esc>
+nnoremap <leader>55 :normal %%<Esc>
+nnoremap <leader>g55 :normal %<Esc>
+nnoremap <leader>o55 :normal %%l<Esc>
 
 " 编辑快捷键
 " 快速保存
