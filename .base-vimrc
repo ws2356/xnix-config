@@ -176,18 +176,27 @@ nnoremap <leader>hma 99<C-w>>
 nnoremap <leader>hmi 99<C-w><
 nnoremap <leader>2 @
 
+" vsplit打开光标所在文件
 nnoremap <C-W><C-F> <C-W>vgf
+" location list导航
 nnoremap <leader>cn :cn<CR>
 nnoremap <leader>cp :cp<CR>
 nnoremap <leader>cl :cl<CR>
 nnoremap <leader>cc :cc<Space>
+" 最近打开文件历史
 nnoremap <leader>bro :browse filter /\v/ oldfiles<S-Left><Left><Left>
 
+" 删除当前行末尾空白符
 nnoremap <leader>dsp :.s/\s\+$//<CR>
+" 删除选中行末尾空白符
 vnoremap <leader>dsp :g/\s\+$/s/\s\+$//<CR>
+" 倒转选中行
 vnoremap <leader>rev :<C-u>'<+1,'>g/^/move <C-r>=line("'<")-1<CR><CR>
 
+" 打开文件所在目录、打开文件、打开当前工作目录
 nnoremap <leader>od :!open <C-r>=expand('%:p:h')<CR><CR>
+nnoremap <leader>of :!open <C-r>=expand('%:p')<CR><C-b><S-Right>
+nnoremap <leader>owd :!open .<CR>
 
 " 编辑快捷键
 " 快速保存
@@ -255,10 +264,12 @@ function! GoPrevFold(cnt)
   call GoPrevFold(a:cnt - 1)
 endfunction
 
+" 切换窗口
 noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
+" tab操作
 noremap <leader>tb :tabnew<Space>
 noremap <leader>tbs :tabs<CR>
 noremap <leader>tbo :tabonly<CR>
