@@ -391,6 +391,9 @@ let g:tagbar_autoclose = 1
 noremap <silent> <F8> :TagbarToggle<CR>
 " }}}
 
+" 配置auto-pair {{{
+let g:AutoPairsShortcutJump = '<C-l>'
+" }}}
 
 " vim-plug插件 {{{
 " plug begin with given dir; add common plugins
