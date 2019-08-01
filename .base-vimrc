@@ -198,6 +198,8 @@ nnoremap <leader>od :!open <C-r>=expand('%:p:h')<CR><CR>
 nnoremap <leader>of :!open <C-r>=expand('%:p')<CR><C-b><S-Right>
 nnoremap <leader>owd :!open .<CR>
 
+nnoremap <leader>dl cc<Esc>
+
 " 编辑快捷键
 " 快速保存
 inoremap <Esc><Esc> <Esc>:w<CR>
