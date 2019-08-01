@@ -279,6 +279,8 @@ noremap <leader>tbf :tabfirst<CR>
 map <Up> gk
 map <Down> gj
 vnoremap // y/<C-R>"<CR>
+
+nnoremap gb :normal `[v`]<CR>
 " }}}
 
 
@@ -377,7 +379,7 @@ let g:user_emmet_settings = {
       \      'extends' : 'jsx',
       \  },
       \}
-autocmd FileType html,css,javascript,typescript,jsx EmmetInstall
+autocmd mygroup FileType html,css,javascript,typescript,jsx EmmetInstall
 " }}}
 
 
@@ -391,6 +393,9 @@ let g:tagbar_autoclose = 1
 noremap <silent> <F8> :TagbarToggle<CR>
 " }}}
 
+" 配置auto-pair {{{
+let g:AutoPairsShortcutJump = '<C-l>'
+" }}}
 
 " vim-plug插件 {{{
 " plug begin with given dir; add common plugins
@@ -423,6 +428,7 @@ function! StartPlug(plugInDir)
   Plug 'tpope/vim-rhubarb'
   Plug 'majutsushi/tagbar'
   Plug 'jiangmiao/auto-pairs'
+  Plug 'vim-ruby/vim-ruby'
 endfunction
 
 function! EndPlug()
