@@ -377,7 +377,7 @@ let g:user_emmet_settings = {
       \      'extends' : 'jsx',
       \  },
       \}
-autocmd FileType html,css,javascript,typescript,jsx EmmetInstall
+autocmd mygroup FileType html,css,javascript,typescript,jsx EmmetInstall
 " }}}
 
 
@@ -423,6 +423,7 @@ function! StartPlug(plugInDir)
   Plug 'tpope/vim-rhubarb'
   Plug 'majutsushi/tagbar'
   Plug 'jiangmiao/auto-pairs'
+  Plug 'vim-ruby/vim-ruby'
 endfunction
 
 function! EndPlug()
