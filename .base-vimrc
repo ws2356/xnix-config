@@ -1,6 +1,7 @@
 set encoding=utf-8
 set nocompatible
 set termguicolors
+set history=10000
 set exrc
 " Switch syntax highlighting on, when the terminal has colors
 syntax on
