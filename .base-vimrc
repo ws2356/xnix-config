@@ -199,9 +199,13 @@ nnoremap <leader>of :!open <C-r>=expand('%:p')<CR><C-b><S-Right>
 nnoremap <leader>owd :!open .<CR>
 
 nnoremap <leader>dl cc<Esc>
-nnoremap <leader>55 :normal %%<Esc>
-nnoremap <leader>g55 :normal %<Esc>
-nnoremap <leader>o55 :normal %%l<Esc>
+" normal模式下快速跳到下一个/上一个括号
+nnoremap <leader>55 %%
+nnoremap <leader>g55 %
+
+" 快速从括号跳出，并进入/返回插入模式
+inoremap <C-\> <Esc>%%a
+nnoremap <C-\> <Esc>%%a
 
 " 编辑快捷键
 " 快速保存
@@ -396,10 +400,6 @@ let g:fugitive_gitlab_domains = ['https://code.smartstudy.com/']
 " 配置tagbar {{{
 let g:tagbar_autoclose = 1
 noremap <silent> <F8> :TagbarToggle<CR>
-" }}}
-
-" 配置auto-pair {{{
-let g:AutoPairsShortcutJump = '<C-l>'
 " }}}
 
 " vim-plug插件 {{{
