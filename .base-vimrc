@@ -2,6 +2,26 @@ set encoding=utf-8
 set nocompatible
 set termguicolors
 set exrc
+" Switch syntax highlighting on, when the terminal has colors
+syntax on
+filetype plugin indent on
+
+
+" 否则报错
+if !has('nvim')
+  " 自带的插件 {{{
+  packadd! matchit
+  " }}}
+endif
+
+
+if match(&matchpairs, '<:>') == -1
+  set matchpairs+=<:>
+endif
+if match(&matchpairs, '&:;') == -1
+  set matchpairs+=&:;
+endif
+
 
 if $VIRTUAL_ENV != ''
   let g:python3_host_prog = $VIRTUAL_ENV . '/bin/python3'
@@ -10,10 +30,6 @@ endif
 
 
 let mapleader = ","
-
-" Switch syntax highlighting on, when the terminal has colors
-syntax on
-filetype plugin indent on
 
 set cursorline
 set nu
