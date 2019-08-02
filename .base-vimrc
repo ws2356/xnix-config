@@ -2,6 +2,26 @@ set encoding=utf-8
 set nocompatible
 set termguicolors
 set exrc
+" Switch syntax highlighting on, when the terminal has colors
+syntax on
+filetype plugin indent on
+
+
+" 否则报错
+if !has('nvim')
+  " 自带的插件 {{{
+  packadd! matchit
+  " }}}
+endif
+
+
+if match(&matchpairs, '<:>') == -1
+  set matchpairs+=<:>
+endif
+if match(&matchpairs, '&:;') == -1
+  set matchpairs+=&:;
+endif
+
 
 if $VIRTUAL_ENV != ''
   let g:python3_host_prog = $VIRTUAL_ENV . '/bin/python3'
@@ -10,10 +30,6 @@ endif
 
 
 let mapleader = ","
-
-" Switch syntax highlighting on, when the terminal has colors
-syntax on
-filetype plugin indent on
 
 set cursorline
 set nu
@@ -199,9 +215,13 @@ nnoremap <leader>of :!open <C-r>=expand('%:p')<CR><C-b><S-Right>
 nnoremap <leader>owd :!open .<CR>
 
 nnoremap <leader>dl cc<Esc>
-nnoremap <leader>55 :normal %%<Esc>
-nnoremap <leader>g55 :normal %<Esc>
-nnoremap <leader>o55 :normal %%l<Esc>
+" normal模式下快速跳到下一个/上一个括号
+nnoremap <leader>55 %%
+nnoremap <leader>g55 %
+
+" 快速从括号跳出，并进入/返回插入模式
+inoremap <C-\> <Esc>%%a
+nnoremap <C-\> <Esc>%%a
 
 " 编辑快捷键
 " 快速保存
@@ -396,10 +416,6 @@ let g:fugitive_gitlab_domains = ['https://code.smartstudy.com/']
 " 配置tagbar {{{
 let g:tagbar_autoclose = 1
 noremap <silent> <F8> :TagbarToggle<CR>
-" }}}
-
-" 配置auto-pair {{{
-let g:AutoPairsShortcutJump = '<C-l>'
 " }}}
 
 " vim-plug插件 {{{
