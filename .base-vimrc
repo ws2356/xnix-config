@@ -101,13 +101,6 @@ let g:ycm_autoclose_preview_window_after_insertion = 1
 " }}}
 
 
-" 配置ctrlp {{{
-let g:ctrlp_map = "<c-p>"
-let g:ctrlp_custom_ignore = '\v(\/node_modules|.swp|.ico|\/.git|\/.svn)$'
-let g:ctrlp_show_hidden = 1
-" }}}
-
-
 " 配置ale {{{
 nnoremap <leader>] :ALEGoToDefinition<CR>
 nnoremap <leader>\ :ALEGoToDefinitionInVSplit<CR>
@@ -304,7 +297,7 @@ noremap <leader>tbf :tabfirst<CR>
 
 map <Up> gk
 map <Down> gj
-vnoremap // y/<C-R>"<CR>
+vnoremap // y/<C-R>"
 
 nnoremap gb :normal `[v`]<CR>
 " }}}
@@ -419,6 +412,15 @@ let g:tagbar_autoclose = 1
 noremap <silent> <F8> :TagbarToggle<CR>
 " }}}
 
+
+" 配置fzf {{{
+let g:fzf_buffers_jump = 1
+nnoremap <silent> <C-p>p :Files<CR>
+nnoremap <silent> <C-p>b :Buffers<CR>
+nnoremap <silent> <C-p>l :Lines<CR>
+" }}}
+
+
 " vim-plug插件 {{{
 " plug begin with given dir; add common plugins
 function! StartPlug(plugInDir)
@@ -429,7 +431,6 @@ function! StartPlug(plugInDir)
   Plug 'w0rp/ale'
   Plug 'bestofsong/vimconfig'
   Plug 'leafgarland/typescript-vim'
-  Plug 'kien/ctrlp.vim'
   Plug 'godlygeek/tabular'
   Plug 'wellle/targets.vim'
   Plug 'easymotion/vim-easymotion'
@@ -451,6 +452,8 @@ function! StartPlug(plugInDir)
   Plug 'majutsushi/tagbar'
   Plug 'jiangmiao/auto-pairs'
   Plug 'vim-ruby/vim-ruby'
+  Plug '/usr/local/opt/fzf'
+  Plug 'junegunn/fzf.vim'
 endfunction
 
 function! EndPlug()
