@@ -1,3 +1,17 @@
+" 脚本变量 {{{
+let s:MY_RIPGREP_GLOB = '--iglob !.git/ '
+      \ . '--iglob !node_modules/ '
+      \ . '--iglob !tmp/ '
+      \ . '--iglob !TMP/ '
+      \ . '--iglob !build/ '
+      \ . '--iglob !built/ '
+      \ . '--iglob !.tags '
+      \ . '--iglob !.tags.temp '
+      \ . '--iglob !*.pyc '
+      \ . '--iglob !*.swp'
+" }}}
+
+" vim 内置选项等 {{{
 set encoding=utf-8
 set nocompatible
 set termguicolors
@@ -10,9 +24,7 @@ filetype plugin indent on
 
 " 否则报错
 if !has('nvim')
-  " 自带的插件 {{{
   packadd! matchit
-  " }}}
 endif
 
 
@@ -46,6 +58,10 @@ set foldlevelstart=4
 set hlsearch
 set incsearch
 set completeopt=menu,menuone,preview,noselect,noinsert
+let &grepprg='rg --vimgrep --no-heading --no-ignore --smart-case --hidden ' . s:MY_RIPGREP_GLOB
+" 环境变量
+let $FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow ' . s:MY_RIPGREP_GLOB
+" }}}
 
 " 配置window style {{{
 set fillchars+=vert:\ 
@@ -98,13 +114,6 @@ let g:ycm_clangd_uses_ycmd_caching = 0
 " Use installed clangd, not YCM-bundled clangd which doesn't get updates.
 let g:ycm_clangd_binary_path = exepath('clangd')
 let g:ycm_autoclose_preview_window_after_insertion = 1
-" }}}
-
-
-" 配置ctrlp {{{
-let g:ctrlp_map = "<c-p>"
-let g:ctrlp_custom_ignore = '\v(\/node_modules|.swp|.ico|\/.git|\/.svn)$'
-let g:ctrlp_show_hidden = 1
 " }}}
 
 
@@ -304,7 +313,7 @@ noremap <leader>tbf :tabfirst<CR>
 
 map <Up> gk
 map <Down> gj
-vnoremap // y/<C-R>"<CR>
+vnoremap // y/<C-R>"
 
 nnoremap gb :normal `[v`]<CR>
 " }}}
@@ -317,9 +326,11 @@ command! -complete=file GR3 call VGrepSourceCode()
 " 根据正则表达式匹配，其他的是匹配原始字符
 command! -nargs=+ -complete=file GRE call GrepSourceCode(<f-args>)
 
-nnoremap <leader>cgr :GR2 <cword> .<CR>
-vnoremap <leader>vgr :<C-u>GR3<CR>
-noremap <leader>gr :GR2<Space><Space>.<Left><Left>
+nnoremap <leader>fc :GR2 <cword> .<CR>
+nnoremap <leader>fC :GR2 <cWORD> .<CR>
+vnoremap <leader>fv :<C-u>GR3<CR>
+noremap <leader>fe :GR<Space><Space>.<Left><Left>
+noremap <leader>ff :GR2<Space><Space>.<Left><Left>
 
 function! CGrepSourceCode(...)
   let l:word = expand('<cword>')
@@ -333,29 +344,17 @@ function! VGrepSourceCode()
   call GrepSourceCodeRaw(shellescape(l:word), '.')
 endfunction
 
-function! GetGrepSourceCode(opts)
-  return 'grep -R '
-        \ . '--exclude-dir .git '
-        \ . '--exclude-dir node_modules '
-        \ . '--exclude-dir tmp '
-        \ . '--exclude-dir TMP '
-        \ . '--exclude-dir build '
-        \ . '--exclude-dir built '
-        \ . '--exclude .tags '
-        \ . '--exclude *.pyc '
-        \ . '--exclude *.swp '
-        \ . a:opts
-        \ . ' '
+function! CreateGrepCmd(opts)
+  return 'grep ' . a:opts . ' '
 endfunction
 
+" 文字匹配
 function! GrepSourceCodeRaw(...)
-  execute GetGrepSourceCode('')
-        \ . join(a:000)
+  execute CreateGrepCmd('') . join(a:000)
 endfunction
-
+" 正则表达式匹配
 function! GrepSourceCode(...)
-  execute GetGrepSourceCode('-E')
-        \ . join(a:000)
+  execute CreateGrepCmd('-e') . join(a:000)
 endfunction
 " }}}
 
@@ -419,6 +418,15 @@ let g:tagbar_autoclose = 1
 noremap <silent> <F8> :TagbarToggle<CR>
 " }}}
 
+
+" 配置fzf {{{
+let g:fzf_buffers_jump = 1
+nnoremap <silent> <C-p>p :Files<CR>
+nnoremap <silent> <C-p>b :Buffers<CR>
+nnoremap <silent> <C-p>l :Lines<CR>
+" }}}
+
+
 " vim-plug插件 {{{
 " plug begin with given dir; add common plugins
 function! StartPlug(plugInDir)
@@ -429,7 +437,6 @@ function! StartPlug(plugInDir)
   Plug 'w0rp/ale'
   Plug 'bestofsong/vimconfig'
   Plug 'leafgarland/typescript-vim'
-  Plug 'kien/ctrlp.vim'
   Plug 'godlygeek/tabular'
   Plug 'wellle/targets.vim'
   Plug 'easymotion/vim-easymotion'
@@ -451,6 +458,8 @@ function! StartPlug(plugInDir)
   Plug 'majutsushi/tagbar'
   Plug 'jiangmiao/auto-pairs'
   Plug 'vim-ruby/vim-ruby'
+  Plug '/usr/local/opt/fzf'
+  Plug 'junegunn/fzf.vim'
 endfunction
 
 function! EndPlug()
