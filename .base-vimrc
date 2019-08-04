@@ -175,7 +175,7 @@ nnoremap <leader>gpl :Gpull<Space>
 nnoremap <leader>gfh :Gfetch<CR>
 " }}}
 
-" key bindings {{{
+" custom key bindings {{{
 nnoremap <leader>msg :messages<CR>
 nnoremap <leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
@@ -316,6 +316,7 @@ map <Down> gj
 vnoremap // y/<C-R>"
 
 nnoremap gb :normal `[v`]<CR>
+nnoremap <leader>ju :jumps<CR>
 " }}}
 
 
