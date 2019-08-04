@@ -317,6 +317,7 @@ vnoremap // y/<C-R>"
 
 nnoremap gb :normal `[v`]<CR>
 nnoremap <leader>ju :jumps<CR>
+nnoremap <leader>ss :%s/
 " }}}
 
 
