@@ -31,9 +31,6 @@ endif
 if match(&matchpairs, '<:>') == -1
   set matchpairs+=<:>
 endif
-if match(&matchpairs, '&:;') == -1
-  set matchpairs+=&:;
-endif
 
 
 if $VIRTUAL_ENV != ''
