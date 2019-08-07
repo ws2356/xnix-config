@@ -53,23 +53,14 @@ set exrc
 syntax on
 filetype plugin indent on
 
-
 " 否则报错
 if !has('nvim')
   packadd! matchit
 endif
 
-
 if match(&matchpairs, '<:>') == -1
   set matchpairs+=<:>
 endif
-
-
-if $VIRTUAL_ENV != ''
-  let g:python3_host_prog = $VIRTUAL_ENV . '/bin/python3'
-  let g:ycm_python_interpreter_path = $VIRTUAL_ENV . '/bin/python3'
-endif
-
 
 let mapleader = ","
 
@@ -88,20 +79,17 @@ set hlsearch
 set incsearch
 set completeopt=menu,menuone,preview,noselect,noinsert
 let &grepprg='rg --vimgrep --no-heading --no-ignore --hidden ' . s:MY_RIPGREP_GLOB
-" 环境变量
-let $FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow ' . s:MY_RIPGREP_GLOB
-" }}}
 
-" 配置window style {{{
+" 配置window style
 set fillchars+=vert:\ 
 highlight VertSplit ctermfg=LightGreen
 highlight StatusLine ctermfg=Green
 highlight StatusLineNC ctermfg=LightGreen
-" }}}
 
-" Color theme {{{
+" Color theme
 set background=dark
 " }}}
+
 
 " 配置tag {{{
 set tags=./.tags;
@@ -131,6 +119,11 @@ noremap <leader>ee :NERDTree <bar> NERDTreeFind <C-R>%<CR>
 
 
 " 配置ycm {{{
+if $VIRTUAL_ENV != ''
+  let g:python3_host_prog = $VIRTUAL_ENV . '/bin/python3'
+  let g:ycm_python_interpreter_path = $VIRTUAL_ENV . '/bin/python3'
+endif
+
 highlight YcmErrorSection ctermbg=DarkRed
 highlight YcmErrorSign ctermbg=DarkRed
 noremap <leader>ja :YcmCompleter GoTo<CR>
@@ -178,6 +171,7 @@ highlight IndentGuidesOdd  ctermbg=DarkGray
 highlight IndentGuidesEven ctermbg=LightGray
 "}}}
 
+
 " 配置 vim-fugitive {{{
 nnoremap <leader>ge :Gedit<CR>
 nnoremap <leader>gb :Gblame<CR>
@@ -203,6 +197,7 @@ nnoremap <leader>gph :Gpush<Space>
 nnoremap <leader>gpl :Gpull<Space>
 nnoremap <leader>gfh :Gfetch<CR>
 " }}}
+
 
 " custom key bindings {{{
 nnoremap <leader>msg :messages<CR>
@@ -382,6 +377,7 @@ function! EGrepSourceCode(...)
 endfunction
 " }}}
 
+
 " 自动命令 ---------------------- {{{
 augroup mygroup
   autocmd!
@@ -418,6 +414,8 @@ noremap <silent> <F8> :TagbarToggle<CR>
 
 
 " 配置fzf {{{
+" 环境变量
+let $FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow ' . s:MY_RIPGREP_GLOB
 let g:fzf_buffers_jump = 1
 nnoremap <silent> <C-p>p :Files<CR>
 nnoremap <silent> <C-p>b :Buffers<CR>
