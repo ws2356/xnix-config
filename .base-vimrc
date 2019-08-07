@@ -1,15 +1,47 @@
-" 脚本变量 {{{
-let s:MY_RIPGREP_GLOB = '--iglob !.git/ '
-      \ . '--iglob !node_modules/ '
-      \ . '--iglob !tmp/ '
-      \ . '--iglob !TMP/ '
-      \ . '--iglob !build/ '
-      \ . '--iglob !built/ '
-      \ . '--iglob !.tags '
-      \ . '--iglob !.tags.temp '
-      \ . '--iglob !*.pyc '
-      \ . '--iglob !*.swp'
+" 封装的通用函数 {{{
+function! Add_project_vim_dir()
+  let l:proj_root = expand('%:p:h')
+  let l:proj_runtime = l:proj_root . '/.vim'
+  if isdirectory(l:proj_runtime)
+    let &runtimepath = &runtimepath . ',' . l:proj_runtime
+  endif
+endfunction
 " }}}
+
+
+" 脚本变量 {{{
+let s:MY_RIPGREP_GLOB = '--glob !.git/ '
+      \ . '--glob !node_modules/ '
+      \ . '--glob !tmp/ '
+      \ . '--glob !TMP/ '
+      \ . '--glob !build/ '
+      \ . '--glob !built/ '
+      \ . '--glob !.tags '
+      \ . '--glob !.tags.temp '
+      \ . '--glob !*.pyc '
+      \ . '--glob !*.swp'
+" 代码搬运自https://stackoverflow.com/questions/1533565/how-to-get-visually-selected-text-in-vimscript/6271254#6271254
+function! s:get_visual_selection()
+  " Why is this not a built-in Vim script function?!
+  let [line_start, column_start] = getpos("'<")[1:2]
+  let [line_end, column_end] = getpos("'>")[1:2]
+  let lines = getline(line_start, line_end)
+  if len(lines) == 0
+    return ''
+  endif
+  let lines[-1] = lines[-1][: column_end - (&selection == 'inclusive' ? 1 : 2)]
+  let lines[0] = lines[0][column_start - 1:]
+  return join(lines, "\n")
+endfunction
+function! Add_project_vim_dir()
+  let l:proj_root = expand('%:p:h')
+  let l:proj_runtime = l:proj_root . '/.vim'
+  if isdirectory(l:proj_runtime)
+    let &runtimepath = &runtimepath . ',' . l:proj_runtime
+  endif
+endfunction
+" }}}
+
 
 " vim 内置选项等 {{{
 set encoding=utf-8
@@ -55,7 +87,7 @@ set foldlevelstart=4
 set hlsearch
 set incsearch
 set completeopt=menu,menuone,preview,noselect,noinsert
-let &grepprg='rg --vimgrep --no-heading --no-ignore --smart-case --hidden ' . s:MY_RIPGREP_GLOB
+let &grepprg='rg --vimgrep --no-heading --no-ignore --hidden ' . s:MY_RIPGREP_GLOB
 " 环境变量
 let $FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow ' . s:MY_RIPGREP_GLOB
 " }}}
@@ -319,17 +351,16 @@ nnoremap <leader>ss :%s/
 
 
 " 自定义命令 {{{
-command! -nargs=+ -complete=file GR call CGrepSourceCode(<f-args>)
-command! -nargs=+ -complete=file GR2 call GrepSourceCodeRaw(<f-args>)
-command! -complete=file GR3 call VGrepSourceCode()
+command! -nargs=+ -complete=file GRR call GrepSourceCodeRaw(<f-args>)
+command! -complete=file GRV call VGrepSourceCode()
 " 根据正则表达式匹配，其他的是匹配原始字符
 command! -nargs=+ -complete=file GRE call GrepSourceCode(<f-args>)
 
-nnoremap <leader>fc :GR2 <cword> .<CR>
-nnoremap <leader>fC :GR2 <cWORD> .<CR>
-vnoremap <leader>fv :<C-u>GR3<CR>
-noremap <leader>fe :GR<Space><Space>.<Left><Left>
-noremap <leader>ff :GR2<Space><Space>.<Left><Left>
+nnoremap <leader>fc :GRR <cword> .
+nnoremap <leader>fC :GRR '<C-r>=expand("<cWORD>")<CR>' .
+vnoremap <leader>fv :<C-u>GRV
+noremap <leader>fe :GRE<Space><Space>.<Left><Left>
+noremap <leader>ff :GRR<Space><Space>.<Left><Left>
 
 function! CGrepSourceCode(...)
   let l:word = expand('<cword>')
@@ -356,32 +387,6 @@ function! GrepSourceCode(...)
   execute CreateGrepCmd('-e') . join(a:000)
 endfunction
 " }}}
-
-
-" 封装的通用函数 {{{
-" 代码搬运自https://stackoverflow.com/questions/1533565/how-to-get-visually-selected-text-in-vimscript/6271254#6271254
-function! s:get_visual_selection()
-  " Why is this not a built-in Vim script function?!
-  let [line_start, column_start] = getpos("'<")[1:2]
-  let [line_end, column_end] = getpos("'>")[1:2]
-  let lines = getline(line_start, line_end)
-  if len(lines) == 0
-    return ''
-  endif
-  let lines[-1] = lines[-1][: column_end - (&selection == 'inclusive' ? 1 : 2)]
-  let lines[0] = lines[0][column_start - 1:]
-  return join(lines, "\n")
-endfunction
-
-function! Add_project_vim_dir()
-  let l:proj_root = expand('%:p:h')
-  let l:proj_runtime = l:proj_root . '/.vim'
-  if isdirectory(l:proj_runtime)
-    let &runtimepath = &runtimepath . ',' . l:proj_runtime
-  endif
-endfunction
-" }}}
-
 
 " 自动命令 ---------------------- {{{
 augroup mygroup
