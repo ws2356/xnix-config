@@ -165,13 +165,12 @@ let g:UltiSnipsJumpBackwardTrigger = "<C-k>"
 " }}}
 
 
-" Config indent-guides {{{
-let g:indent_guides_start_level = 1
-let g:indent_guides_guide_size = 1
-highlight IndentGuidesOdd  ctermbg=DarkGray
-highlight IndentGuidesEven ctermbg=LightGray
-"}}}
-
+" Config indentLine {{{
+let g:indentLine_char_list = ['|', '¦', '┆',  '↓', '↑', '†', '·', '‖', 'ˇ', '┊']
+nnoremap <leader>ig :IndentLinesToggle<CR>
+let g:indentLine_enabled = 0
+let g:indentLine_concealcursor = 'c'
+" }}}
 
 " 配置 vim-fugitive {{{
 nnoremap <leader>ge :Gedit<CR>
@@ -447,7 +446,7 @@ function! StartPlug(plugInDir)
   Plug 'honza/vim-snippets'
   Plug 'tpope/vim-commentary'
   Plug 'tpope/vim-surround'
-  Plug 'nathanaelkane/vim-indent-guides'
+  Plug 'Yggdroot/indentLine'
   Plug 'tpope/vim-dispatch'
   Plug 'morhetz/gruvbox'
   Plug 'pangloss/vim-javascript'
