@@ -224,9 +224,11 @@ vnoremap <leader>wr :write<Space>
 nnoremap <leader>' "
 " 直接选用+寄存器，用于存取系统剪切板
 nnoremap <leader>= "+
+vnoremap <leader>= "+
 
 " vsplit打开光标所在文件
 nnoremap <C-W><C-F> <C-W>vgf
+nnoremap <C-W><C-^> :vs #<CR>
 " location list导航
 nnoremap <leader>cn :cn<CR>
 nnoremap <leader>cp :cp<CR>
@@ -340,6 +342,8 @@ vnoremap // y/<C-R>"
 nnoremap gb :normal `[v`]<CR>
 nnoremap <leader>ju :jumps<CR>
 nnoremap <leader>ss :%s/
+
+nnoremap <leader>` g~
 " }}}
 
 
