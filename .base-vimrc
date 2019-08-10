@@ -76,12 +76,6 @@ let &grepprg='rg --vimgrep --no-heading --no-ignore --hidden ' . s:MY_RIPGREP_GL
 
 " 配置window style
 set fillchars+=vert:\ 
-highlight VertSplit ctermfg=LightGreen
-highlight StatusLine ctermfg=Green
-highlight StatusLineNC ctermfg=LightGreen
-
-" Color theme
-set background=dark
 " }}}
 
 
@@ -118,8 +112,11 @@ if $VIRTUAL_ENV != ''
   let g:ycm_python_interpreter_path = $VIRTUAL_ENV . '/bin/python3'
 endif
 
-highlight YcmErrorSection ctermbg=DarkRed
-highlight YcmErrorSign ctermbg=DarkRed
+function! s:MyYCMTheme()
+  highlight YcmErrorSection ctermbg=DarkRed
+  highlight YcmErrorSign ctermbg=DarkRed
+endfunction
+
 noremap <leader>ja :YcmCompleter GoTo<CR>
 noremap <leader>jr :YcmCompleter GoToReferences<CR>
 noremap <leader>ycmdbg :YcmDebugInfo<CR>
@@ -425,6 +422,18 @@ nnoremap <silent> <C-p>l :Lines<CR>
 " }}}
 
 
+" {{{ colorscheme
+function! s:load_custom_color_scheme()
+  " 依赖plugin的初始化
+  set background=dark
+  colorscheme gruvbox
+  highlight VertSplit ctermfg=LightGreen
+  highlight StatusLine ctermfg=Green
+  highlight StatusLineNC ctermfg=LightGreen
+  call s:MyYCMTheme()
+endfunction
+" }}}
+
 " vim-plug插件 {{{
 " plug begin with given dir; add common plugins
 function! StartPlug(plugInDir)
@@ -462,8 +471,6 @@ endfunction
 
 function! EndPlug()
   call plug#end()
-
-  " 依赖plugin的初始化
-  colorscheme gruvbox
+  call s:load_custom_color_scheme()
 endfunction
 " }}}
