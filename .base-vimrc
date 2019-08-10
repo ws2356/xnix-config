@@ -76,6 +76,7 @@ let &grepprg='rg --vimgrep --no-heading --no-ignore --hidden ' . s:MY_RIPGREP_GL
 
 " 配置window style
 set fillchars+=vert:\ 
+" set statusline=%<%f%Y%=\ [%n%1*%M%R%*]\ %-19(%3l,%02c%03V%)'%02b'
 " }}}
 
 
@@ -339,6 +340,15 @@ nnoremap <leader>ju :jumps<CR>
 nnoremap <leader>ss :%s/
 
 nnoremap <leader>` g~
+
+function! s:change_last_status()
+  let l:next_val = &laststatus + 1
+  if l:next_val >=# 3
+    let l:next_val -= 3
+  endif
+  let &laststatus=l:next_val
+endfunction
+nnoremap <leader>sl :call s:change_last_status()<CR>
 " }}}
 
 
@@ -426,9 +436,8 @@ function! s:load_custom_color_scheme()
   set background=dark
   colorscheme gruvbox
   highlight VertSplit ctermfg=LightGreen
-  highlight StatusLine ctermfg=Green
-  highlight StatusLineNC ctermfg=LightGreen
   call s:MyYCMTheme()
+  "highlight User1 term=inverse,bold cterm=inverse,bold ctermbg=red
 endfunction
 " }}}
 
@@ -465,6 +474,7 @@ function! StartPlug(plugInDir)
   Plug 'vim-ruby/vim-ruby'
   Plug '/usr/local/opt/fzf'
   Plug 'junegunn/fzf.vim'
+  Plug 'vim-airline/vim-airline'
 endfunction
 
 function! EndPlug()
