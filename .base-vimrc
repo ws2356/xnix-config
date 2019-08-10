@@ -340,15 +340,6 @@ nnoremap <leader>ju :jumps<CR>
 nnoremap <leader>ss :%s/
 
 nnoremap <leader>` g~
-
-function! s:change_last_status()
-  let l:next_val = &laststatus + 1
-  if l:next_val >=# 3
-    let l:next_val -= 3
-  endif
-  let &laststatus=l:next_val
-endfunction
-nnoremap <leader>sl :call s:change_last_status()<CR>
 " }}}
 
 
@@ -435,11 +426,10 @@ function! s:load_custom_color_scheme()
   " 依赖plugin的初始化
   set background=dark
   colorscheme gruvbox
-  highlight VertSplit ctermfg=LightGreen
   call s:MyYCMTheme()
-  "highlight User1 term=inverse,bold cterm=inverse,bold ctermbg=red
 endfunction
 " }}}
+
 
 " vim-plug插件 {{{
 " plug begin with given dir; add common plugins

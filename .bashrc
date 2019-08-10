@@ -43,7 +43,7 @@ function proml {
 
 # $BLUE[$RED\$(date +%H:%M)$BLUE]\
   PS1="${TITLEBAR}\
-    $BLUE[$RED\u@\h:\W$GREEN\$(parse_git_branch)$BLUE]\
+    ${BLUE}[$RED\u@\h:\W$GREEN\$(parse_git_branch)$BLUE]\
     $GREEN\$$WHITE "
   PS2='> '
   PS4='+ '
