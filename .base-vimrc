@@ -462,5 +462,8 @@ endfunction
 
 function! EndPlug()
   call plug#end()
+
+  " 依赖plugin的初始化
+  colorscheme gruvbox
 endfunction
 " }}}
