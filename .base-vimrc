@@ -76,12 +76,7 @@ let &grepprg='rg --vimgrep --no-heading --no-ignore --hidden ' . s:MY_RIPGREP_GL
 
 " 配置window style
 set fillchars+=vert:\ 
-highlight VertSplit ctermfg=LightGreen
-highlight StatusLine ctermfg=Green
-highlight StatusLineNC ctermfg=LightGreen
-
-" Color theme
-set background=dark
+" set statusline=%<%f%Y%=\ [%n%1*%M%R%*]\ %-19(%3l,%02c%03V%)'%02b'
 " }}}
 
 
@@ -100,8 +95,6 @@ let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
 let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
 let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 let g:gutentags_ctags_exclude = ['node_modules']
-
-set statusline+=%{gutentags#statusline()}
 " }}}
 
 
@@ -118,8 +111,11 @@ if $VIRTUAL_ENV != ''
   let g:ycm_python_interpreter_path = $VIRTUAL_ENV . '/bin/python3'
 endif
 
-highlight YcmErrorSection ctermbg=DarkRed
-highlight YcmErrorSign ctermbg=DarkRed
+function! s:MyYCMTheme()
+  highlight YcmErrorSection ctermbg=DarkRed
+  highlight YcmErrorSign ctermbg=DarkRed
+endfunction
+
 noremap <leader>ja :YcmCompleter GoTo<CR>
 noremap <leader>jr :YcmCompleter GoToReferences<CR>
 noremap <leader>ycmdbg :YcmDebugInfo<CR>
@@ -224,9 +220,11 @@ vnoremap <leader>wr :write<Space>
 nnoremap <leader>' "
 " 直接选用+寄存器，用于存取系统剪切板
 nnoremap <leader>= "+
+vnoremap <leader>= "+
 
 " vsplit打开光标所在文件
 nnoremap <C-W><C-F> <C-W>vgf
+nnoremap <C-W><C-^> :vs #<CR>
 " location list导航
 nnoremap <leader>cn :cn<CR>
 nnoremap <leader>cp :cp<CR>
@@ -243,18 +241,12 @@ vnoremap <leader>dsp :g/\s\+$/s/\s\+$//<CR>
 vnoremap <leader>rev :<C-u>'<+1,'>g/^/move <C-r>=line("'<")-1<CR><CR>
 
 " 打开文件所在目录、打开文件、打开当前工作目录
-nnoremap <leader>od :!open <C-r>=expand('%:p:h')<CR><CR>
+nnoremap <leader>odf :!open <C-r>=expand('%:p:h')<CR><CR>
+nnoremap <leader>odt :!open -a iTerm.app <C-r>=expand('%:p:h')<CR><CR>
 nnoremap <leader>of :!open <C-r>=expand('%:p')<CR><C-b><S-Right>
-nnoremap <leader>owd :!open .<CR>
+nnoremap <leader>owd :!open -a iTerm.app .<CR>
 
 nnoremap <leader>dl cc<Esc>
-" normal模式下快速跳到下一个/上一个括号
-nnoremap <leader>55 %%
-nnoremap <leader>g55 %
-
-" 快速从括号跳出，并进入/返回插入模式
-inoremap <C-\> <Esc>%%a
-nnoremap <C-\> <Esc>%%a
 
 " 快速保存
 inoremap <Esc><Esc> <Esc>:w<CR>
@@ -340,6 +332,8 @@ vnoremap // y/<C-R>"
 nnoremap gb :normal `[v`]<CR>
 nnoremap <leader>ju :jumps<CR>
 nnoremap <leader>ss :%s/
+
+nnoremap <leader>` g~
 " }}}
 
 
@@ -421,6 +415,16 @@ nnoremap <silent> <C-p>l :Lines<CR>
 " }}}
 
 
+" {{{ colorscheme
+function! s:load_custom_color_scheme()
+  " 依赖plugin的初始化
+  set background=dark
+  colorscheme gruvbox
+  call s:MyYCMTheme()
+endfunction
+" }}}
+
+
 " vim-plug插件 {{{
 " plug begin with given dir; add common plugins
 function! StartPlug(plugInDir)
@@ -454,9 +458,11 @@ function! StartPlug(plugInDir)
   Plug 'vim-ruby/vim-ruby'
   Plug '/usr/local/opt/fzf'
   Plug 'junegunn/fzf.vim'
+  Plug 'vim-airline/vim-airline'
 endfunction
 
 function! EndPlug()
   call plug#end()
+  call s:load_custom_color_scheme()
 endfunction
 " }}}
