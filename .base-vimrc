@@ -241,18 +241,12 @@ vnoremap <leader>dsp :g/\s\+$/s/\s\+$//<CR>
 vnoremap <leader>rev :<C-u>'<+1,'>g/^/move <C-r>=line("'<")-1<CR><CR>
 
 " 打开文件所在目录、打开文件、打开当前工作目录
-nnoremap <leader>od :!open <C-r>=expand('%:p:h')<CR><CR>
+nnoremap <leader>odf :!open <C-r>=expand('%:p:h')<CR><CR>
+nnoremap <leader>odt :!open -a iTerm.app <C-r>=expand('%:p:h')<CR><CR>
 nnoremap <leader>of :!open <C-r>=expand('%:p')<CR><C-b><S-Right>
-nnoremap <leader>owd :!open .<CR>
+nnoremap <leader>owd :!open -a iTerm.app .<CR>
 
 nnoremap <leader>dl cc<Esc>
-" normal模式下快速跳到下一个/上一个括号
-nnoremap <leader>55 %%
-nnoremap <leader>g55 %
-
-" 快速从括号跳出，并进入/返回插入模式
-inoremap <C-\> <Esc>%%a
-nnoremap <C-\> <Esc>%%a
 
 " 快速保存
 inoremap <Esc><Esc> <Esc>:w<CR>
