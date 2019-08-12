@@ -250,8 +250,9 @@ nnoremap <leader>dl cc<Esc>
 
 " 快速保存
 inoremap <Esc><Esc> <Esc>:w<CR>
-" 关闭高亮
-nnoremap <leader>nh :noh<CR>
+" 清除上次搜索记录
+nnoremap <leader>nh :let @/ = ""<CR>
+ 
 " 向前/后跳转至{/}符号
 map [[ ?{<CR>w99[{
 map ][ /}<CR>b99]}
