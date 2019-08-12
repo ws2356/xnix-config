@@ -161,6 +161,7 @@ let g:indentLine_enabled = 0
 let g:indentLine_concealcursor = 'c'
 " }}}
 
+
 " 配置 vim-fugitive {{{
 nnoremap <leader>ge :Gedit<CR>
 nnoremap <leader>gb :Gblame<CR>
@@ -335,6 +336,33 @@ nnoremap <leader>ju :jumps<CR>
 nnoremap <leader>ss :%s/
 
 nnoremap <leader>` g~
+" }}}
+
+
+" C系列语言Source/Header文件切换 {{{
+let s:c_source_ext = ['cc', 'cpp', 'm']
+let s:c_header_ext = ['h', 'hpp']
+function! ToggleSourceHeader()
+  let l:ext = tolower(expand('%:e'))
+  let l:target_ext = []
+  if index(s:c_source_ext, l:ext) >= 0
+    let l:target_ext = s:c_header_ext
+  elseif index(s:c_header_ext, l:ext) >= 0
+    let l:target_ext = s:c_source_ext
+  else
+    return
+  endif
+
+  for l:ext2 in l:target_ext
+    let l:file_grep = '%:s;' . l:ext . '$;' . l:ext2 . ';'
+    let l:alt_file = expand(l:file_grep)
+    if filereadable(l:alt_file)
+      silent execute ':edit ' . l:alt_file
+      return
+    endif
+  endfor
+endfunction
+nnoremap <leader>al :call ToggleSourceHeader()<CR>
 " }}}
 
 
