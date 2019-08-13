@@ -340,7 +340,7 @@ nnoremap <leader>` g~
 
 
 " C系列语言Source/Header文件切换 {{{
-let s:c_source_ext = ['cc', 'cpp', 'm']
+let s:c_source_ext = ['cc', 'c', 'cpp', 'm']
 let s:c_header_ext = ['h', 'hpp']
 function! ToggleSourceHeader()
   let l:ext = tolower(expand('%:e'))
@@ -361,6 +361,10 @@ function! ToggleSourceHeader()
       return
     endif
   endfor
+  " alt_file not exist, creating one
+  let l:file_grep = '%:s;' . l:ext . '$;' . l:target_ext[0] . ';'
+  let l:alt_file = expand(l:file_grep)
+  silent execute ':edit ' . l:alt_file
 endfunction
 nnoremap <leader>al :call ToggleSourceHeader()<CR>
 " }}}
