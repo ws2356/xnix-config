@@ -336,6 +336,15 @@ nnoremap <leader>ju :jumps<CR>
 nnoremap <leader>ss :%s/
 
 nnoremap <leader>` g~
+
+" 命令行模式快捷操作
+cnoremap <leader>5h <C-r>=expand('%:h')<CR>
+cnoremap <leader>5t <C-r>=expand('%:t')<CR>
+cnoremap <leader>33 <C-r>=expand('#')<CR>
+cnoremap <leader>cf <C-r>=expand('<cfile>')<CR>
+cnoremap <leader>cw <C-r>=expand('<cword>')<CR>
+cnoremap <leader>cW <C-r>=expand('<cWORD>')<CR>
+cnoremap <leader>wd <C-r>=getcwd()<CR>
 " }}}
 
 
