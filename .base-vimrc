@@ -1,0 +1,510 @@
+" 封装的通用函数 {{{
+function! Add_project_vim_dir()
+  let l:proj_root = expand('%:p:h')
+  let l:proj_runtime = l:proj_root . '/.vim'
+  if isdirectory(l:proj_runtime)
+    let &runtimepath = &runtimepath . ',' . l:proj_runtime
+  endif
+endfunction
+" 代码搬运自https://stackoverflow.com/questions/1533565/how-to-get-visually-selected-text-in-vimscript/6271254#6271254
+function! WS_get_visual_selection()
+  " Why is this not a built-in Vim script function?!
+  let [line_start, column_start] = getpos("'<")[1:2]
+  let [line_end, column_end] = getpos("'>")[1:2]
+  let lines = getline(line_start, line_end)
+  if len(lines) == 0
+    return ''
+  endif
+  let lines[-1] = lines[-1][: column_end - (&selection == 'inclusive' ? 1 : 2)]
+  let lines[0] = lines[0][column_start - 1:]
+  return join(lines, "\n")
+endfunction
+" }}}
+
+
+" 脚本变量 {{{
+let s:MY_RIPGREP_GLOB = '--glob !.git/ '
+      \ . '--glob !node_modules/ '
+      \ . '--glob !tmp/ '
+      \ . '--glob !TMP/ '
+      \ . '--glob !build/ '
+      \ . '--glob !built/ '
+      \ . '--glob !.tags '
+      \ . '--glob !.tags.temp '
+      \ . '--glob !*.pyc '
+      \ . '--glob !*.swp'
+" }}}
+
+
+" vim 内置选项等 {{{
+set encoding=utf-8
+set nocompatible
+set termguicolors
+set history=10000
+set exrc
+set nowrapscan
+" Switch syntax highlighting on, when the terminal has colors
+syntax on
+filetype plugin indent on
+
+" 否则报错
+if !has('nvim')
+  packadd! matchit
+endif
+
+if match(&matchpairs, '<:>') == -1
+  set matchpairs+=<:>
+endif
+
+let mapleader = ","
+
+set cursorline
+set nu
+set ruler
+set softtabstop=2
+set shiftwidth=2
+set linebreak
+set expandtab
+set foldmethod=indent
+" foldlevel初始值，高于此值的fold会默认关闭
+set foldlevelstart=4
+" 搜索逐字符高亮
+set hlsearch
+set incsearch
+set completeopt=menu,menuone,preview,noselect,noinsert
+let &grepprg='rg --vimgrep --no-heading --no-ignore --hidden ' . s:MY_RIPGREP_GLOB
+
+" 配置window style
+set fillchars+=vert:\ 
+" set statusline=%<%f%Y%=\ [%n%1*%M%R%*]\ %-19(%3l,%02c%03V%)'%02b'
+" }}}
+
+
+" 配置tag {{{
+set tags=./.tags;
+" }}}
+
+
+" 配置gutentags {{{
+" gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
+let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
+" 所生成的数据文件的名称
+let g:gutentags_ctags_tagfile = '.tags'
+" 配置 ctags 的参数
+let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
+let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+let g:gutentags_ctags_exclude = ['node_modules']
+" }}}
+
+
+" 配置NERDTree {{{
+let NERDTreeShowHidden=1
+noremap <C-n> :NERDTreeToggle<CR>
+noremap <leader>ee :NERDTree <bar> NERDTreeFind <C-R>%<CR>
+" }}}
+
+
+" 配置ycm {{{
+if $VIRTUAL_ENV != ''
+  let g:python3_host_prog = $VIRTUAL_ENV . '/bin/python3'
+  let g:ycm_python_interpreter_path = $VIRTUAL_ENV . '/bin/python3'
+endif
+
+function! s:MyYCMTheme()
+  highlight YcmErrorSection ctermbg=DarkRed
+  highlight YcmErrorSign ctermbg=DarkRed
+endfunction
+
+noremap <leader>ja :YcmCompleter GoTo<CR>
+noremap <leader>jr :YcmCompleter GoToReferences<CR>
+noremap <leader>ycmdbg :YcmDebugInfo<CR>
+let s:ncpucores = str2nr(system('getconf _NPROCESSORS_ONLN 2>/dev/null || sysctl -n hw.ncpu | sed "s/[^0-9]//g"'))
+let g:ycm_clangd_args = ['-log=error', '-pretty', '-limit-results=100', '-j=' . s:ncpucores, '-pch-storage=disk']
+" Let clangd fully control code completion
+let g:ycm_clangd_uses_ycmd_caching = 0
+" Use installed clangd, not YCM-bundled clangd which doesn't get updates.
+let g:ycm_clangd_binary_path = exepath('clangd')
+let g:ycm_autoclose_preview_window_after_insertion = 1
+" }}}
+
+
+" 配置ale {{{
+nnoremap <leader>] :ALEGoToDefinition<CR>
+nnoremap <leader>\ :ALEGoToDefinitionInVSplit<CR>
+nnoremap <leader>^ :ALEFindReferences<CR>
+" ycm semantic completion does not quite work, so i'm gonna: use ale to do lint and
+" semantic completion, use ycm to do tag based completion
+let g:ale_completion_enabled = 1
+let g:ale_set_highlights = 0 " Disable highligting
+" let g:ale_set_signs = 0
+let g:ale_linters = {
+      \ 'javascript': ['eslint', 'tsserver'],
+      \ 'cpp': ['clangd'],
+      \ }
+let g:ale_cpp_clangd_executable = '/usr/local/opt/llvm/bin/clangd'
+" }}}
+
+
+" 配置SirVer/ultisnips {{{
+" better key bindings for UltiSnipsExpandTrigger
+let g:UltiSnipsExpandTrigger = "<C-l>"
+let g:UltiSnipsJumpForwardTrigger = "<C-j>"
+let g:UltiSnipsJumpBackwardTrigger = "<C-k>"
+" }}}
+
+
+" Config indentLine {{{
+let g:indentLine_char_list = ['|', '¦', '┆',  '↓', '↑', '†', '·', '‖', 'ˇ', '┊']
+nnoremap <leader>ig :IndentLinesToggle<CR>
+let g:indentLine_enabled = 0
+let g:indentLine_concealcursor = 'c'
+" }}}
+
+
+" 配置 vim-fugitive {{{
+nnoremap <leader>ge :Gedit<CR>
+nnoremap <leader>gb :Gblame<CR>
+noremap <leader>gbr :Gbrowse<CR>
+nnoremap <leader>gs :Gstatus<CR>
+nnoremap <leader>ga :Git add -p<CR>
+nnoremap <leader>gc :Gcommit -v<CR>
+nnoremap <leader>gcm :Gcommit --amend<CR>
+nnoremap <leader>gp :Gpush<CR>
+nnoremap <leader>gvd :Gvdiff<CR>
+nnoremap <leader>gdi :Gvdiff @<CR>
+nnoremap <leader>gdd :Gvdiff :%<Left><Left>
+nnoremap <leader>gdt :Git difftool --cached<CR>
+nnoremap <leader>gwr :Gwrite<CR>
+nnoremap <leader>grd :Gread<CR>
+nnoremap <leader>gll :Git ll<CR>
+nnoremap <leader>glg :Git lg<CR>
+nnoremap <leader>grm :Gremove<CR>
+nnoremap <leader>gdel :Gdelete<CR>
+nnoremap <leader>gmv :Gmove<Space>
+nnoremap <leader>grmt :r ! git remote get-url origin<CR>
+nnoremap <leader>gph :Gpush<Space>
+nnoremap <leader>gpl :Gpull<Space>
+nnoremap <leader>gfh :Gfetch<CR>
+" }}}
+
+
+" custom key bindings {{{
+nnoremap <leader>msg :messages<CR>
+nnoremap <leader>ev :vsplit $MYVIMRC<CR>
+nnoremap <leader>sv :source $MYVIMRC<CR>
+nnoremap <leader>zz :normal! ZZ<CR>
+nnoremap <leader>zs :normal! <C-z><CR>
+nnoremap <leader>qa :qa<CR>
+nnoremap <leader>qq :q<CR>
+nnoremap <leader>co :only<CR>
+nnoremap <leader>cl :close<CR>
+nnoremap <leader>ww :w<CR>
+nnoremap <leader>wa :wa<CR>
+nnoremap <leader>wq :wq<CR>
+nnoremap <leader>vs :vsp ~/
+nnoremap <leader>ed :edit<Space>
+nnoremap <leader>; :
+nnoremap <leader>sh :!
+nnoremap <leader>rr :r<Space>
+nnoremap <leader>r1 :r!<Space>
+nnoremap <leader>st :Spawn! -wait=always -dir=.
+nnoremap <leader>dg :diffget<CR>
+nnoremap <leader>ma 99<C-w>+
+nnoremap <leader>mi 99<C-w>-
+nnoremap <leader>hma 99<C-w>>
+nnoremap <leader>hmi 99<C-w><
+nnoremap <leader>2 @
+" 把选中文字写入到指定文件
+vnoremap <leader>wr :write<Space>
+" 选用寄存器
+nnoremap <leader>' "
+" 直接选用+寄存器，用于存取系统剪切板
+nnoremap <leader>= "+
+vnoremap <leader>= "+
+
+" vsplit打开光标所在文件
+nnoremap <C-W><C-F> <C-W>vgf
+nnoremap <C-W><C-^> :vs #<CR>
+" location list导航
+nnoremap <leader>cn :cn<CR>
+nnoremap <leader>cp :cp<CR>
+nnoremap <leader>cl :cl<CR>
+nnoremap <leader>cc :cc<Space>
+" 最近打开文件历史
+nnoremap <leader>bro :browse filter /\v/ oldfiles<S-Left><Left><Left>
+
+" 删除当前行末尾空白符
+nnoremap <leader>dsp :.s/\s\+$//<CR>
+" 删除选中行末尾空白符
+vnoremap <leader>dsp :g/\s\+$/s/\s\+$//<CR>
+" 倒转选中行
+vnoremap <leader>rev :<C-u>'<+1,'>g/^/move <C-r>=line("'<")-1<CR><CR>
+
+" 打开文件所在目录、打开文件、打开当前工作目录
+nnoremap <leader>odf :!open <C-r>=expand('%:p:h')<CR><CR>
+nnoremap <leader>odt :!open -a iTerm.app <C-r>=expand('%:p:h')<CR><CR>
+nnoremap <leader>of :!open <C-r>=expand('%:p')<CR><C-b><S-Right>
+nnoremap <leader>owd :!open -a iTerm.app .<CR>
+
+nnoremap <leader>dl cc<Esc>
+
+" 快速保存
+inoremap <Esc><Esc> <Esc>:w<CR>
+" 清除上次搜索记录
+nnoremap <leader>nh :let @/ = ""<CR>
+ 
+" 向前/后跳转至{/}符号
+map [[ ?{<CR>w99[{
+map ][ /}<CR>b99]}
+map ]] j0[[%/{<CR>
+map [] k$][%?}<CR>
+
+nnoremap <leader>p :set paste<CR>
+nnoremap <leader>np :set nopaste<CR>
+
+command! -nargs=1 CMDGoNextFold call GoNextFold(<args>)
+command! -nargs=1 CMDGoPrevFold call GoPrevFold(<args>)
+nnoremap <leader>zj :call :<C-U>CMDGoNextFold(v:count1)<CR>
+nnoremap <leader>zk :call :<C-U>CMDGoPrevFold(v:count1)<CR>
+
+xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
+
+function! ExecuteMacroOverVisualRange()
+  echo "@".getcmdline()
+  execute ":'<,'>normal @".nr2char(getchar())
+endfunction
+
+function! GoNextFold(cnt)
+  if a:cnt ==# 0
+    return
+  endif
+  let l:initial_line = line('.')
+  let l:lnum = foldclosedend(l:initial_line) + 1
+  if l:lnum ==# 0
+    let l:lnum = l:initial_line
+  endif
+  let l:end_line = line('$')
+  while foldclosed(l:lnum) ==# -1 && l:lnum <=# l:end_line
+    let l:lnum += 1
+  endwhile
+  if l:lnum ># l:end_line
+    return
+  endif
+  execute 'normal! ' . l:lnum . 'G'
+  call GoNextFold(a:cnt - 1)
+endfunction
+
+function! GoPrevFold(cnt)
+  if a:cnt ==# 0
+    return
+  endif
+  let l:initial_line = line('.')
+  let l:lnum = foldclosed(l:initial_line) - 1
+  if l:lnum ==# -2
+    let l:lnum = l:initial_line
+  endif
+  let l:end_line = 1
+  while foldclosed(l:lnum) ==# -1 && l:lnum >=# l:end_line
+    let l:lnum -= 1
+  endwhile
+  if l:lnum <# l:end_line
+    return
+  endif
+  execute 'normal! ' . l:lnum . 'G'
+  call GoPrevFold(a:cnt - 1)
+endfunction
+
+" 切换窗口
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+" tab操作
+noremap <leader>tb :tabnew<Space>
+noremap <leader>tbs :tabs<CR>
+noremap <leader>tbo :tabonly<CR>
+noremap <leader>tbl :tablast<CR>
+noremap <leader>tbf :tabfirst<CR>
+
+map <Up> gk
+map <Down> gj
+vnoremap // y/<C-R>"
+
+nnoremap gb :normal `[v`]<CR>
+nnoremap <leader>ju :jumps<CR>
+nnoremap <leader>ss :%s/
+
+nnoremap <leader>` g~
+
+" 命令行模式快捷操作
+cnoremap <leader>5h <C-r>=expand('%:h')<CR>
+cnoremap <leader>5t <C-r>=expand('%:t')<CR>
+cnoremap <leader>33 <C-r>=expand('#')<CR>
+cnoremap <leader>cf <C-r>=expand('<cfile>')<CR>
+cnoremap <leader>cw <C-r>=expand('<cword>')<CR>
+cnoremap <leader>cW <C-r>=expand('<cWORD>')<CR>
+cnoremap <leader>wd <C-r>=getcwd()<CR>
+" }}}
+
+
+" C系列语言Source/Header文件切换 {{{
+let s:c_source_ext = ['cc', 'c', 'cpp', 'm']
+let s:c_header_ext = ['h', 'hpp']
+function! ToggleSourceHeader()
+  let l:ext = tolower(expand('%:e'))
+  let l:target_ext = []
+  if index(s:c_source_ext, l:ext) >= 0
+    let l:target_ext = s:c_header_ext
+  elseif index(s:c_header_ext, l:ext) >= 0
+    let l:target_ext = s:c_source_ext
+  else
+    return
+  endif
+
+  for l:ext2 in l:target_ext
+    let l:file_grep = '%:s;' . l:ext . '$;' . l:ext2 . ';'
+    let l:alt_file = expand(l:file_grep)
+    if filereadable(l:alt_file)
+      silent execute ':edit ' . l:alt_file
+      return
+    endif
+  endfor
+  " alt_file not exist, creating one
+  let l:file_grep = '%:s;' . l:ext . '$;' . l:target_ext[0] . ';'
+  let l:alt_file = expand(l:file_grep)
+  silent execute ':edit ' . l:alt_file
+endfunction
+nnoremap <leader>al :call ToggleSourceHeader()<CR>
+" }}}
+
+
+" 搜索 {{{
+command! -nargs=+ -complete=file GRR call GrepSourceCodeRaw(<f-args>)
+command! -complete=file GRV call VGrepSourceCode()
+" 根据正则表达式匹配，其他的是匹配原始字符
+command! -nargs=+ -complete=file GRE call EGrepSourceCode(<f-args>)
+
+nnoremap <leader>ff :GRR<Space><Space>.<Left><Left>
+nnoremap <leader>fc :GRR<Space><C-r>=expand("<cword>")<CR><Space>.<Left><Left>
+nnoremap <leader>fC :GRR<Space><C-r>=shellescape(expand("<cWORD>"))<CR><Space>.<Left><Left>
+vnoremap <leader>fv :<C-u>GRV
+noremap <leader>fe :GRE<Space><C-r>=expand("<cword>")<CR><Space>.<Left><Left>
+
+function! CGrepSourceCode(...)
+  let l:word = expand('<cword>')
+  let l:args = a:000[0:]
+  let l:prepended = reverse(add(reverse(l:args), l:word))
+  call call(function('GrepSourceCodeRaw'), l:prepended)
+endfunction
+function! VGrepSourceCode()
+  let l:word = WS_get_visual_selection()
+  call GrepSourceCodeRaw(shellescape(l:word), '.')
+endfunction
+" 文字匹配
+function! GrepSourceCodeRaw(...)
+  execute 'grep ' . ' --fixed-strings ' . join(a:000) . ' '
+endfunction
+" 正则表达式匹配
+function! EGrepSourceCode(...)
+  execute 'grep ' . ' -e ' . join(a:000) . ' '
+endfunction
+" }}}
+
+
+" 自动命令 ---------------------- {{{
+augroup mygroup
+  autocmd!
+  autocmd FileType vim setlocal foldmethod=marker
+  " 打开文件时光标自动定位到上次退出时的位置
+  autocmd BufReadPost *
+        \ if line("'\"") > 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+        \ |   exe "normal! g`\""
+        \ | endif
+augroup END
+" }}}
+
+
+" emmet-vim {{{
+let g:user_emmet_install_global = 0
+let g:user_emmet_settings = {
+      \  'javascript.jsx' : {
+      \      'extends' : 'jsx',
+      \  },
+      \}
+autocmd mygroup FileType html,css,javascript,typescript,jsx EmmetInstall
+" }}}
+
+
+" 配置fugitive-gitlab {{{
+let g:fugitive_gitlab_domains = ['https://code.smartstudy.com/']
+" }}}
+
+
+" 配置tagbar {{{
+let g:tagbar_autoclose = 1
+noremap <silent> <F8> :TagbarToggle<CR>
+" }}}
+
+
+" 配置fzf {{{
+" 环境变量
+let $FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow ' . s:MY_RIPGREP_GLOB
+let g:fzf_buffers_jump = 1
+nnoremap <silent> <C-p>p :Files<CR>
+nnoremap <silent> <C-p>b :Buffers<CR>
+nnoremap <silent> <C-p>l :Lines<CR>
+" }}}
+
+
+" {{{ colorscheme
+function! s:load_custom_color_scheme()
+  " 依赖plugin的初始化
+  set background=dark
+  colorscheme gruvbox
+  call s:MyYCMTheme()
+endfunction
+" }}}
+
+
+" vim-plug插件 {{{
+" plug begin with given dir; add common plugins
+function! StartPlug(plugInDir)
+  call plug#begin(a:plugInDir)
+  Plug 'scrooloose/nerdtree'
+  Plug 'ludovicchabant/vim-gutentags'
+  Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clangd-completer --java-completer' }
+  Plug 'w0rp/ale'
+  Plug 'bestofsong/vimconfig'
+  Plug 'leafgarland/typescript-vim'
+  Plug 'godlygeek/tabular'
+  Plug 'wellle/targets.vim'
+  Plug 'easymotion/vim-easymotion'
+  Plug 'tpope/vim-fugitive'
+  Plug 'SirVer/ultisnips'
+  Plug 'honza/vim-snippets'
+  Plug 'tpope/vim-commentary'
+  Plug 'tpope/vim-surround'
+  Plug 'Yggdroot/indentLine'
+  Plug 'tpope/vim-dispatch'
+  Plug 'morhetz/gruvbox'
+  Plug 'pangloss/vim-javascript'
+  Plug 'mxw/vim-jsx'
+  Plug 'mattn/emmet-vim', { 'commit': 'd698f1658770ca5fa58c87e80421c8d65bbe9065' }
+  Plug 'ap/vim-css-color'
+  Plug 'ekalinin/Dockerfile.vim'
+  Plug 'shumphrey/fugitive-gitlab.vim'
+  Plug 'tpope/vim-rhubarb'
+  Plug 'majutsushi/tagbar'
+  Plug 'jiangmiao/auto-pairs'
+  Plug 'vim-ruby/vim-ruby'
+  Plug '/usr/local/opt/fzf'
+  Plug 'junegunn/fzf.vim'
+  Plug 'vim-airline/vim-airline'
+endfunction
+
+function! EndPlug()
+  call plug#end()
+  call s:load_custom_color_scheme()
+endfunction
+" }}}

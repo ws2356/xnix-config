@@ -1,7 +1,3 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
-
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -16,150 +12,241 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+HISTSIZE=10000000
+HISTFILESIZE=20000000
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-# If set, the pattern "**" used in a pathname expansion context will
-# match all files and zero or more directories and subdirectories.
-#shopt -s globstar
-
-# make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
-fi
-
-# set a fancy prompt (non-color, unless we know we "want" color)
-case "$TERM" in
-    xterm-color) color_prompt=yes;;
-esac
-
-# uncomment for a colored prompt, if the terminal has the capability; turned
-# off by default to not distract the user: the focus in a terminal window
-# should be on the output of commands, not on the prompt
-#force_color_prompt=yes
-
-if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
-    else
-	color_prompt=
-    fi
-fi
-
-if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-fi
-unset color_prompt force_color_prompt
-
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
-esac
-
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
-fi
-
-# some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
-
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
-
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
-if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
-fi
-export CLICOLOR=1
-export LSCOLORS=ExFxBxDxCxegedabagacad
-alias ls='ls -GFh'
-export PS1="\u@\h:\W\$ "
-export LC_CTYPE=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
-export term=xterm
-
-alias goknl='cd ~/developer/ZiSyncKernel/'
 # User specific aliases and functions
 function parse_git_branch {
-    git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
-
 function proml {
-local        BLUE="\[\033[0;34m\]"
-local         RED="\[\033[0;31m\]"
-local   LIGHT_RED="\[\033[1;31m\]"
-local       GREEN="\[\033[0;32m\]"
-local LIGHT_GREEN="\[\033[1;32m\]"
-local       WHITE="\[\033[1;37m\]"
-local  LIGHT_GRAY="\[\033[0;37m\]"
-case $TERM in
+  local        BLUE="\[\033[0;34m\]"
+  local         RED="\[\033[0;31m\]"
+  local   LIGHT_RED="\[\033[1;31m\]"
+  local       GREEN="\[\033[0;32m\]"
+  local LIGHT_GREEN="\[\033[1;32m\]"
+  local       WHITE="\[\033[1;37m\]"
+  local  LIGHT_GRAY="\[\033[0;37m\]"
+  case $TERM in
     xterm*)
         TITLEBAR='\[\033]0;\u@\h:\w\007\]'
 
         ;;
     *)
-        TITLEBAR=""
-        ;;
-esac
+    TITLEBAR=""
+    ;;
+  esac
 
 # $BLUE[$RED\$(date +%H:%M)$BLUE]\
-PS1="${TITLEBAR}\
-    $BLUE[$RED\u@\h:\w$GREEN\$(parse_git_branch)$BLUE]\
+  PS1="${TITLEBAR}\
+    ${BLUE}[$RED\u@\h:\W$GREEN\$(parse_git_branch)$BLUE]\
     $GREEN\$$WHITE "
-PS2='> '
-PS4='+ '
+  PS2='> '
+  PS4='+ '
 }
 proml
 
-export HISTSIZE=1000000
-export HISTFILESIZE=$HISTSIZE
+# refer to /usr/local/etc/privoxy/config
+function use_proxy {
+  export http_proxy='http://127.0.0.1:1087'
+  export https_proxy='http://127.0.0.1:1087'
+}
 
-test -f ~/.git-completion.bash && . $_
+function close_proxy {
+  unset http_proxy
+  unset https_proxy
+}
 
-if [ -z $CSCOPE_DB  ] ; then
-  export CSCOPE_DB=~/developer/ZiSyncKernel/cscope.out
-else
-  export CSCOPE_DB=$CSCOPE_DB:~/developer/ZiSyncKernel/cscope.out
+#ALTOOL=`find "/Applications/Xcode.app/Contents/Applications/Application Loader.app/Contents/"  -iname altool`
+function kube {
+  kubectl --kubeconfig=$HOME/Dropbox/wansong.kubeconfig -n c-dev "$@"
+}
+
+function kubesim {
+  kubectl --kubeconfig=$HOME/wansong-production.kubeconfig -n c-test "$@"
+}
+
+function kubeprod {
+  kubectl --kubeconfig=$HOME/wansong-production.kubeconfig -n c-production "$@"
+}
+
+
+function start_virtual_python_env {
+  python_exe=$1
+  if [ ! -d "$HOME/.virtualenv" ] ;then
+    mkdir "$HOME/.virtualenv"
+  fi
+  
+  if [ ! -d "$HOME/.virtualenv/$python_exe" ] ;then
+    virtualenv -p $python_exe "$HOME/.virtualenv/$python_exe"
+  fi
+
+  source "$HOME/.virtualenv/$python_exe/bin/activate"
+}
+
+function vpy3 {
+  start_virtual_python_env python3
+}
+
+function kubesel {
+  if [ $# -lt 1 ] ; then
+    return 1
+  elif [ $# -lt 2 ] ; then
+    case "$1" in
+      dev|sim|prod) true ;;
+      *) echo "Bad args" ;  return 2
+    esac
+    local env=$1
+    local pat=$(basename $(pwd))
+  else
+    local env=$1
+    local pat=$2
+  fi
+
+  local lines
+  case "$env" in
+    dev) lines=$(kube get po | grep -E "$pat") ;;
+    sim) lines=$(kubesim get po | grep -E "$pat") ;;
+    prod) lines=$(kubeprod get po | grep -E "$pat") ;;
+    *) echo "Bad args" ; return
+  esac
+
+  local IFSBack=$IFS
+  IFS=$'\n'
+  local lines=($lines)
+  IFS=$IFSBack
+
+  local pod=
+  while [ -z "$pod" ] ; do
+    echo "选择匹配的pod："
+    select pod in "${lines[@]}" ; do
+      if [ -n "$pod" ] ; then
+        break
+      fi
+    done
+  done
+
+  local pod_fields=($pod)
+  local pod=${pod_fields[0]}
+
+  local cmds
+  case "$env" in
+    dev) cmds=("kube logs -f "'${pod}' "kube exec -it "'${pod}'" sh" "custom") ;;
+    sim) cmds=("kubesim logs -f "'${pod}' "kubesim exec -it "'${pod}'" sh" "custom") ;;
+    prod) cmds=("kubeprod logs -f "'${pod}' "kubeprod exec -it "'${pod}'" sh" "custom") ;;
+  esac
+
+  local cmd=
+  while [ -z "$cmd" ] ; do
+    echo "选择命令：1，2执行预置命令，选择3输入自定义命令。"
+    select cmd in "${cmds[@]}"; do
+      if [ -n "$cmd" ] ; then
+        break
+      fi
+    done
+    if [ "$cmd" = "custom" ] ; then
+      echo '输入自定义命令，使用${pod}指代刚才选择的pod。'
+      read cmd
+    fi
+    eval "$cmd"
+  done
+}
+
+test -f ${HOME}/secrets/load.sh && . $_
+
+# 一键打包所有本地重要文档
+function packup() {
+  # 当前用户的文档
+  local user_profile=.bash_profile
+  local gitconfig=.gitconfig
+  local sshfiles=.ssh
+  local local_only_dir=local-only/
+  local my_archives=my-archives/
+  local kubeconfig=kube.config
+  local output_zip=packed.zip
+
+  # 导出一些配置数据
+  ls /Applications > "${my_archives}Applications.txt"
+  zip -r "$output_zip" "$gitconfig" "$sshfiles" "$user_profile" "$local_only_dir" "$my_archives" "$kubeconfig"
+
+  # 全局文档
+  cd /
+  zip -r ${HOME}/packed-system.zip \
+    Library/LaunchDaemons/site.xway.privoxy.plist \
+    Library/LaunchDaemons/demo.python.web.plist \
+    usr/local/etc/privoxy/config
+  cd - >/dev/null 2>&1
+}
+
+set -o vi
+
+# 下载gitcompletion脚本
+git_completion_bash="${HOME}/.git-completion.bash"
+if [ ! -f $git_completion_bash ] ; then
+  echo "Downloading config from github ..."
+  curl -o $git_completion_bash -sL \
+    'https://raw.githubusercontent.com/markgandolfo/git-bash-completion/master/git-completion.bash'
 fi
+test -f $git_completion_bash && source $_
+
+export TERM="xterm-256color"
+
+test -f /usr/local/etc/profile.d/autojump.sh && . $_
+
+export PATH="${PATH}:${HOME}/bin"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# config rbenv
+export PATH="/Users/ws/.rbenv/shims:${PATH}"
+export RBENV_SHELL=bash
+if command -v rbenv >/dev/null ; then
+  eval "$(rbenv init -)"
+fi
+rbenv() {
+  local command
+  command="$1"
+  if [ "$#" -gt 0 ]; then
+    shift
+  fi
+
+  case "$command" in
+  rehash|shell)
+    eval "$(rbenv "sh-$command" "$@")";;
+  *)
+    command rbenv "$command" "$@";;
+  esac
+}
+
+REQUESTED_JAVA_VERSION='1.8'
+if POSSIBLE_JAVA_HOME="$(/usr/libexec/java_home -v $REQUESTED_JAVA_VERSION 2>/dev/null)"; then
+  # Do this if you want to export JAVA_HOME
+  export JAVA_HOME="$POSSIBLE_JAVA_HOME"
+  export PATH="${JAVA_HOME}/bin:${PATH}"
+fi
+
+export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"
+if [ -d "${ANDROID_SDK_ROOT}" ] ; then
+  export ANDROID_HOME="$ANDROID_SDK_ROOT"
+  export PATH=$PATH:${ANDROID_SDK_ROOT}/emulator
+  export PATH=$PATH:${ANDROID_SDK_ROOT}/tools
+  export PATH=$PATH:${ANDROID_SDK_ROOT}/tools/bin
+  export PATH=$PATH:${ANDROID_SDK_ROOT}/platform-tools
+else
+  unset ANDROID_SDK_ROOT
+fi
+
+export HOMEBREW_NO_AUTO_UPDATE=1
+
+# maybe will cause bad things?
+#if [ -d "/usr/local/opt/llvm/bin" ] ; then
+#  export PATH="/usr/local/opt/llvm/bin:$PATH"
+#  export LDFLAGS="-L/usr/local/opt/llvm/lib"
+#  export CPPFLAGS="-I/usr/local/opt/llvm/include"
+#fi
