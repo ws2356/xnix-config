@@ -425,8 +425,10 @@ augroup mygroup
         \ if line("'\"") > 1 && line("'\"") <= line("$") && &ft !~# 'commit'
         \ |   exe "normal! g`\""
         \ | endif
-  autocmd BufEnter COMMIT_EDITMSG let g:ycm_collect_identifiers_from_comments_and_strings = 1 | :silent YcmRestartServer
-  autocmd BufLeave COMMIT_EDITMSG let g:ycm_collect_identifiers_from_comments_and_strings = 0 | :silent YcmRestartServer
+  if exists(':YcmRestartServer')
+    autocmd BufEnter COMMIT_EDITMSG let g:ycm_collect_identifiers_from_comments_and_strings = 1 | :silent YcmRestartServer
+    autocmd BufLeave COMMIT_EDITMSG let g:ycm_collect_identifiers_from_comments_and_strings = 0 | :silent YcmRestartServer
+  endif
 augroup END
 " }}}
 
