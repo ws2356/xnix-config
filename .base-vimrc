@@ -246,6 +246,7 @@ nnoremap <leader>odf :!open <C-r>=expand('%:p:h')<CR><CR>
 nnoremap <leader>odt :!open -a iTerm.app <C-r>=expand('%:p:h')<CR><CR>
 nnoremap <leader>of :!open <C-r>=expand('%:p')<CR><C-b><S-Right>
 nnoremap <leader>owd :!open -a iTerm.app .<CR>
+nnoremap <leader>y5 :let @+ = expand('%')<CR>
 
 nnoremap <leader>dl cc<Esc>
 
@@ -332,6 +333,8 @@ map <Down> gj
 vnoremap // y/<C-R>"
 
 nnoremap gb :normal `[v`]<CR>
+nnoremap <leader>fmt :normal '[=']<CR>
+
 nnoremap <leader>ju :jumps<CR>
 nnoremap <leader>ss :%s/
 
@@ -345,6 +348,7 @@ cnoremap <leader>cf <C-r>=expand('<cfile>')<CR>
 cnoremap <leader>cw <C-r>=expand('<cword>')<CR>
 cnoremap <leader>cW <C-r>=expand('<cWORD>')<CR>
 cnoremap <leader>wd <C-r>=getcwd()<CR>
+cnoremap <leader>wh \<\><Left><Left>
 " }}}
 
 
@@ -421,6 +425,10 @@ augroup mygroup
         \ if line("'\"") > 1 && line("'\"") <= line("$") && &ft !~# 'commit'
         \ |   exe "normal! g`\""
         \ | endif
+  if exists(':YcmRestartServer')
+    autocmd BufEnter COMMIT_EDITMSG let g:ycm_collect_identifiers_from_comments_and_strings = 1 | :silent YcmRestartServer
+    autocmd BufLeave COMMIT_EDITMSG let g:ycm_collect_identifiers_from_comments_and_strings = 0 | :silent YcmRestartServer
+  endif
 augroup END
 " }}}
 
@@ -494,7 +502,6 @@ function! StartPlug(plugInDir)
   Plug 'ap/vim-css-color'
   Plug 'ekalinin/Dockerfile.vim'
   Plug 'shumphrey/fugitive-gitlab.vim'
-  Plug 'tpope/vim-rhubarb'
   Plug 'majutsushi/tagbar'
   Plug 'jiangmiao/auto-pairs'
   Plug 'vim-ruby/vim-ruby'
