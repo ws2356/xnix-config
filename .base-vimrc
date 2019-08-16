@@ -246,6 +246,7 @@ nnoremap <leader>odf :!open <C-r>=expand('%:p:h')<CR><CR>
 nnoremap <leader>odt :!open -a iTerm.app <C-r>=expand('%:p:h')<CR><CR>
 nnoremap <leader>of :!open <C-r>=expand('%:p')<CR><C-b><S-Right>
 nnoremap <leader>owd :!open -a iTerm.app .<CR>
+nnoremap <leader>y5 :let @+ = expand('%')<CR>
 
 nnoremap <leader>dl cc<Esc>
 
@@ -345,6 +346,7 @@ cnoremap <leader>cf <C-r>=expand('<cfile>')<CR>
 cnoremap <leader>cw <C-r>=expand('<cword>')<CR>
 cnoremap <leader>cW <C-r>=expand('<cWORD>')<CR>
 cnoremap <leader>wd <C-r>=getcwd()<CR>
+cnoremap <leader>wh \<\><Left><Left>
 " }}}
 
 
