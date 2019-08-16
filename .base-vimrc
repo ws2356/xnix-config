@@ -494,7 +494,6 @@ function! StartPlug(plugInDir)
   Plug 'ap/vim-css-color'
   Plug 'ekalinin/Dockerfile.vim'
   Plug 'shumphrey/fugitive-gitlab.vim'
-  Plug 'tpope/vim-rhubarb'
   Plug 'majutsushi/tagbar'
   Plug 'jiangmiao/auto-pairs'
   Plug 'vim-ruby/vim-ruby'
