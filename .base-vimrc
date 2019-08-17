@@ -238,6 +238,10 @@ nnoremap <leader>bro :browse filter /\v/ oldfiles<S-Left><Left><Left>
 nnoremap <leader>dsp :.s/\s\+$//<CR>
 " 删除选中行末尾空白符
 vnoremap <leader>dsp :g/\s\+$/s/\s\+$//<CR>
+" 替换tab为softtabstop个空格
+command -nargs=1 -range=% WSChangeTab <line1>,<line2>g/\t/s/\t/<args>/g
+vnoremap <leader>ct :WSChangeTab<C-r>=repeat('\ ', &softtabstop)<CR><CR>
+nnoremap <leader>ct :WSChangeTab<C-r>=repeat('\ ', &softtabstop)<CR><CR>
 " 倒转选中行
 vnoremap <leader>rev :<C-u>'<+1,'>g/^/move <C-r>=line("'<")-1<CR><CR>
 
