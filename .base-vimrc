@@ -144,6 +144,15 @@ let g:indentLine_concealcursor = 'c'
 
 
 " 自动命令 ---------------------- {{{
+" 该函数执行的时候vimrc可能还没有执行过，此时延时递归，否则立即执行
+function! WSWrapYcmRestartServer(_)
+  if v:vim_did_enter
+    :silent YcmRestartServer
+  else
+    call timer_start(1000, 'WSWrapYcmRestartServer')
+  endif
+endfunction
+
 augroup mygroup
   autocmd!
   autocmd FileType vim setlocal foldmethod=marker
@@ -152,10 +161,8 @@ augroup mygroup
         \ if line("'\"") > 1 && line("'\"") <= line("$") && &ft !~# 'commit'
         \ |   exe "normal! g`\""
         \ | endif
-  if exists(':YcmRestartServer')
-    autocmd BufEnter COMMIT_EDITMSG let g:ycm_collect_identifiers_from_comments_and_strings = 1 | :silent YcmRestartServer
-    autocmd BufLeave COMMIT_EDITMSG let g:ycm_collect_identifiers_from_comments_and_strings = 0 | :silent YcmRestartServer
-  endif
+  autocmd BufEnter COMMIT_EDITMSG let g:ycm_collect_identifiers_from_comments_and_strings = 1 | :silent call WSWrapYcmRestartServer(0)
+  autocmd BufLeave COMMIT_EDITMSG let g:ycm_collect_identifiers_from_comments_and_strings = 0 | :silent call WSWrapYcmRestartServer(0)
 augroup END
 " }}}
 
