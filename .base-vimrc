@@ -13,7 +13,8 @@ let s:MY_RIPGREP_GLOB = '--glob !.git/ '
       \ . '--glob !.tags '
       \ . '--glob !.tags.temp '
       \ . '--glob !*.pyc '
-      \ . '--glob !*.swp'
+      \ . '--glob !*.swp '
+      \ . '--glob !compile_commands.json '
 " }}}
 
 
