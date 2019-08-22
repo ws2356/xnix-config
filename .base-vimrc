@@ -1,3 +1,26 @@
+" setup s:IDE_CONF map used to change behavior according to WS_IDE value {{{
+let s:IDE_CONF_MAP = {
+      \ 'xvim': { 'color_scheme': 0 }
+      \ }
+
+if exists('$WS_IDE')
+let s:IDE_CONF = s:IDE_CONF_MAP[$WS_IDE]
+endif
+
+" 检查是否为该ide设置了conf_name配置
+function! s:ide_specified(conf_name)
+  if !exists('s:IDE_CONF')
+    return 0
+  endif
+  return has_key(s:IDE_CONF, a:conf_name)
+endfunction
+" s:ide_specified为1的情况下返回该配置的值
+function! s:ide_use(conf_name)
+  return s:IDE_CONF[a:conf_name]
+endfunction
+" }}}
+
+
 " load my_func.vim
 let s:func_file = expand('<sfile>:p:h') . '/my_func.vim'
 :execute 'source ' . s:func_file
@@ -15,6 +38,7 @@ let s:MY_RIPGREP_GLOB = '--glob !.git/ '
       \ . '--glob !*.pyc '
       \ . '--glob !*.swp '
       \ . '--glob !compile_commands.json '
+      \ . '--glob !*.temp '
 " }}}
 
 
@@ -201,6 +225,9 @@ nnoremap <silent> <C-p>l :Lines<CR>
 
 " {{{ colorscheme
 function! s:load_custom_color_scheme()
+  if s:ide_specified('color_scheme') && !s:ide_use('color_scheme')
+    return
+  endif
   " 依赖plugin的初始化
   set background=dark
   colorscheme gruvbox
