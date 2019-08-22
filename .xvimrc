@@ -1,0 +1,9 @@
+set ignorecase
+
+set ruler
+set softtabstop=2
+set shiftwidth=2
+
+set hlsearch
+set incsearch
+set completeopt=menu,menuone,preview,noselect,noinsert
