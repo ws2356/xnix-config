@@ -139,7 +139,6 @@ let g:UltiSnipsJumpBackwardTrigger = "<C-k>"
 " Config indentLine {{{
 let g:indentLine_char_list = ['|', '¦', '┆',  '↓', '↑', '†', '·', '‖', 'ˇ', '┊']
 nnoremap <leader>ig :IndentLinesToggle<CR>
-let g:indentLine_enabled = 0
 let g:indentLine_concealcursor = 'c'
 " }}}
 

@@ -1,6 +1,5 @@
 " 文件
 nnoremap <leader>zz :normal! ZZ<CR>
-nnoremap <leader>zs :normal! <C-z><CR>
 nnoremap <leader>qa :qa<CR>
 nnoremap <leader>qq :q<CR>
 nnoremap <leader>co :only<CR>
@@ -16,12 +15,14 @@ nnoremap <C-W><C-F> <C-W>vgf
 nnoremap <C-W><C-^> :vs #<CR>
 nnoremap <leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
-nnoremap <leader>bro :browse filter /\v/ oldfiles<S-Left><Left><Left>
+nnoremap <leader>br :browse filter /\v/ oldfiles<S-Left><Left><Left>
 nnoremap <leader>of :!open <C-r>=expand('%:p')<CR><C-b><S-Right>
 
 " 打开目录
 nnoremap <leader>odf :!open <C-r>=expand('%:p:h')<CR><CR>
 nnoremap <leader>odt :!open -a iTerm.app <C-r>=expand('%:p:h')<CR><CR>
+" 缺省使用finder
+nnoremap <leader>od :normal ,odf<CR>
 nnoremap <leader>owd :!open -a iTerm.app .<CR>
 
 " 窗口
@@ -36,11 +37,11 @@ noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
 
 " tab
-noremap <leader>tb :tabnew<Space>
+noremap <leader>tbn :tabnew<Space>
 noremap <leader>tbs :tabs<CR>
 noremap <leader>tbo :tabonly<CR>
-noremap <leader>tbl :tablast<CR>
-noremap <leader>tbf :tabfirst<CR>
+noremap <leader>tb7 :tablast<CR>
+noremap <leader>tb1 :tabfirst<CR>
 
 
 " Source/Header文件切换 {{{
@@ -106,8 +107,9 @@ cnoremap <leader>wh \<\><Left><Left>
 nnoremap <leader>' "
 nnoremap <leader>= "+
 vnoremap <leader>= "+
-nnoremap <leader>y5 :let @+ = expand('%')<CR>
-
+nnoremap <leader>yp :let @+ = expand('%:p')<CR>
+nnoremap <leader>yt :let @+ = expand('%:t')<CR>
+nnoremap <leader>yh :let @+ = expand('%:p:h')<CR>
 
 " 文件内导航 {{{
 " 查找
