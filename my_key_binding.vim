@@ -87,7 +87,7 @@ endfunction
 " 命令行 {{{
 nnoremap <leader>; :
 nnoremap <leader>sh :!
-nnoremap <leader>st :Spawn! -wait=always -dir=.
+nnoremap <leader>st :Spawn! -wait=error -dir=.
 nnoremap <leader>rr :r<Space>
 nnoremap <leader>r1 :r!<Space>
 nnoremap <leader>msg :messages<CR>
