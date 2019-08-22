@@ -1,3 +1,9 @@
-let mapleader = ","
+set ignorecase
 
-nnoremap <leader>` g~
+set ruler
+set softtabstop=2
+set shiftwidth=2
+
+set hlsearch
+set incsearch
+set completeopt=menu,menuone,preview,noselect,noinsert
