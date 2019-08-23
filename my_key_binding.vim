@@ -35,6 +35,8 @@ noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
+noremap <leader>mpi :MPage 2<CR>
+noremap <leader>mpo :MPage<CR>
 
 " tab
 noremap <leader>tbn :tabnew<Space>
