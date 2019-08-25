@@ -94,6 +94,7 @@ nnoremap <leader>rr :r<Space>
 nnoremap <leader>r1 :r!<Space>
 nnoremap <leader>msg :messages<CR>
 " 快速输入
+cnoremap <leader>5p <C-r>=expand('%:p')<CR>
 cnoremap <leader>5h <C-r>=expand('%:h')<CR>
 cnoremap <leader>5t <C-r>=expand('%:t')<CR>
 cnoremap <leader>33 <C-r>=expand('#')<CR>
@@ -109,9 +110,7 @@ cnoremap <leader>wh \<\><Left><Left>
 nnoremap <leader>' "
 nnoremap <leader>= "+
 vnoremap <leader>= "+
-nnoremap <leader>yp :let @+ = expand('%:p')<CR>
-nnoremap <leader>yt :let @+ = expand('%:t')<CR>
-nnoremap <leader>yh :let @+ = expand('%:p:h')<CR>
+noremap gy "+y
 
 " 文件内导航 {{{
 " 查找
