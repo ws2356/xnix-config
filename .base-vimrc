@@ -27,7 +27,7 @@ let s:func_file = expand('<sfile>:p:h') . '/my_func.vim'
 
 
 " 脚本变量 {{{
-let s:MY_RIPGREP_GLOB = '--glob !.git/ '
+let g:WS_RIPGREP_GLOB = '--glob !.git/ '
       \ . '--glob !node_modules/ '
       \ . '--glob !tmp/ '
       \ . '--glob !TMP/ '
@@ -78,7 +78,12 @@ set foldlevelstart=4
 set hlsearch
 set incsearch
 set completeopt=menu,menuone,preview,noselect,noinsert
-let &grepprg='rg --vimgrep --no-heading --no-ignore --hidden ' . s:MY_RIPGREP_GLOB
+let &grepprg='rg --vimgrep --no-heading --no-ignore --hidden ' . g:WS_RIPGREP_GLOB
+
+function! WS_reload_grepprg()
+  let &grepprg='rg --vimgrep --no-heading --no-ignore --hidden ' . g:WS_RIPGREP_GLOB
+  let $FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow ' . g:WS_RIPGREP_GLOB
+endfunction
 
 " 配置window style
 set fillchars+=vert:\ 
@@ -215,7 +220,7 @@ noremap <silent> <F8> :TagbarToggle<CR>
 
 " 配置fzf {{{
 " 环境变量
-let $FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow ' . s:MY_RIPGREP_GLOB
+let $FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow ' . g:WS_RIPGREP_GLOB
 let g:fzf_buffers_jump = 1
 nnoremap <silent> <C-p>p :Files<CR>
 nnoremap <silent> <C-p>b :Buffers<CR>
