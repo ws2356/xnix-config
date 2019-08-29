@@ -244,9 +244,9 @@ nnoremap <leader>fmt :normal '[=']<CR>
 nnoremap <leader>ss :%s/
 nnoremap <leader>` g~
 inoremap <C-b>wd <C-r>=getcwd()<CR>
-inoremap <C-b>fp <C-r>=getcwd()<CR>
-inoremap <C-b>fh <C-r>=getcwd()<CR>
-inoremap <C-b>ft <C-r>=getcwd()<CR>
+inoremap <C-b>fp <C-r>=expand('%:p')<CR>
+inoremap <C-b>fh <C-r>=expand('%:h')<CR>
+inoremap <C-b>ft <C-r>=expand('%:t')<CR>
 inoremap <C-b>f3 <C-r>=expand('#')<CR>
 " inoremap <expr> <C-b>r repeat(nr2char(getchar()), 10)
 " }}}
