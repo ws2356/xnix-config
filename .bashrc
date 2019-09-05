@@ -262,3 +262,7 @@ if type brew &>/dev/null; then
     done
   fi
 fi
+
+# source .bash_profile.local for customization
+test -r ~/.bash_profile.local && . ~/.bash_profile.local
+
