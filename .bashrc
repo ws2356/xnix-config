@@ -250,3 +250,19 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 #  export LDFLAGS="-L/usr/local/opt/llvm/lib"
 #  export CPPFLAGS="-I/usr/local/opt/llvm/include"
 #fi
+
+# https://docs.brew.sh/Shell-Completion
+HOMEBREW_PREFIX=$(brew --prefix)
+if type brew &>/dev/null; then
+  if [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]; then
+    source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
+  else
+    for COMPLETION in "${HOMEBREW_PREFIX}/etc/bash_completion.d/"*; do
+      [[ -r "$COMPLETION" ]] && source "$COMPLETION"
+    done
+  fi
+fi
+
+# source .bash_profile.local for customization
+test -r ~/.bash_profile.local && . ~/.bash_profile.local
+
