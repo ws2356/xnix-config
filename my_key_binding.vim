@@ -216,6 +216,10 @@ function! GoPrevFold(cnt)
   execute 'normal! ' . l:lnum . 'G'
   call GoPrevFold(a:cnt - 1)
 endfunction
+
+" ale 导航命令
+nnoremap <leader>an :ALENext -wrap<CR>
+nnoremap <leader>ap :ALEPrevious -wrap<CR>
 " }}}
 
 
