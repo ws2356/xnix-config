@@ -19,4 +19,11 @@ function! WS_get_visual_selection()
   let lines[0] = lines[0][column_start - 1:]
   return join(lines, "\n")
 endfunction
+" https://github.com/junegunn/vim-plug/issues/469#issuecomment-226965736
+function! WS_unplug(repo)
+  let repo = substitute(a:repo, '[\/]\+$', '', '')
+  let name = fnamemodify(repo, ':t:s?\.git$??')
+  call remove(g:plugs, name)
+  call remove(g:plugs_order, index(g:plugs_order, name))
+endfunction
 " }}}
