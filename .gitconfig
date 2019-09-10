@@ -1,0 +1,27 @@
+[user]
+	name = wansong
+	email = betterofsong@gmail.com
+[push]
+    default = current
+
+[core]
+    editor = vim
+	  quotepath = false
+
+[difftool "kdiff3"]
+      path = /Applications/kdiff3.app/Contents/MacOS/kdiff3
+      trustExitCode = false
+[diff]
+      tool = kdiff3
+[mergetool "kdiff3"]
+      path = /Applications/kdiff3.app/Contents/MacOS/kdiff3
+      trustExitCode = false
+[mergetool]
+      keepBackup = false
+[merge]
+      tool = kdiff3
+; [commit]
+; 	template = /Users/ws/.stCommitMsg
+
+[include]
+	path = /Users/ws/iconfig/gitconfig
