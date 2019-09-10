@@ -252,6 +252,8 @@ inoremap <C-b>fp <C-r>=expand('%:p')<CR>
 inoremap <C-b>fh <C-r>=expand('%:h')<CR>
 inoremap <C-b>ft <C-r>=expand('%:t')<CR>
 inoremap <C-b>f3 <C-r>=expand('#')<CR>
+" 绕过emmet不能完整展开自动补全的表达式的问题
+imap <C-y>\ <Esc>a<C-y>,
 " inoremap <expr> <C-b>r repeat(nr2char(getchar()), 10)
 " }}}
 
