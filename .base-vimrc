@@ -241,6 +241,13 @@ endfunction
 " }}}
 
 
+" 配置auto-pair {{{
+function! s:init_plugin_auto_pair()
+  autocmd mygroup BufEnter * let b:AutoPairs = AutoPairsDefine({'/*' : '*/'})
+endfunction
+" }}}
+
+
 " vim-plug插件 {{{
 " plug begin with given dir; add common plugins
 function! StartPlug(plugInDir)
@@ -281,6 +288,7 @@ endfunction
 function! EndPlug()
   call plug#end()
   call s:load_custom_color_scheme()
+  call s:init_plugin_auto_pair()
 endfunction
 " }}}
 
