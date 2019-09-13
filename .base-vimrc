@@ -241,54 +241,46 @@ endfunction
 " }}}
 
 
-" 配置auto-pair {{{
-function! s:init_plugin_auto_pair()
-  autocmd mygroup BufEnter * let b:AutoPairs = AutoPairsDefine({'/*' : '*/'})
-endfunction
-" }}}
-
-
 " vim-plug插件 {{{
 " plug begin with given dir; add common plugins
 function! StartPlug(plugInDir)
   call plug#begin(a:plugInDir)
-  Plug 'scrooloose/nerdtree'
-  Plug 'ludovicchabant/vim-gutentags'
-  Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clangd-completer --java-completer' }
-  Plug 'w0rp/ale'
-  Plug 'bestofsong/vimconfig'
-  Plug 'leafgarland/typescript-vim'
-  Plug 'godlygeek/tabular'
-  Plug 'wellle/targets.vim'
-  Plug 'easymotion/vim-easymotion'
-  Plug 'tpope/vim-fugitive'
-  Plug 'SirVer/ultisnips'
-  Plug 'honza/vim-snippets'
-  Plug 'tpope/vim-commentary'
-  Plug 'tpope/vim-surround'
-  Plug 'Yggdroot/indentLine'
-  Plug 'tpope/vim-dispatch'
-  Plug 'morhetz/gruvbox'
-  Plug 'pangloss/vim-javascript'
-  Plug 'mxw/vim-jsx'
+  Plug 'scrooloose/nerdtree', { 'commit': '28eb47e2678cf629d92b4f1f00dd56cba22fc4ae' }
+  Plug 'ludovicchabant/vim-gutentags', { 'commit': 'eecb136fae97e30d5f01e71f0d3b775c8b017385' }
+  Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clangd-completer --java-completer', 'commit': '04c3505129cd80b92f1b6177dca8aecc55cb0760' }
+  Plug 'w0rp/ale', { 'commit': 'a5240009ba5ff22daad95c306f7dec372d46bda0' }
+  Plug 'bestofsong/vimconfig', { 'commit': 'e4c1ff3dbc79cbd6c2e73699c2c10d0e53552986' }
+  Plug 'leafgarland/typescript-vim', { 'commit': '7704fac2c765aaf975ad4034933bf63113dd4a64' }
+  Plug 'godlygeek/tabular', { 'commit': '339091ac4dd1f17e225fe7d57b48aff55f99b23a' }
+  Plug 'wellle/targets.vim', { 'commit': 'a79447f261e4b8b4327557aa03726f3849334b84' }
+  Plug 'easymotion/vim-easymotion', { 'commit': '85e90c9759e14633d878ed534ef313876ab96555' }
+  Plug 'tpope/vim-fugitive', { 'commit': '6d42c7df44aa20252e5dac747c3ac9fa7450b21b' }
+  Plug 'SirVer/ultisnips', { 'commit': '1a99766b73783bafb08cfa07d7e29e5387c55189' }
+  Plug 'honza/vim-snippets', { 'commit': 'a11cf5b47fcb9de72b5c8694a4e2fe2dca8c0ae7' }
+  Plug 'tpope/vim-commentary', { 'commit': '141d9d32a9fb58fe474fcc89cd7221eb2dd57b3a' }
+  Plug 'tpope/vim-surround', { 'commit': 'ca58a2d886cc18734c90c9665da4775d444b0c04' }
+  Plug 'Yggdroot/indentLine', { 'commit': '47648734706fb2cd0e4d4350f12157d1e5f4c465' }
+  Plug 'tpope/vim-dispatch', { 'commit': '488940870ab478cc443b06d5a62fea7ab999eabf' }
+  Plug 'morhetz/gruvbox', { 'commit': 'cb4e7a5643f7d2dd40e694bcbd28c4b89b185e86' }
+  Plug 'pangloss/vim-javascript', { 'commit': 'ee445807a71ee6933cd6cbcd74940bc288815793' }
+  Plug 'mxw/vim-jsx', { 'commit': 'ffc0bfd9da15d0fce02d117b843f718160f7ad27' }
   Plug 'mattn/emmet-vim', { 'commit': 'd698f1658770ca5fa58c87e80421c8d65bbe9065' }
-  Plug 'ap/vim-css-color'
-  Plug 'ekalinin/Dockerfile.vim'
-  Plug 'shumphrey/fugitive-gitlab.vim'
-  Plug 'majutsushi/tagbar'
-  Plug 'jiangmiao/auto-pairs'
-  Plug 'vim-ruby/vim-ruby'
+  Plug 'ap/vim-css-color', { 'commit': '8a84356d5319cad3da2835bd5fbc6318500f31ce' }
+  Plug 'ekalinin/Dockerfile.vim', { 'commit': 'f647f90dcecb8738cd53ac8dd293d93570039e00' }
+  Plug 'shumphrey/fugitive-gitlab.vim', { 'commit': '43a13dbbc9aae85338877329ed28c9e4d8488db1' }
+  Plug 'majutsushi/tagbar', { 'commit': '387bbadda98e1376ff3871aa461b1f0abd4ece70' }
+  Plug 'jiangmiao/auto-pairs', { 'commit': '39f06b873a8449af8ff6a3eee716d3da14d63a76' }
+  Plug 'vim-ruby/vim-ruby', { 'commit': '1aa8f0cd0411c093d81f4139d151f93808e53966' }
   Plug '/usr/local/opt/fzf'
-  Plug 'junegunn/fzf.vim'
-  Plug 'vim-airline/vim-airline'
-  Plug 'tpope/vim-rhubarb'
-  Plug 'vim-scripts/MPage'
+  Plug 'junegunn/fzf.vim', { 'commit': '359a80e3a34aacbd5257713b6a88aa085337166f' }
+  Plug 'vim-airline/vim-airline', { 'commit': 'c213f2ac44292a6c5548872e63acb0648cc07a9a' }
+  Plug 'tpope/vim-rhubarb', { 'commit': 'c509c7eedeea641f5b0bdae708581ff610fbff5b' }
+  Plug 'vim-scripts/MPage', { 'commit': 'c7915d434d66d51de6f7bb805f353946fd08a5de' }
 endfunction
 
 function! EndPlug()
   call plug#end()
   call s:load_custom_color_scheme()
-  call s:init_plugin_auto_pair()
 endfunction
 " }}}
 

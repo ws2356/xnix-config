@@ -1,0 +1,16 @@
+#!/bin/bash
+set -e
+
+plugs=$(ls -1 ~/.vim/plugged)
+file_to_edit='.base-vimrc'
+for plug in $plugs ; do
+  if ! sed -n -E '/^function! StartPlug\(/,/^endfunction$/ p' "$file_to_edit" | \
+    grep "$plug" >/dev/null ; then
+    continue
+  fi
+  cd ~/.vim/plugged/"$plug"
+  commit_sha=$(git rev-parse head)
+  cd -
+  sed -i.bak -E '/^function! StartPlug\(/,/^endfunction$/ '"s;/${plug}\'[[:space:]]*$;/${plug}\', { \'commit\': \'$commit_sha\' };" \
+    "$file_to_edit"
+done
