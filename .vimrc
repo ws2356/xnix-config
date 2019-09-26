@@ -4,5 +4,5 @@ let s:base_rc = s:vim_conf_dir . '/.base-vimrc'
 
 call StartPlug('~/.vim/plugged')
 " Plug 'xxx/xxx'
-" call WS_unplug('majutsushi/tagbar')
+call WS_unplug('majutsushi/tagbar')
 call EndPlug()
