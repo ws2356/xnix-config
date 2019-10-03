@@ -129,6 +129,7 @@ endfunction
 
 noremap <leader>ja :YcmCompleter GoTo<CR>
 noremap <leader>jr :YcmCompleter GoToReferences<CR>
+noremap <leader>ef :YcmShowDetailedDiagnostic<CR>
 noremap <leader>ycmdbg :YcmDebugInfo<CR>
 let s:ncpucores = str2nr(system('getconf _NPROCESSORS_ONLN 2>/dev/null || sysctl -n hw.ncpu | sed "s/[^0-9]//g"'))
 let g:ycm_clangd_args = ['-log=error', '-pretty', '-limit-results=100', '-j=' . s:ncpucores, '-pch-storage=disk']
@@ -184,6 +185,7 @@ endfunction
 
 augroup mygroup
   autocmd!
+  autocmd BufNewFile,BufRead *.ejs set filetype=html
   autocmd FileType vim setlocal foldmethod=marker
   " 打开文件时光标自动定位到上次退出时的位置
   autocmd BufReadPost *
@@ -249,7 +251,7 @@ function! StartPlug(plugInDir)
   Plug 'ludovicchabant/vim-gutentags', { 'commit': 'eecb136fae97e30d5f01e71f0d3b775c8b017385' }
   Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clangd-completer --java-completer', 'commit': '04c3505129cd80b92f1b6177dca8aecc55cb0760' }
   Plug 'w0rp/ale', { 'commit': 'a5240009ba5ff22daad95c306f7dec372d46bda0' }
-  Plug 'bestofsong/vimconfig', { 'commit': 'e4c1ff3dbc79cbd6c2e73699c2c10d0e53552986' }
+  Plug 'bestofsong/vimconfig', { 'commit': '5ba87562ecd3bb02e460fc350808fc19449621ec' }
   Plug 'leafgarland/typescript-vim', { 'commit': '7704fac2c765aaf975ad4034933bf63113dd4a64' }
   Plug 'godlygeek/tabular', { 'commit': '339091ac4dd1f17e225fe7d57b48aff55f99b23a' }
   Plug 'wellle/targets.vim', { 'commit': 'a79447f261e4b8b4327557aa03726f3849334b84' }
