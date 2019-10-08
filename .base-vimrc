@@ -205,7 +205,7 @@ let g:user_emmet_settings = {
       \      'extends' : 'jsx',
       \  },
       \}
-autocmd mygroup FileType html,css,javascript,typescript,jsx EmmetInstall
+autocmd mygroup FileType html,css,javascript,typescript,jsx,xml EmmetInstall
 " }}}
 
 
