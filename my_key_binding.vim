@@ -9,6 +9,42 @@ nnoremap <leader>wa :wa<CR>
 nnoremap <leader>wq :wq<CR>
 nnoremap <leader>ed :edit<Space>
 vnoremap <leader>wr :write<Space>
+nnoremap <leader>gmks :call WS_gmks()<CR>
+nnoremap <leader>grs :call WS_grs()<CR>
+function! WS_gmks()
+  let l:session_filename = WS_get_session_filename()
+  if l:session_filename ==# ''
+    return
+  endif
+  execute ':mks! ' . l:session_filename
+endfunction
+
+function! WS_grs()
+  let l:session_filename = WS_get_session_filename()
+  if l:session_filename ==# ''
+    return
+  endif
+  if !filereadable(l:session_filename)
+    return
+  endif
+  execute ':source ' . l:session_filename
+endfunction
+
+function! WS_get_session_filename()
+  let l:ref_name = trim(system('git rev-parse --abbrev-ref=strict @ 2>/dev/null'))
+  if v:shell_error
+    echo 'Failed to get git branch, abort.'
+    return ''
+  endif
+  if toupper(l:ref_name) ==# 'HEAD'
+    echo 'Not on any branch, abort.'
+    return ''
+  endif
+  let l:ref_name_slug = tr(l:ref_name, ' /', '--')
+  let l:session_filename = '.' .  l:ref_name_slug . '.vimsession'
+  return l:session_filename
+endfunction
+
 
 " 快速打开文件
 nnoremap <C-W><C-F> <C-W>vgf
