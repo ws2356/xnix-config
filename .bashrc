@@ -41,10 +41,11 @@ function proml {
     ;;
   esac
 
+  local wan=$'\xe5\x8d\x8d'
 # $BLUE[$RED\$(date +%H:%M)$BLUE]\
   PS1="${TITLEBAR}\
-    ${BLUE}[$RED\u@\h:\W$GREEN\$(parse_git_branch)$BLUE]\
-    $GREEN\$$WHITE "
+${BLUE}[$RED\u@\h:\W$GREEN\$(parse_git_branch)$BLUE]\
+ $GREEN$wan$WHITE "
   PS2='> '
   PS4='+ '
 }
