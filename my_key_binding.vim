@@ -301,6 +301,7 @@ command! -complete=file GRV call VGrepSourceCode()
 " 根据正则表达式匹配，其他的是匹配原始字符
 command! -nargs=+ -complete=file GRE call EGrepSourceCode(<f-args>)
 nnoremap <leader>ff :GRR<Space><Space>.<Left><Left>
+nnoremap <leader>fi :GRR<Space>-i<Space><Space>.<Left><Left>
 nnoremap <leader>fc :GRR<Space><C-r>=expand("<cword>")<CR><Space>.<Left><Left>
 nnoremap <leader>fC :GRR<Space><C-r>=
       \ shellescape(expand("<cWORD>"))<CR><Space>.<Left><Left>
