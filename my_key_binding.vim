@@ -133,7 +133,7 @@ noremap <leader>tbs :tabs<CR>
 noremap <leader>tbo :tabonly<CR>
 noremap <leader>tb7 :tablast<CR>
 noremap <leader>tb1 :tabfirst<CR>
-
+nmap \\ :tab split \| normal<Space>
 
 " Source/Header文件切换 {{{
 let s:c_source_ext = ['cc', 'c', 'cpp', 'm']
