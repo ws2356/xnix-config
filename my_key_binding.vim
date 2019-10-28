@@ -133,7 +133,8 @@ noremap <leader>tbs :tabs<CR>
 noremap <leader>tbo :tabonly<CR>
 noremap <leader>tb7 :tablast<CR>
 noremap <leader>tb1 :tabfirst<CR>
-nmap \\ :tab split \| normal<Space>
+" 可以连续使用,ts<xxxx>来代替（xxxx是任意normal命令）
+noremap <leader>ts :tab split<CR>
 
 " Source/Header文件切换 {{{
 let s:c_source_ext = ['cc', 'c', 'cpp', 'm']
@@ -300,13 +301,13 @@ command! -nargs=+ -complete=file GRR call GrepSourceCodeRaw(<f-args>)
 command! -complete=file GRV call VGrepSourceCode()
 " 根据正则表达式匹配，其他的是匹配原始字符
 command! -nargs=+ -complete=file GRE call EGrepSourceCode(<f-args>)
-nnoremap <leader>ff :tab split \| GRR<Space><Space>.<Left><Left>
-nnoremap <leader>fi :tab split \| GRR<Space>-i<Space><Space>.<Left><Left>
-nnoremap <leader>fc :tab split \| GRR<Space><C-r>=expand("<cword>")<CR><Space>.<Left><Left>
-nnoremap <leader>fC :tab split \| GRR<Space><C-r>=
+nnoremap <leader>ff :GRR<Space><Space>.<Left><Left>
+nnoremap <leader>fi :GRR<Space>-i<Space><Space>.<Left><Left>
+nnoremap <leader>fc :GRR<Space><C-r>=expand("<cword>")<CR><Space>.<Left><Left>
+nnoremap <leader>fC :GRR<Space><C-r>=
       \ shellescape(expand("<cWORD>"))<CR><Space>.<Left><Left>
-vnoremap <leader>fv :<C-u>tab split \| GRV
-noremap <leader>fe :tab split \| GRE<Space><C-r>=expand("<cword>")<CR><Space>.<Left><Left>
+vnoremap <leader>fv :<C-u>GRV
+noremap <leader>fe :GRE<Space><C-r>=expand("<cword>")<CR><Space>.<Left><Left>
 function! CGrepSourceCode(...)
   let l:word = expand('<cword>')
   let l:args = a:000[0:]
