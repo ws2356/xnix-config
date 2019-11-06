@@ -52,7 +52,7 @@ nnoremap <C-W><C-^> :vs #<CR>
 nnoremap <leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
 nnoremap <leader>br :browse filter /\v/ oldfiles<S-Left><Left><Left>
-nnoremap <leader>of :!open <C-r>=expand('%:p')<CR><C-b><S-Right>
+nnoremap <leader>of :!open -a 'Google Chrome' <C-r>=expand('%:p')<CR><C-b><S-Right><S-Right><S-Right><S-Right><Left>
 
 " 打开目录
 nnoremap <leader>odf :!open <C-r>=expand('%:p:h')<CR><CR>
