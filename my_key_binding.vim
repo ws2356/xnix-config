@@ -54,9 +54,12 @@ nnoremap <leader>sv :source $MYVIMRC<CR>
 nnoremap <leader>br :browse filter /\v/ oldfiles<S-Left><Left><Left>
 nnoremap <leader>of :!open -a 'Google Chrome' <C-r>=expand('%:p')<CR><C-b><S-Right><S-Right><S-Right><S-Right><Left>
 
+
 " 打开目录
 nnoremap <leader>odf :!open <C-r>=expand('%:p:h')<CR><CR>
 nnoremap <leader>odt :!open -a iTerm.app <C-r>=expand('%:p:h')<CR><CR>
+
+
 " 缺省使用finder
 nnoremap <leader>od :normal ,odf<CR>
 nnoremap <leader>owd :!open -a iTerm.app .<CR>
@@ -115,6 +118,7 @@ function! WS_relative_to(base_, path_)
 endfunction
 " }}}
 
+
 " 窗口
 nnoremap <leader>vs :vsp ~/
 nnoremap <leader>ma 99<C-w>+
@@ -127,6 +131,7 @@ noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
 noremap <leader>sc :MPage 2<CR>
 
+
 " tab
 noremap <leader>tbn :tabnew<Space>
 noremap <leader>tbs :tabs<CR>
@@ -135,6 +140,7 @@ noremap <leader>tb7 :tablast<CR>
 noremap <leader>tb1 :tabfirst<CR>
 " 可以连续使用,ts<xxxx>来代替（xxxx是任意normal命令）
 noremap <leader>ts :tab split<CR>
+
 
 " Source/Header文件切换 {{{
 let s:c_source_ext = ['cc', 'c', 'cpp', 'm']
@@ -169,12 +175,14 @@ nnoremap <leader>al :call ToggleSourceHeader()<CR>
 " 跳转
 nnoremap <leader>ju :jumps<CR>
 
+
 " 宏
 xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
 function! ExecuteMacroOverVisualRange()
   echo "@".getcmdline()
   execute ":'<,'>normal @".nr2char(getchar())
 endfunction
+
 
 " 命令行 {{{
 nnoremap <leader>; :
@@ -198,10 +206,16 @@ cnoremap <leader>wh \<\><Left><Left>
 
 
 " 寄存器
-nnoremap <leader>' "
 nnoremap <leader>= "+
 vnoremap <leader>= "+
-noremap gy "+y
+
+
+" 剪切板
+" y后面可跟p, h, t, e, r等，用于展开相关路径
+nnoremap <expr> <leader>y ':let @+ = expand("%:' . nr2char(getchar()) . '")<CR>'
+nnoremap <leader>y3 :let @+ = expand('#')<CR>
+nnoremap <leader>ywd :let @+ = getcwd()<CR>
+
 
 " 文件内导航 {{{
 " 查找

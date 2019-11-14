@@ -153,8 +153,10 @@ let g:ale_set_highlights = 0 " Disable highligting
 let g:ale_linters = {
       \ 'javascript': ['eslint', 'tsserver'],
       \ 'cpp': ['clangd'],
+      \ 'objc': ['clangd'],
       \ }
 let g:ale_cpp_clangd_executable = '/usr/local/opt/llvm/bin/clangd'
+let g:ale_objc_clangd_executable = "'/usr/local/opt/llvm/bin/clangd', '-log=error', '-pretty', '-limit-results=100', '-j=12', '-pch-storage=disk', '-header-insertion-decorators=0'"
 " }}}
 
 
@@ -243,6 +245,18 @@ endfunction
 " }}}
 
 
+" {{{
+" let g:LanguageClient_serverCommands = {
+"       \ 'rust': ['rustup', 'run', 'stable', 'rls'],
+"       \ 'objc': ['/Users/ws2356/.vim/plugged/YouCompleteMe/third_party/ycmd/third_party/clangd/output/bin/clangd', '-log=error', '-pretty', '-limit-results=100', '-j=12', '-pch-storage=disk', '-header-insertion-decorators=0', '-resource-dir=/Users/ws2356/.vim/plugged/YouCompleteMe/third_party/ycmd/third_party/clang/lib/clang/8.0.0'],
+"       \ }
+" nnoremap <silent> <leader>K :call LanguageClient#textDocument_hover()<CR>
+" nnoremap <silent> <leader>gd :call LanguageClient#textDocument_definition()<CR>
+" nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+" set completefunc=LanguageClient#complete
+" }}}
+
+
 " vim-plug插件 {{{
 " plug begin with given dir; add common plugins
 function! StartPlug(plugInDir)
@@ -277,6 +291,14 @@ function! StartPlug(plugInDir)
   Plug 'vim-airline/vim-airline', { 'commit': 'c213f2ac44292a6c5548872e63acb0648cc07a9a' }
   Plug 'tpope/vim-rhubarb', { 'commit': 'c509c7eedeea641f5b0bdae708581ff610fbff5b' }
   Plug 'vim-scripts/MPage', { 'commit': 'c7915d434d66d51de6f7bb805f353946fd08a5de' }
+  " 不好配置（不支持clangd compile db）
+  " Plug 'jeaye/color_coded', { 'commit': '16e71d6f5850849c6ffc9a06a7c952e27d351866' }
+  " 不好配置（不支持clangd compile db）
+  " Plug 'rdnetto/YCM-Generator', { 'commit': '461e3042a8ecfafe53a61d8b81e67e6f7558c9ac' }
+  " 没有效果
+  " Plug 'msanders/cocoa.vim', { 'commit': '33faf435cf251ae23e0ee3500a0ce0eee6a1a94b' }
+  " 没有效果
+  " Plug 'b4winckler/vim-objc'
 endfunction
 
 function! EndPlug()
