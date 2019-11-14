@@ -153,6 +153,7 @@ let g:ale_set_highlights = 0 " Disable highligting
 let g:ale_linters = {
       \ 'javascript': ['eslint', 'tsserver'],
       \ 'cpp': ['clangd'],
+      \ 'objc': [],
       \ }
 let g:ale_cpp_clangd_executable = '/usr/local/opt/llvm/bin/clangd'
 " }}}
@@ -243,13 +244,25 @@ endfunction
 " }}}
 
 
+" {{{
+let g:LanguageClient_serverCommands = {
+      \ 'rust': ['rustup', 'run', 'stable', 'rls'],
+      \ 'objc': ['/Users/ws2356/.vim/plugged/YouCompleteMe/third_party/ycmd/third_party/clangd/output/bin/clangd', '-log=error', '-pretty', '-limit-results=100', '-j=12', '-pch-storage=disk', '-header-insertion-decorators=0', '-resource-dir=/Users/ws2356/.vim/plugged/YouCompleteMe/third_party/ycmd/third_party/clang/lib/clang/8.0.0'],
+      \ }
+nnoremap <silent> <leader>K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> <leader>gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+set completefunc=LanguageClient#complete
+" }}}
+
+
 " vim-plug插件 {{{
 " plug begin with given dir; add common plugins
 function! StartPlug(plugInDir)
   call plug#begin(a:plugInDir)
   Plug 'scrooloose/nerdtree', { 'commit': '28eb47e2678cf629d92b4f1f00dd56cba22fc4ae' }
   Plug 'ludovicchabant/vim-gutentags', { 'commit': 'eecb136fae97e30d5f01e71f0d3b775c8b017385' }
-  Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clangd-completer --java-completer', 'commit': '04c3505129cd80b92f1b6177dca8aecc55cb0760' }
+  " Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clangd-completer --java-completer', 'commit': '04c3505129cd80b92f1b6177dca8aecc55cb0760' }
   Plug 'w0rp/ale', { 'commit': 'a5240009ba5ff22daad95c306f7dec372d46bda0' }
   Plug 'bestofsong/vimconfig', { 'commit': '5ba87562ecd3bb02e460fc350808fc19449621ec' }
   Plug 'leafgarland/typescript-vim', { 'commit': '7704fac2c765aaf975ad4034933bf63113dd4a64' }
@@ -277,6 +290,13 @@ function! StartPlug(plugInDir)
   Plug 'vim-airline/vim-airline', { 'commit': 'c213f2ac44292a6c5548872e63acb0648cc07a9a' }
   Plug 'tpope/vim-rhubarb', { 'commit': 'c509c7eedeea641f5b0bdae708581ff610fbff5b' }
   Plug 'vim-scripts/MPage', { 'commit': 'c7915d434d66d51de6f7bb805f353946fd08a5de' }
+  " Plug 'jeaye/color_coded', { 'commit': '16e71d6f5850849c6ffc9a06a7c952e27d351866' }
+  " Plug 'rdnetto/YCM-Generator', { 'commit': '461e3042a8ecfafe53a61d8b81e67e6f7558c9ac' }
+  " Plug 'msanders/cocoa.vim', { 'commit': '33faf435cf251ae23e0ee3500a0ce0eee6a1a94b' }
+  Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
 endfunction
 
 function! EndPlug()
