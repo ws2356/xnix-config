@@ -23,26 +23,43 @@ IFS_=$IFS
 IFS=$'\n' workspace_files=(`find . -maxdepth 1 -name '*.xcworkspace'`)
 IFS=$IFS_
 
+clean_scheme() {
+  local workspace_file=${1%/}
+  local workspace_filename
+  workspace_filename=$(basename "$workspace_file")
+  local scheme=${2}
+  echo "Cleaning workspace: $workspace_file scheme: $scheme"
+  xcodebuild clean -workspace "$workspace_file" -scheme "$scheme" || true
+}
+
+build_scheme() {
+  local workspace_file=${1%/}
+  local workspace_filename
+  workspace_filename=$(basename "$workspace_file")
+  local scheme=${2}
+  echo "Building workspace: $workspace_file scheme: $scheme"
+  xcodebuild -workspace "$workspace_file" -scheme "$scheme" | \
+    xcpretty --report json-compilation-database  --output "compile_commands_${scheme}.json" || true
+  # 如果是指定的workspace，scheme则创建软连接
+  if [ "$workspace_filename" = "$designated_workspace" ] && [ "$scheme" = "$designated_scheme" ] ; then
+    test -f "compile_commands.json" && rm "$_"
+    ln -s "compile_commands_${scheme}.json" "compile_commands.json"
+  fi
+}
+
 build_workspace() {
   local workspace_file=${1%/}
-  local workspace_filename=$(basename "$workspace_file")
   IFS_=$IFS
   IFS=$'\n' schemes=(`xcodebuild -workspace "$workspace_file" -list -json | jq -r '.workspace.schemes | .[]'`)
   IFS=$IFS_
 
   for scheme in "${schemes[@]}"; do
-    echo "Cleaning scheme: $scheme"
     xcodebuild clean -workspace "$workspace_file" -scheme "$scheme" || true
+    clean_scheme "$workspace_file" "$scheme"
   done
+
   for scheme in "${schemes[@]}"; do
-    echo "Building scheme: $scheme"
-    xcodebuild -workspace "$workspace_file" -scheme "$scheme" | \
-      xcpretty --report json-compilation-database  --output "compile_commands_${scheme}.json"
-    # 如果是指定的workspace，scheme则创建软连接
-    if [ "$workspace_filename" = "$designated_workspace" ] && [ "$scheme" = "$designated_scheme" ] ; then
-      test -f "compile_commands.json" && rm $_
-      ln -s "compile_commands_${scheme}.json" "compile_commands.json"
-    fi
+    build_scheme "$workspace_file" "$scheme"
   done
 }
 
