@@ -2,6 +2,7 @@
 # 功能：遍历xc工程里的全部(workspace, scheme)，并编译，输出compile_commands.json
 # 用于结合clangd(language server)提供语义跳转等功能
 set -e
+
 this_script=$(which "$0")
 if echo "$this_script" | grep -E '^/' >/dev/null ; then
   this_dir=$(dirname "$this_script")
@@ -13,10 +14,14 @@ fi
 # 生成的compile_commands.json不好用
 
 # 从argument或stdin读取参数
-# 指定的(workspace, scheme, target)有特殊处理
-designated_workspace=${1:-}
+# 推荐传入完整参数(workspace, scheme, target)
+# 对指定的(workspace, scheme, target)有特殊处理：
+# 1. 当有第四个参数且非0时，仅clean & build指定的(workspace, scheme, target)
+# 2. 针对指定的(workspace, scheme, target)在处理过程会编辑对应的target的编译选项，以绕过上面todo里提到的问题
+designated_workspace=${1-}
 designated_scheme=${2:-}
 designated_target=${3:-}
+build_designated_only=${4:-0}
 if [ -z "$designated_workspace" ] && [ -z "$designated_scheme" ] \
   && [ -z "$designated_target" ] ; then
   read -t 1 -r designated_workspace designated_scheme designated_target || true
@@ -42,6 +47,10 @@ clean_scheme() {
   local workspace_filename
   workspace_filename=$(basename "$workspace_file")
   local scheme=${2}
+  if [ "$build_designated_only" -ne 0 ] && \
+    ( [ "$workspace_filename" != "$designated_workspace" ] || [ "$scheme" != "$designated_scheme" ] ) ; then
+    return
+  fi
   echo "Cleaning workspace: $workspace_file scheme: $scheme"
   xcodebuild clean -workspace "$workspace_file" -scheme "$scheme" || true
 }
@@ -70,6 +79,10 @@ build_scheme() {
   local workspace_filename
   workspace_filename=$(basename "$workspace_file")
   local scheme=${2}
+  if [ "$build_designated_only" -ne 0 ] && \
+    ( [ "$workspace_filename" != "$designated_workspace" ] || [ "$scheme" != "$designated_scheme" ] ) ; then
+    return
+  fi
 
   if [ "$workspace_filename" = "$designated_workspace" ] && [ "$scheme" = "$designated_scheme" ] ; then
     patch_project "$workspace_file" "$scheme" "$designated_target"
@@ -92,7 +105,6 @@ build_workspace() {
   IFS=$IFS_
 
   for scheme in "${schemes[@]}"; do
-    xcodebuild clean -workspace "$workspace_file" -scheme "$scheme" || true
     clean_scheme "$workspace_file" "$scheme"
   done
 
