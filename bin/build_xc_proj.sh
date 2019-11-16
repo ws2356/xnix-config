@@ -39,7 +39,7 @@ build_scheme() {
   local scheme=${2}
   echo "Building workspace: $workspace_file scheme: $scheme"
   xcodebuild -workspace "$workspace_file" -scheme "$scheme" | \
-    xcpretty --report json-compilation-database  --output "compile_commands_${scheme}.json"
+    xcpretty --report json-compilation-database  --output "compile_commands_${scheme}.json" || true
   # 如果是指定的workspace，scheme则创建软连接
   if [ "$workspace_filename" = "$designated_workspace" ] && [ "$scheme" = "$designated_scheme" ] ; then
     test -f "compile_commands.json" && rm "$_"
