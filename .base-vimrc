@@ -311,3 +311,5 @@ endfunction
 " load my_key_binding.vim
 let s:my_key_binding_file = expand('<sfile>:p:h') . '/my_key_binding.vim'
 :execute 'source ' . s:my_key_binding_file
+let s:my_key_binding_shell_file = expand('<sfile>:p:h') . '/my_key_binding_shell.vim'
+:execute 'source ' . s:my_key_binding_shell_file
