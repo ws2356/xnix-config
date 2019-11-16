@@ -132,11 +132,11 @@ noremap <leader>jr :YcmCompleter GoToReferences<CR>
 noremap <leader>ef :YcmShowDetailedDiagnostic<CR>
 noremap <leader>ycmdbg :YcmDebugInfo<CR>
 let s:ncpucores = str2nr(system('getconf _NPROCESSORS_ONLN 2>/dev/null || sysctl -n hw.ncpu | sed "s/[^0-9]//g"'))
-let g:ycm_clangd_args = ['-log=error', '-pretty', '-limit-results=100', '-j=' . s:ncpucores, '-pch-storage=disk']
+let g:ycm_clangd_args = ['-completion-style=detailed', '-log=error', '-pretty', '-limit-results=100', '-j=' . s:ncpucores, '-pch-storage=disk']
 " Let clangd fully control code completion
 let g:ycm_clangd_uses_ycmd_caching = 0
 " Use installed clangd, not YCM-bundled clangd which doesn't get updates.
-let g:ycm_clangd_binary_path = exepath('clangd')
+let g:ycm_clangd_binary_path = '/usr/local/opt/llvm/bin/clangd'
 let g:ycm_autoclose_preview_window_after_insertion = 1
 " }}}
 
@@ -157,8 +157,8 @@ let g:ale_linters = {
       \ 'objcpp': ['clangd'],
       \ }
 let g:ale_cpp_clangd_executable = '/usr/local/opt/llvm/bin/clangd'
-let g:ale_objc_clangd_executable = "'/usr/local/opt/llvm/bin/clangd', '-log=error', '-pretty', '-limit-results=100', '-j=12', '-pch-storage=disk', '-header-insertion-decorators=0'"
-let g:ale_objcpp_clangd_executable = "'/usr/local/opt/llvm/bin/clangd', '-log=error', '-pretty', '-limit-results=100', '-j=12', '-pch-storage=disk', '-header-insertion-decorators=0'"
+let g:ale_objc_clangd_executable = "'/usr/local/opt/llvm/bin/clangd', '-completion-style=detailed', '-log=error', '-pretty', '-limit-results=100', '-j=12', '-pch-storage=disk', '-header-insertion-decorators=0'"
+let g:ale_objcpp_clangd_executable = "'/usr/local/opt/llvm/bin/clangd',  '-completion-style=detailed', '-log=error', '-pretty', '-limit-results=100', '-j=12', '-pch-storage=disk', '-header-insertion-decorators=0'"
 " }}}
 
 
