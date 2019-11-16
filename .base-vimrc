@@ -154,9 +154,11 @@ let g:ale_linters = {
       \ 'javascript': ['eslint', 'tsserver'],
       \ 'cpp': ['clangd'],
       \ 'objc': ['clangd'],
+      \ 'objcpp': ['clangd'],
       \ }
 let g:ale_cpp_clangd_executable = '/usr/local/opt/llvm/bin/clangd'
 let g:ale_objc_clangd_executable = "'/usr/local/opt/llvm/bin/clangd', '-log=error', '-pretty', '-limit-results=100', '-j=12', '-pch-storage=disk', '-header-insertion-decorators=0'"
+let g:ale_objcpp_clangd_executable = "'/usr/local/opt/llvm/bin/clangd', '-log=error', '-pretty', '-limit-results=100', '-j=12', '-pch-storage=disk', '-header-insertion-decorators=0'"
 " }}}
 
 
