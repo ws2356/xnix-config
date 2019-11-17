@@ -1,9 +1,5 @@
-set ignorecase
+let g:WS_IDE = 'xvim'
 
-set ruler
-set softtabstop=2
-set shiftwidth=2
-
-set hlsearch
-set incsearch
-set completeopt=menu,menuone,preview,noselect,noinsert
+let s:vim_conf_dir = fnamemodify(resolve(expand('<sfile>:p')), ':h')
+let s:vimrc = s:vim_conf_dir . '/.vimrc'
+:execute 'source ' . s:vimrc
