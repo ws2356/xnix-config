@@ -23,10 +23,10 @@ endfunction
 
 " config for current environment {{{
 let s:ncpucores = str2nr(system('getconf _NPROCESSORS_ONLN 2>/dev/null || sysctl -n hw.ncpu | sed "s/[^0-9]//g"'))
-let s:IOS_SDK_RESOURCE_PATH=trim(system(expand('<sfile>:p:h') . '/bin/get_ios_clang_resource_dir.sh'))
+let s:CLANG_REOURCE_PATH=trim(system(expand('<sfile>:p:h') . '/bin/get_clang_resource_dir.sh'))
 let s:CLANGD_OPTIONS = ['-completion-style=detailed', '-log=error',
       \'-pretty', '-limit-results=100', '-j=' . s:ncpucores, '-pch-storage=disk',
-      \'-resource-dir=' . s:IOS_SDK_RESOURCE_PATH]
+      \'-resource-dir=' . s:CLANG_REOURCE_PATH]
 " }}}
 
 " load my_func.vim
@@ -164,8 +164,11 @@ let g:ale_linters = {
       \ 'objcpp': ['clangd'],
       \ }
 let g:ale_cpp_clangd_executable = '/usr/local/opt/llvm/bin/clangd'
-let g:ale_objc_clangd_executable = '/usr/local/opt/llvm/bin/clangd ' . join(s:CLANGD_OPTIONS)
-let g:ale_objcpp_clangd_executable = '/usr/local/opt/llvm/bin/clangd ' . join(s:CLANGD_OPTIONS)
+let g:ale_cpp_clangd_options = join(s:CLANGD_OPTIONS)
+let g:ale_objc_clangd_executable = '/usr/local/opt/llvm/bin/clangd'
+let g:ale_objc_clangd_options = join(s:CLANGD_OPTIONS)
+let g:ale_objcpp_clangd_executable = '/usr/local/opt/llvm/bin/clangd'
+let g:ale_objcpp_clangd_options = join(s:CLANGD_OPTIONS)
 " }}}
 
 
