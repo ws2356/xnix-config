@@ -1,6 +1,15 @@
 #!/bin/bash
 # 功能：遍历xc工程里的全部(workspace, scheme)，并编译，输出compile_commands.json
 # 用于结合clangd(language server)提供语义跳转等功能
+
+# TODO: wansong 2019-11-16 solve this?
+# 暂时不太好用，因为使用module语法的代码或使用index store编译器feature的工程
+# 生成的compile_commands.json不好用
+
+# 目前使用了两个hack手段，可以实现对于未使用module的工程的语义跳转、检查：
+# 1，编译之前修改由参数指定的target的build setting，设置为CLANG_ENABLE_MODULES=NO COMPILER_INDEX_STORE_ENABLE=NO
+# 2，生成compile_commands.json之后编辑文件，删掉-gmodules选项
+
 set -e
 
 this_script=$(which "$0")
@@ -9,10 +18,6 @@ if echo "$this_script" | grep -E '^/' >/dev/null ; then
 else
   this_dir=$(dirname "$(pwd)/${this_script}")
 fi
-# TODO: wansong 2019-11-16 solve this?
-# 暂时不太好用，因为使用module语法的代码或使用index store编译器feature的工程
-# 生成的compile_commands.json不好用
-
 # 从argument或stdin读取参数
 # 推荐传入完整参数(workspace, scheme, target)
 # 对指定的(workspace, scheme, target)有特殊处理：
@@ -91,6 +96,10 @@ build_scheme() {
   echo "Building workspace: $workspace_file scheme: $scheme"
   xcodebuild -workspace "$workspace_file" -scheme "$scheme" | \
     xcpretty --report json-compilation-database  --output "compile_commands_${scheme}.json" || true
+  # HACK: 去掉compile_commands.json文件里的编译选项-gmodules，否则有些工程无法使用clangd
+  # FIXME: 搞清楚为什么还会有-fmodules
+  sed -i.bak -E 's/-gmodules[[:space:]]+//g' "compile_commands_${scheme}.json"
+  test -f "compile_commands_${scheme}.json.bak" && rm "$_"
   # 如果是指定的workspace，scheme则创建软连接
   if [ "$workspace_filename" = "$designated_workspace" ] && [ "$scheme" = "$designated_scheme" ] ; then
     test -f "compile_commands.json" && rm "$_"
@@ -115,7 +124,7 @@ build_workspace() {
 
 ensure_safe() {
   if git status --porcelain | grep -E '^[[:space:]]*M' 2>&1 >/dev/null ; then
-    echo "git repo is not clean."
+    echo "Git repo is not clean, not safe to continue."
     exit 1
   fi
 }
@@ -126,5 +135,5 @@ for workspace_file in "${workspace_files[@]}"; do
   build_workspace "$workspace_file"
 done
 
-# not so dangerous after ensure_safe
+# not so dangerous after ensure_safe, but you take care ;]
 git checkout .
