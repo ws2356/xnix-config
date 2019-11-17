@@ -23,11 +23,40 @@ endfunction
 
 " config for current environment {{{
 let s:ncpucores = str2nr(system('getconf _NPROCESSORS_ONLN 2>/dev/null || sysctl -n hw.ncpu | sed "s/[^0-9]//g"'))
-let s:CLANG_REOURCE_PATH=trim(system(expand('<sfile>:p:h') . '/bin/get_clang_resource_dir.sh'))
+" 三种clang安装方式，按照binary，brew，ycm的顺序解析
+let s:brew_clangd = '/usr/local/opt/llvm/bin/clangd'
+" 需要把二进制的llvm套件安装在~/usr
+" FIXME: customize this?
+let s:binary_clangd = expand('~/usr/bin/clangd')
+
+" set this to one of three (brew|binary|ycm) to specify version of clang to use
+let s:specified_clang = ''
+let s:resolved_clangd = ''
+let s:resolved_resource_dir = ''
+
+if index(['', 'binary'], s:specified_clang) >= 0 && filereadable(s:binary_clangd)
+  let s:resolved_clangd = s:binary_clangd
+  let s:resolved_clang = expand('~/usr/bin/clang')
+  let s:resolved_resource_dir = trim(system(s:resolved_clang . ' -print-resource-dir'))
+elseif index(['', 'brew'], s:specified_clang) >= 0 && filereadable(s:brew_clangd)
+  let s:resolved_clangd = s:brew_clangd
+  let s:resolved_clang = '/usr/local/opt/llvm/bin/clang'
+  let s:resolved_resource_dir = trim(system(s:resolved_clang . ' -print-resource-dir'))
+elseif index(['', 'ycm'], s:specified_clang) >= 0
+  let s:locate_ycm_clang_script = expand('<sfile>:p:h') . '/bin/locate_ycm_clang.vim'
+  :execute 'source ' . s:locate_ycm_clang_script
+  let s:ycm_clangd = WS_get_ycm_clangd()
+  if filereadable(s:ycm_clangd)
+    let s:resolved_clangd = s:ycm_clangd
+    let s:resolved_resource_dir = WS_get_ycm_clang_resource_dir()
+  endif
+endif
+
 let s:CLANGD_OPTIONS = ['-completion-style=detailed', '-log=error',
       \'-pretty', '-limit-results=100', '-j=' . s:ncpucores, '-pch-storage=disk',
-      \'-resource-dir=' . s:CLANG_REOURCE_PATH]
+      \'-resource-dir=' . s:resolved_resource_dir]
 " }}}
+
 
 " load my_func.vim
 let s:func_file = expand('<sfile>:p:h') . '/my_func.vim'
@@ -143,7 +172,7 @@ let g:ycm_clangd_args = s:CLANGD_OPTIONS
 " Let clangd fully control code completion
 let g:ycm_clangd_uses_ycmd_caching = 0
 " Use installed clangd, not YCM-bundled clangd which doesn't get updates.
-let g:ycm_clangd_binary_path = '/usr/local/opt/llvm/bin/clangd'
+let g:ycm_clangd_binary_path = s:resolved_clangd
 let g:ycm_autoclose_preview_window_after_insertion = 1
 " }}}
 
@@ -163,11 +192,11 @@ let g:ale_linters = {
       \ 'objc': ['clangd'],
       \ 'objcpp': ['clangd'],
       \ }
-let g:ale_cpp_clangd_executable = '/usr/local/opt/llvm/bin/clangd'
+let g:ale_cpp_clangd_executable = s:resolved_clangd
 let g:ale_cpp_clangd_options = join(s:CLANGD_OPTIONS)
-let g:ale_objc_clangd_executable = '/usr/local/opt/llvm/bin/clangd'
+let g:ale_objc_clangd_executable = s:resolved_clangd
 let g:ale_objc_clangd_options = join(s:CLANGD_OPTIONS)
-let g:ale_objcpp_clangd_executable = '/usr/local/opt/llvm/bin/clangd'
+let g:ale_objcpp_clangd_executable = s:resolved_clangd
 let g:ale_objcpp_clangd_options = join(s:CLANGD_OPTIONS)
 " }}}
 
