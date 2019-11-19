@@ -27,6 +27,7 @@ designated_workspace=${1-}
 designated_scheme=${2:-}
 designated_target=${3:-}
 build_designated_only=${4:-0}
+disable_patch=${5:0}
 if [ -z "$designated_workspace" ] && [ -z "$designated_scheme" ] \
   && [ -z "$designated_target" ] ; then
   read -t 1 -r designated_workspace designated_scheme designated_target || true
@@ -61,6 +62,9 @@ clean_scheme() {
 }
 
 patch_project() {
+  if [ "$disable_patch" -ne 0 ] ; then
+    return 0
+  fi
   local workspace_file=$1
   local scheme=$2
   local target=$3
@@ -98,8 +102,10 @@ build_scheme() {
     xcpretty --report json-compilation-database  --output "compile_commands_${scheme}.json" || true
   # HACK: 去掉compile_commands.json文件里的编译选项-gmodules，否则有些工程无法使用clangd
   # FIXME: 搞清楚为什么还会有-fmodules
-  sed -i.bak -E 's/-gmodules[[:space:]]+//g' "compile_commands_${scheme}.json"
-  test -f "compile_commands_${scheme}.json.bak" && rm "$_"
+  if [ "$disable_patch" -eq 0 ] ; then
+    sed -i.bak -E 's/-gmodules[[:space:]]+//g' "compile_commands_${scheme}.json"
+    test -f "compile_commands_${scheme}.json.bak" && rm "$_"
+  fi
   # 如果是指定的workspace，scheme则创建软连接
   if [ "$workspace_filename" = "$designated_workspace" ] && [ "$scheme" = "$designated_scheme" ] ; then
     test -f "compile_commands.json" && rm "$_"

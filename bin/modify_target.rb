@@ -11,6 +11,7 @@ project.targets.each do |target|
     target.build_configurations.each do |config|
       config.build_settings['CLANG_ENABLE_MODULES'] = 'NO'
       config.build_settings['COMPILER_INDEX_STORE_ENABLE'] = 'NO'
+      config.build_settings['ENABLE_BITCODE'] = 'NO'
     end
     puts "Did modify target: #{target_name}"
   end
