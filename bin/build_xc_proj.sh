@@ -27,7 +27,7 @@ designated_workspace=${1-}
 designated_scheme=${2:-}
 designated_target=${3:-}
 build_designated_only=${4:-0}
-disable_patch=${5:0}
+disable_patch=${5:-0}
 if [ -z "$designated_workspace" ] && [ -z "$designated_scheme" ] \
   && [ -z "$designated_target" ] ; then
   read -t 1 -r designated_workspace designated_scheme designated_target || true
