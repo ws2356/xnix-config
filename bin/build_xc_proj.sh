@@ -6,9 +6,8 @@
 # 暂时不太好用，因为使用module语法的代码或使用index store编译器feature的工程
 # 生成的compile_commands.json不好用
 
-# 目前使用了两个hack手段，可以实现对于未使用module的工程的语义跳转、检查：
-# 1，编译之前修改由参数指定的target的build setting，设置为CLANG_ENABLE_MODULES=NO COMPILER_INDEX_STORE_ENABLE=NO
-# 2，生成compile_commands.json之后编辑文件，删掉-gmodules选项
+# 目前使用了hack手段，可以实现对于未使用module的工程的语义跳转、检查：
+# 编译之前修改由参数指定的target的build setting，设置为CLANG_ENABLE_MODULES=NO COMPILER_INDEX_STORE_ENABLE=NO
 
 set -e
 
@@ -23,11 +22,14 @@ fi
 # 对指定的(workspace, scheme, target)有特殊处理：
 # 1. 当有第四个参数且非0时，仅clean & build指定的(workspace, scheme, target)
 # 2. 针对指定的(workspace, scheme, target)在处理过程会编辑对应的target的编译选项，以绕过上面todo里提到的问题
+# 默认情况下开启module模式llvm9可以(不完美)支持
 designated_workspace=${1-}
 designated_scheme=${2:-}
 designated_target=${3:-}
-build_designated_only=${4:-0}
-disable_patch=${5:-0}
+build_designated_only=${4:-1}
+disable_patch_module=${5:-1}
+disable_patch_index_store=${6:-0}
+disable_patch_bitcode=${7:-0}
 if [ -z "$designated_workspace" ] && [ -z "$designated_scheme" ] \
   && [ -z "$designated_target" ] ; then
   read -t 1 -r designated_workspace designated_scheme designated_target || true
@@ -62,9 +64,6 @@ clean_scheme() {
 }
 
 patch_project() {
-  if [ "$disable_patch" -ne 0 ] ; then
-    return 0
-  fi
   local workspace_file=$1
   local scheme=$2
   local target=$3
@@ -77,7 +76,11 @@ patch_project() {
   if [ -z "$project_path" ] ; then
     return 0
   fi
-  "${this_dir}/modify_target.rb" "$project_path" "$target"
+  "${this_dir}/modify_target.rb" \
+    "$project_path" "$target" \
+    "$disable_patch_index_store" \
+    "$disable_patch_module" \
+    "$disable_patch_bitcode"
 }
 
 build_scheme() {
@@ -100,12 +103,6 @@ build_scheme() {
   echo "Building workspace: $workspace_file scheme: $scheme"
   xcodebuild -workspace "$workspace_file" -scheme "$scheme" | \
     xcpretty --report json-compilation-database  --output "compile_commands_${scheme}.json" || true
-  # HACK: 去掉compile_commands.json文件里的编译选项-gmodules，否则有些工程无法使用clangd
-  # FIXME: 搞清楚为什么还会有-fmodules
-  if [ "$disable_patch" -eq 0 ] ; then
-    sed -i.bak -E 's/-gmodules[[:space:]]+//g' "compile_commands_${scheme}.json"
-    test -f "compile_commands_${scheme}.json.bak" && rm "$_"
-  fi
   # 如果是指定的workspace，scheme则创建软连接
   if [ "$workspace_filename" = "$designated_workspace" ] && [ "$scheme" = "$designated_scheme" ] ; then
     test -f "compile_commands.json" && rm "$_"
