@@ -272,3 +272,4 @@ export PATH=${HOME}/go/bin:$PATH
 test -e ~/bin/goto_dir_of.sh && . $_
 
 export VIM_SPECIFIED_CLANG='brew'
+export NVIM_COC_LOG_LEVEL='debug'

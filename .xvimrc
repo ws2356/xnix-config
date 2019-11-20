@@ -1,5 +1,19 @@
-let g:WS_IDE = 'xvim'
+set ignorecase
 
-let s:vim_conf_dir = fnamemodify(resolve(expand('<sfile>:p')), ':h')
-let s:vimrc = s:vim_conf_dir . '/.vimrc'
-:execute 'source ' . s:vimrc
+set nogdefault
+
+set smartcase
+set errorbells
+set ruler
+
+set expandtab
+set softtabstop=2
+set shiftwidth=2
+
+set hlsearch
+set incsearch
+set completeopt=menu,menuone,preview,noselect,noinsert
+" 不好用
+" set clipboard=unnamed
+" 不好用
+" set relativenumber

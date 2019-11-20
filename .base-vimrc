@@ -127,6 +127,12 @@ set termguicolors
 set history=10000
 set exrc
 set nowrapscan
+set wildmenu
+
+set ignorecase
+set nogdefault
+set smartcase
+set relativenumber
 " Switch syntax highlighting on, when the terminal has colors
 syntax on
 filetype plugin indent on
