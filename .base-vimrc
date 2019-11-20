@@ -70,6 +70,11 @@ let s:specified_clang = ''
 let s:resolved_clangd = ''
 let s:resolved_resource_dir = ''
 
+" 可以通过环境变量选择clang版本
+if exists('$VIM_SPECIFIED_CLANG')
+  let s:specified_clang = $VIM_SPECIFIED_CLANG
+endif
+
 if index(['', 'binary'], s:specified_clang) >= 0 && filereadable(s:binary_clangd)
   let s:resolved_clangd = s:binary_clangd
   let s:resolved_clang = expand('~/usr/bin/clang')
@@ -201,9 +206,11 @@ function! s:MyYCMTheme()
 endfunction
 
 noremap <leader>ja :YcmCompleter GoTo<CR>
+noremap <leader>jd :YcmCompleter GoToDefinition<CR>
 noremap <leader>jr :YcmCompleter GoToReferences<CR>
 noremap <leader>ef :YcmShowDetailedDiagnostic<CR>
 noremap <leader>ycmdbg :YcmDebugInfo<CR>
+noremap <leader>ycmrst :YcmRestartServer<CR>
 let g:ycm_clangd_args = s:CLANGD_OPTIONS
 " Let clangd fully control code completion
 let g:ycm_clangd_uses_ycmd_caching = 0
