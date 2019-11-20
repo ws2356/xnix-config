@@ -68,7 +68,7 @@ let s:binary_clangd = expand('~/usr/bin/clangd')
 " set this to one of three (brew|binary|ycm) to specify version of clang to use
 let s:specified_clang = ''
 let s:resolved_clangd = ''
-let s:resolved_resource_dir = ''
+let s:resolved_resource_dir = trim(system('xcrun clang -print-resource-dir'))
 
 " 可以通过环境变量选择clang版本
 if exists('$VIM_SPECIFIED_CLANG')
@@ -78,18 +78,15 @@ endif
 if index(['', 'binary'], s:specified_clang) >= 0 && filereadable(s:binary_clangd)
   let s:resolved_clangd = s:binary_clangd
   let s:resolved_clang = expand('~/usr/bin/clang')
-  let s:resolved_resource_dir = trim(system(s:resolved_clang . ' -print-resource-dir'))
 elseif index(['', 'brew'], s:specified_clang) >= 0 && filereadable(s:brew_clangd)
   let s:resolved_clangd = s:brew_clangd
   let s:resolved_clang = '/usr/local/opt/llvm/bin/clang'
-  let s:resolved_resource_dir = trim(system(s:resolved_clang . ' -print-resource-dir'))
 elseif index(['', 'ycm'], s:specified_clang) >= 0
   let s:locate_ycm_clang_script = expand('<sfile>:p:h') . '/bin/locate_ycm_clang.vim'
   :execute 'source ' . s:locate_ycm_clang_script
   let s:ycm_clangd = WS_get_ycm_clangd()
   if filereadable(s:ycm_clangd)
     let s:resolved_clangd = s:ycm_clangd
-    let s:resolved_resource_dir = WS_get_ycm_clang_resource_dir()
   endif
 endif
 
@@ -252,10 +249,11 @@ let g:ale_objcpp_clangd_options = join(s:CLANGD_OPTIONS)
 
 " coc {{{
 " Remap keys for gotos
-nnoremap <leader>gd <Plug>(coc-definition)
-nnoremap <leader>gy <Plug>(coc-type-definition)
-nnoremap <leader>gi <Plug>(coc-implementation)
-nnoremap <leader>gr <Plug>(coc-references)
+nmap <leader>gd <Plug>(coc-definition)
+nmap <leader>gy <Plug>(coc-type-definition)
+nmap <leader>gi <Plug>(coc-implementation)
+nmap <leader>gr <Plug>(coc-references)
+set statusline^=%{coc#status()}
 " }}}
 
 
@@ -379,9 +377,9 @@ function! StartPlug(plugInDir)
   if s:use_ide_feature('ctag')
     Plug 'ludovicchabant/vim-gutentags', { 'commit': 'eecb136fae97e30d5f01e71f0d3b775c8b017385' }
   endif
-   if s:use_ide_feature('ycm')
-     Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clangd-completer --java-completer', 'commit': '04c3505129cd80b92f1b6177dca8aecc55cb0760' }
-   endif
+  if s:use_ide_feature('ycm')
+    Plug 'Valloric/YouCompleteMe', { 'commit': 'a7fd70cf7213c75088a47967c3e28aa4f6c47872' }
+  endif
   if s:use_ide_feature('ale')
     Plug 'w0rp/ale', { 'commit': 'a5240009ba5ff22daad95c306f7dec372d46bda0' }
   endif
@@ -467,7 +465,7 @@ function! StartPlug(plugInDir)
   " Plug 'msanders/cocoa.vim', { 'commit': '33faf435cf251ae23e0ee3500a0ce0eee6a1a94b' }
   " 没有效果
   " Plug 'b4winckler/vim-objc'
-  Plug 'neoclide/coc.nvim', {'do': './install.sh'}
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
 endfunction
 
 function! EndPlug()
