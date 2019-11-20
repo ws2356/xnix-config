@@ -270,3 +270,5 @@ test -r ~/.bash_profile.local && . ~/.bash_profile.local
 export PATH=${HOME}/go/bin:$PATH
 
 test -e ~/bin/goto_dir_of.sh && . $_
+
+export VIM_SPECIFIED_CLANG='brew'
