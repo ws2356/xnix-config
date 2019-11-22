@@ -206,8 +206,15 @@ cnoremap <leader>wh \<\><Left><Left>
 
 
 " 寄存器
-nnoremap <leader>= "+
-vnoremap <leader>= "+
+" 选择寄存器
+nnoremap <expr> \ '"' . nr2char(getchar())
+vnoremap <expr> \ '"' . nr2char(getchar())
+nnoremap <expr> \= '"+'
+vnoremap <expr> \= '"+'
+nnoremap <expr> \2 '"@'
+vnoremap <expr> \2 '"@'
+nnoremap <expr> \; '":'
+vnoremap <expr> \; '":'
 
 
 " 剪切板
@@ -297,7 +304,7 @@ inoremap <Esc><Esc> <Esc>:w<CR>
 nnoremap gb :normal `[v`]<CR>
 nnoremap <leader>fmt :normal '[=']<CR>
 nnoremap <leader>ss :%s/
-nnoremap <leader>` g~
+nnoremap <leader>ss :%s/
 inoremap <C-b>wd <C-r>=getcwd()<CR>
 inoremap <C-b>fp <C-r>=expand('%:p')<CR>
 inoremap <C-b>fh <C-r>=expand('%:h')<CR>
