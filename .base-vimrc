@@ -465,7 +465,7 @@ function! StartPlug(plugInDir)
   " Plug 'msanders/cocoa.vim', { 'commit': '33faf435cf251ae23e0ee3500a0ce0eee6a1a94b' }
   " 没有效果
   " Plug 'b4winckler/vim-objc'
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  " Plug 'neoclide/coc.nvim', {'branch': 'release'}
 endfunction
 
 function! EndPlug()
@@ -480,3 +480,5 @@ let s:my_key_binding_file = expand('<sfile>:p:h') . '/my_key_binding.vim'
 :execute 'source ' . s:my_key_binding_file
 let s:my_key_binding_shell_file = expand('<sfile>:p:h') . '/my_key_binding_shell.vim'
 :execute 'source ' . s:my_key_binding_shell_file
+let s:my_key_binding_npm_file = expand('<sfile>:p:h') . '/my_key_binding_npm.vim'
+:execute 'source ' . s:my_key_binding_npm_file
