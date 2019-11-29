@@ -322,7 +322,7 @@ autocmd mygroup FileType html,css,javascript,typescript,jsx,xml EmmetInstall
 
 
 " 配置fugitive-gitlab {{{
-let g:fugitive_gitlab_domains = ['https://code.smartstudy.com/']
+let g:fugitive_gitlab_domains = []
 " }}}
 
 
@@ -482,3 +482,8 @@ let s:my_key_binding_shell_file = expand('<sfile>:p:h') . '/my_key_binding_shell
 :execute 'source ' . s:my_key_binding_shell_file
 let s:my_key_binding_npm_file = expand('<sfile>:p:h') . '/my_key_binding_npm.vim'
 :execute 'source ' . s:my_key_binding_npm_file
+
+let s:vimrc_local = expand('~') . '/.vimrc.local'
+if filereadable(s:vimrc_local)
+  :execute 'source ' . s:vimrc_local
+endif
