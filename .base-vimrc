@@ -384,7 +384,7 @@ function! StartPlug(plugInDir)
     Plug 'w0rp/ale', { 'commit': 'a5240009ba5ff22daad95c306f7dec372d46bda0' }
   endif
   if s:use_ide_feature('vimconfig')
-    Plug 'bestofsong/vimconfig', { 'commit': '3968f749fef28cd9c427e741137c5f450778b56e' }
+    Plug 'bestofsong/vimconfig', { 'commit': '66cead73a02f18227c8c52012e59815ae705b18e' }
   endif
   if s:use_ide_feature('typescript')
     Plug 'leafgarland/typescript-vim', { 'commit': '7704fac2c765aaf975ad4034933bf63113dd4a64' }
