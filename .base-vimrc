@@ -237,6 +237,7 @@ let g:ale_linters = {
       \ 'cpp': ['clangd'],
       \ 'objc': ['clangd'],
       \ 'objcpp': ['clangd'],
+      \ 'dart': ['language_server'],
       \ }
 let g:ale_cpp_clangd_executable = s:resolved_clangd
 let g:ale_cpp_clangd_options = join(s:CLANGD_OPTIONS)
@@ -355,6 +356,11 @@ endfunction
 " }}}
 
 
+" {{{ dart-vim-plugin
+let dart_html_in_string=v:true
+" }}}
+
+
 " {{{
 " let g:LanguageClient_serverCommands = {
 "       \ 'rust': ['rustup', 'run', 'stable', 'rls'],
@@ -456,6 +462,9 @@ function! StartPlug(plugInDir)
   endif
   if s:use_ide_feature('mpage')
     Plug 'vim-scripts/MPage', { 'commit': 'c7915d434d66d51de6f7bb805f353946fd08a5de' }
+  endif
+  if s:use_ide_feature('dart')
+    Plug 'dart-lang/dart-vim-plugin', { 'commit': '1dca4e12299e26bf4277992fd9b8b22bcc2f4e56' }
   endif
   " 不好配置（不支持clangd compile db）
   " Plug 'jeaye/color_coded', { 'commit': '16e71d6f5850849c6ffc9a06a7c952e27d351866' }
