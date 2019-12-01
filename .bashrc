@@ -1,9 +1,29 @@
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
-      *) return;;
+      *) echo 'If not running interactively, dont do anything' && return;;
 esac
 
+export HOMEBREW_NO_AUTO_UPDATE=1
+HOMEBREW_PREFIX=$(brew --prefix)
+
+path_append() {
+  for p in "$@"; do
+    if echo "$PATH" | grep -E "(^|:)${p}(:|$)" >/dev/null ; then
+      continue
+    fi
+    export PATH="${PATH:-''}${PATH:+:}${p}"
+  done
+}
+
+path_prepend() {
+  for p in "$@"; do
+    if echo "$PATH" | grep -E "(^|:)${p}(:|$)" >/dev/null ; then
+      continue
+    fi
+    export PATH="${p}${PATH:+:}${PATH:-''}"
+  done
+}
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
@@ -51,7 +71,7 @@ ${BLUE}[$RED\u@\h:\W$GREEN\$(parse_git_branch)$BLUE]\
 }
 proml
 
-# refer to /usr/local/etc/privoxy/config
+# refer to ${HOMEBREW_PREFIX}/etc/privoxy/config
 function use_proxy {
   export http_proxy='http://127.0.0.1:1087'
   export https_proxy='http://127.0.0.1:1087'
@@ -179,7 +199,7 @@ function packup() {
   zip -r ${HOME}/packed-system.zip \
     Library/LaunchDaemons/site.xway.privoxy.plist \
     Library/LaunchDaemons/demo.python.web.plist \
-    usr/local/etc/privoxy/config
+    ${HOMEBREW_PREFIX}/etc/privoxy/config
   cd - >/dev/null 2>&1
 }
 
@@ -196,16 +216,16 @@ test -f $git_completion_bash && source $_
 
 export TERM="xterm-256color"
 
-test -f /usr/local/etc/profile.d/autojump.sh && . $_
+test -f ${HOMEBREW_PREFIX}/etc/profile.d/autojump.sh && . $_
 
-export PATH="${PATH}:${HOME}/bin"
+path_append "${HOME}/bin"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # config rbenv
-export PATH="/Users/ws/.rbenv/shims:${PATH}"
+path_prepend "${HOME}/.rbenv/shims"
 export RBENV_SHELL=bash
 if command -v rbenv >/dev/null ; then
   eval "$(rbenv init -)"
@@ -229,31 +249,28 @@ REQUESTED_JAVA_VERSION='1.8'
 if POSSIBLE_JAVA_HOME="$(/usr/libexec/java_home -v $REQUESTED_JAVA_VERSION 2>/dev/null)"; then
   # Do this if you want to export JAVA_HOME
   export JAVA_HOME="$POSSIBLE_JAVA_HOME"
-  export PATH="${JAVA_HOME}/bin:${PATH}"
+  path_prepend "${JAVA_HOME}/bin"
 fi
 
-export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"
+export ANDROID_SDK_ROOT="${HOMEBREW_PREFIX}/share/android-sdk"
 if [ -d "${ANDROID_SDK_ROOT}" ] ; then
   export ANDROID_HOME="$ANDROID_SDK_ROOT"
-  export PATH=$PATH:${ANDROID_SDK_ROOT}/emulator
-  export PATH=$PATH:${ANDROID_SDK_ROOT}/tools
-  export PATH=$PATH:${ANDROID_SDK_ROOT}/tools/bin
-  export PATH=$PATH:${ANDROID_SDK_ROOT}/platform-tools
+  path_append "${ANDROID_SDK_ROOT}/emulator" \
+    "${ANDROID_SDK_ROOT}/tools" \
+    "${ANDROID_SDK_ROOT}/tools/bin" \
+    "${ANDROID_SDK_ROOT}/platform-tools"
 else
   unset ANDROID_SDK_ROOT
 fi
 
-export HOMEBREW_NO_AUTO_UPDATE=1
-
 # maybe will cause bad things?
-#if [ -d "/usr/local/opt/llvm/bin" ] ; then
-#  export PATH="/usr/local/opt/llvm/bin:$PATH"
-#  export LDFLAGS="-L/usr/local/opt/llvm/lib"
-#  export CPPFLAGS="-I/usr/local/opt/llvm/include"
+#if [ -d "${HOMEBREW_PREFIX}/opt/llvm/bin" ] ; then
+#  path_prepend "${HOMEBREW_PREFIX}/opt/llvm/bin"
+#  export LDFLAGS="-L${HOMEBREW_PREFIX}/opt/llvm/lib"
+#  export CPPFLAGS="-I${HOMEBREW_PREFIX}/opt/llvm/include"
 #fi
 
 # https://docs.brew.sh/Shell-Completion
-HOMEBREW_PREFIX=$(brew --prefix)
 if type brew &>/dev/null; then
   if [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]; then
     source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
@@ -267,7 +284,7 @@ fi
 # source .bash_profile.local for customization
 test -r ~/.bash_profile.local && . ~/.bash_profile.local
 
-export PATH=${HOME}/go/bin:$PATH
+path_prepend "${HOME}/go/bin"
 
 test -e ~/bin/goto_dir_of.sh && . $_
 
