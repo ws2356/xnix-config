@@ -7,6 +7,9 @@ esac
 export HOMEBREW_NO_AUTO_UPDATE=1
 HOMEBREW_PREFIX=$(brew --prefix)
 
+# shellcheck source=/dev/null
+test -r "${HOME}/.bash_profile.before" && . "$_"
+
 path_append() {
   for p in "$@"; do
     if echo "$PATH" | grep -E "(^|:)${p}(:|$)" >/dev/null ; then
@@ -24,6 +27,11 @@ path_prepend() {
     export PATH="${p}${PATH:+:}${PATH:-''}"
   done
 }
+
+path_append "${MY_FLUTTER_HOME:=${HOME}/flutter}/bin"
+path_append "${MY_FLUTTER_HOME}/bin/cache/dart-sdk/bin"
+path_append "${MY_FLUTTER_HOME}/.pub-cache/bin"
+
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
@@ -281,12 +289,12 @@ if type brew &>/dev/null; then
   fi
 fi
 
-# source .bash_profile.local for customization
-test -r ~/.bash_profile.local && . ~/.bash_profile.local
-
 path_prepend "${HOME}/go/bin"
 
 test -e ~/bin/goto_dir_of.sh && . $_
 
 export VIM_SPECIFIED_CLANG='brew'
 export NVIM_COC_LOG_LEVEL='debug'
+
+# shellcheck source=/dev/null
+test -f "${HOME}/.bash_profile.after" && . "$_"
