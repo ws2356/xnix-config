@@ -1,36 +1,8 @@
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
-      *) echo 'If not running interactively, dont do anything' && return;;
+      *) return;;
 esac
-
-export HOMEBREW_NO_AUTO_UPDATE=1
-HOMEBREW_PREFIX=$(brew --prefix)
-
-# shellcheck source=/dev/null
-test -r "${HOME}/.bash_profile.before" && . "$_"
-
-path_append() {
-  for p in "$@"; do
-    if echo "$PATH" | grep -E "(^|:)${p}(:|$)" >/dev/null ; then
-      continue
-    fi
-    export PATH="${PATH:-''}${PATH:+:}${p}"
-  done
-}
-
-path_prepend() {
-  for p in "$@"; do
-    if echo "$PATH" | grep -E "(^|:)${p}(:|$)" >/dev/null ; then
-      continue
-    fi
-    export PATH="${p}${PATH:+:}${PATH:-''}"
-  done
-}
-
-path_append "${MY_FLUTTER_HOME:=${HOME}/flutter}/bin"
-path_append "${MY_FLUTTER_HOME}/bin/cache/dart-sdk/bin"
-path_append "${MY_FLUTTER_HOME}/.pub-cache/bin"
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
@@ -185,8 +157,6 @@ function kubesel {
   done
 }
 
-test -f ${HOME}/secrets/load.sh && . $_
-
 # 一键打包所有本地重要文档
 function packup() {
   # 当前用户的文档
@@ -226,51 +196,6 @@ export TERM="xterm-256color"
 
 test -f ${HOMEBREW_PREFIX}/etc/profile.d/autojump.sh && . $_
 
-path_append "${HOME}/bin"
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# config rbenv
-path_prepend "${HOME}/.rbenv/shims"
-export RBENV_SHELL=bash
-if command -v rbenv >/dev/null ; then
-  eval "$(rbenv init -)"
-fi
-rbenv() {
-  local command
-  command="$1"
-  if [ "$#" -gt 0 ]; then
-    shift
-  fi
-
-  case "$command" in
-  rehash|shell)
-    eval "$(rbenv "sh-$command" "$@")";;
-  *)
-    command rbenv "$command" "$@";;
-  esac
-}
-
-REQUESTED_JAVA_VERSION='1.8'
-if POSSIBLE_JAVA_HOME="$(/usr/libexec/java_home -v $REQUESTED_JAVA_VERSION 2>/dev/null)"; then
-  # Do this if you want to export JAVA_HOME
-  export JAVA_HOME="$POSSIBLE_JAVA_HOME"
-  path_prepend "${JAVA_HOME}/bin"
-fi
-
-export ANDROID_SDK_ROOT="${HOMEBREW_PREFIX}/share/android-sdk"
-if [ -d "${ANDROID_SDK_ROOT}" ] ; then
-  export ANDROID_HOME="$ANDROID_SDK_ROOT"
-  path_append "${ANDROID_SDK_ROOT}/emulator" \
-    "${ANDROID_SDK_ROOT}/tools" \
-    "${ANDROID_SDK_ROOT}/tools/bin" \
-    "${ANDROID_SDK_ROOT}/platform-tools"
-else
-  unset ANDROID_SDK_ROOT
-fi
-
 # maybe will cause bad things?
 #if [ -d "${HOMEBREW_PREFIX}/opt/llvm/bin" ] ; then
 #  path_prepend "${HOMEBREW_PREFIX}/opt/llvm/bin"
@@ -289,12 +214,4 @@ if type brew &>/dev/null; then
   fi
 fi
 
-path_prepend "${HOME}/go/bin"
-
-test -e ~/bin/goto_dir_of.sh && . $_
-
 export VIM_SPECIFIED_CLANG='brew'
-export NVIM_COC_LOG_LEVEL='debug'
-
-# shellcheck source=/dev/null
-test -f "${HOME}/.bash_profile.after" && . "$_"
