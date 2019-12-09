@@ -73,6 +73,11 @@ else
   unset ANDROID_SDK_ROOT
 fi
 
+export ANDROID_NDK_HOME="${HOMEBREW_PREFIX}/share/android-ndk"
+if [ ! -d "${ANDROID_NDK_HOME}" ] ; then
+  unset ANDROID_NDK_HOME
+fi
+
 # maybe will cause bad things?
 #if [ -d "${HOMEBREW_PREFIX}/opt/llvm/bin" ] ; then
 #  path_prepend "${HOMEBREW_PREFIX}/opt/llvm/bin"
