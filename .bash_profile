@@ -22,10 +22,6 @@ path_prepend() {
   done
 }
 
-path_append "${MY_FLUTTER_HOME:=${HOME}/flutter}/bin"
-path_append "${MY_FLUTTER_HOME}/bin/cache/dart-sdk/bin"
-path_append "${MY_FLUTTER_HOME}/.pub-cache/bin"
-
 test -f ${HOME}/secrets/load.sh && . $_
 
 path_append "${HOME}/bin"
