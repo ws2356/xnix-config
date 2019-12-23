@@ -1,4 +1,7 @@
-# If not running interactively, don't do anything
+#-----------
+## Intended for interactive shell
+## If not running interactively, don't do anything
+#-----------
 case $- in
     *i*) ;;
       *) return;;
@@ -51,18 +54,25 @@ ${BLUE}[$RED\u@\h:\W$GREEN\$(parse_git_branch)$BLUE]\
 }
 proml
 
-# refer to ${HOMEBREW_PREFIX}/etc/privoxy/config
+#-----------
+## export two environmental variables: http_proxy, https_proxy for most other cli to use (automatically)
+## refer to ${HOMEBREW_PREFIX}/etc/privoxy/config
+#-----------
 function use_proxy {
   export http_proxy='http://127.0.0.1:1087'
   export https_proxy='http://127.0.0.1:1087'
 }
 
+#-----------
+## undo the effect of <@function use_proxy>
+#-----------
 function close_proxy {
   unset http_proxy
   unset https_proxy
 }
 
 #ALTOOL=`find "/Applications/Xcode.app/Contents/Applications/Application Loader.app/Contents/"  -iname altool`
+
 function kube {
   kubectl --kubeconfig=$HOME/Dropbox/wansong.kubeconfig -n c-dev "$@"
 }
@@ -89,10 +99,18 @@ function start_virtual_python_env {
   source "$HOME/.virtualenv/$python_exe/bin/activate"
 }
 
+#-----------
+## call this to setup a virtual python 3 env(install if needed)
+#-----------
 function vpy3 {
   start_virtual_python_env python3
 }
 
+#-----------
+## enabling select, interact with pod in a interactive way
+## @param env
+## @param pod_name_regex
+#-----------
 function kubesel {
   if [ $# -lt 1 ] ; then
     return 1
@@ -215,3 +233,29 @@ if type brew &>/dev/null; then
 fi
 
 export VIM_SPECIFIED_CLANG='brew'
+
+javasel() {
+  local -a brew_casks
+  brew_casks=($(brew cask list))
+  local -a jdk_versions
+  for cask in "${brew_casks[@]}" ; do
+    if [[ "$cask" =~ adoptopenjdk([[:digit:]]+) ]] ; then
+      jdk_versions+=("${BASH_REMATCH[1]}")
+    fi
+  done
+  echo "Available jdks, choose one: ${jdk_versions[*]}"
+
+  select version in "${jdk_versions[@]}" ; do
+    if [ -n "$version" ] ; then
+      break;
+    fi
+  done
+  if [ -z "$version" ] ; then
+    return 1
+  fi
+  if [ "$version" -lt 10 ] ; then
+    version=1.${version}
+  fi
+  export USE_JDK_VERSION=${version}
+  . ~/.bash_profile
+}
