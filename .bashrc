@@ -233,3 +233,29 @@ if type brew &>/dev/null; then
 fi
 
 export VIM_SPECIFIED_CLANG='brew'
+
+javasel() {
+  local -a brew_casks
+  brew_casks=($(brew cask list))
+  local -a jdk_versions
+  for cask in "${brew_casks[@]}" ; do
+    if [[ "$cask" =~ adoptopenjdk([[:digit:]]+) ]] ; then
+      jdk_versions+=("${BASH_REMATCH[1]}")
+    fi
+  done
+  echo "Available jdks, choose one: ${jdk_versions[*]}"
+
+  select version in "${jdk_versions[@]}" ; do
+    if [ -n "$version" ] ; then
+      break;
+    fi
+  done
+  if [ -z "$version" ] ; then
+    return 1
+  fi
+  if [ "$version" -lt 10 ] ; then
+    version=1.${version}
+  fi
+  export USE_JDK_VERSION=${version}
+  . ~/.bash_profile
+}
