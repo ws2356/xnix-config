@@ -51,8 +51,8 @@ rbenv() {
   esac
 }
 
-REQUESTED_JAVA_VERSION='1.8'
-if POSSIBLE_JAVA_HOME="$(/usr/libexec/java_home -v $REQUESTED_JAVA_VERSION 2>/dev/null)"; then
+USE_JDK_VERSION=${USE_JDK_VERSION:=1.8}
+if POSSIBLE_JAVA_HOME="$(/usr/libexec/java_home -v $USE_JDK_VERSION 2>/dev/null)"; then
   # Do this if you want to export JAVA_HOME
   export JAVA_HOME="$POSSIBLE_JAVA_HOME"
   path_prepend "${JAVA_HOME}/bin"
