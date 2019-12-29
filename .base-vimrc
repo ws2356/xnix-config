@@ -489,6 +489,9 @@ function! StartPlug(plugInDir)
   if s:use_ide_feature('vim-lsp')
     Plug 'prabirshrestha/vim-lsp', { 'commit': '094a49dccd2d92a57d754bcfaeb5f61b1ead70f4' }
   endif
+  if s:use_ide_feature('swift')
+    Plug 'keith/swift.vim', { 'commit': '245e5f7aae6f1bc96849a0a01a58cb81cf56e721' }
+  endif
 endfunction
 
 function! EndPlug()
