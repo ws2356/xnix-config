@@ -189,8 +189,6 @@ nnoremap <leader>; :
 nnoremap <leader>sh :!
 nnoremap <leader>sw :Spawn! -wait=always -dir=.
 nnoremap <leader>st :Spawn! -wait=error -dir=.
-nnoremap <leader>rr :r<Space>
-nnoremap <leader>r1 :r!<Space>
 nnoremap <leader>msg :messages<CR>
 " 快速输入
 cnoremap <leader>5p <C-r>=expand('%:p')<CR>
@@ -276,8 +274,8 @@ function! GoPrevFold(cnt)
 endfunction
 
 " ale 导航命令
-nnoremap <leader>an :ALENext -wrap<CR>
-nnoremap <leader>ap :ALEPrevious -wrap<CR>
+nnoremap <leader>en :ALENext -wrap<CR>
+nnoremap <leader>ep :ALEPrevious -wrap<CR>
 " }}}
 
 
@@ -294,7 +292,7 @@ command -range=% WSChangeTab
 vnoremap <leader>ct :WSChangeTab<CR>
 nnoremap <leader>ct :WSChangeTab<CR>
 " 倒转选中行
-vnoremap <leader>rev :<C-u>'<+1,'>g/^/move <C-r>=line("'<")-1<CR><CR>
+" vnoremap <leader>rev :<C-u>'<+1,'>g/^/move <C-r>=line("'<")-1<CR><CR>
 nnoremap <leader>dl cc<Esc>
 nnoremap <leader>p :set paste<CR>
 nnoremap <leader>np :set nopaste<CR>

@@ -226,7 +226,9 @@ let g:ycm_autoclose_preview_window_after_insertion = 1
 " 配置ale {{{
 nnoremap <leader>] :ALEGoToDefinition<CR>
 nnoremap <leader>\ :ALEGoToDefinitionInVSplit<CR>
-nnoremap <leader>^ :ALEFindReferences<CR>
+nnoremap <leader>rf :ALEFindReferences<CR>
+nnoremap <leader>hv :ALEHover<CR>
+nnoremap <leader>fsm :ALESymbolSearch <cword><CR>
 " ycm semantic completion does not quite work, so i'm gonna: use ale to do lint and
 " semantic completion, use ycm to do tag based completion
 let g:ale_completion_enabled = 1
@@ -238,6 +240,7 @@ let g:ale_linters = {
       \ 'objc': ['clangd'],
       \ 'objcpp': ['clangd'],
       \ 'dart': ['language_server'],
+      \ 'swift': ['swiftlint'],
       \ }
 let g:ale_cpp_clangd_executable = s:resolved_clangd
 let g:ale_cpp_clangd_options = join(s:CLANGD_OPTIONS)
@@ -245,6 +248,9 @@ let g:ale_objc_clangd_executable = s:resolved_clangd
 let g:ale_objc_clangd_options = join(s:CLANGD_OPTIONS)
 let g:ale_objcpp_clangd_executable = s:resolved_clangd
 let g:ale_objcpp_clangd_options = join(s:CLANGD_OPTIONS)
+if exists('$SOURCEKIT_LSP_PATH')
+  let g:ale_sourcekit_lsp_executable=$SOURCEKIT_LSP_PATH
+endif
 " }}}
 
 
@@ -259,11 +265,12 @@ set statusline^=%{coc#status()}
 
 
 " vim-lsp {{{
-" TODO: wansong 2019-11-17 locate sourcekit-lsp
-if executable('sourcekit-lsp')
+let g:lsp_log_verbose = 1
+let g:lsp_log_file = expand('~/.vim-lsp.log')
+if exists('$SOURCEKIT_LSP_PATH')
   autocmd User lsp_setup call lsp#register_server({
         \ 'name': 'sourcekit-lsp',
-        \ 'cmd': {server_info->['sourcekit-lsp']},
+        \ 'cmd': {server_info->[$SOURCEKIT_LSP_PATH]},
         \ 'whitelist': ['swift'],
         \ })
 endif
@@ -298,6 +305,7 @@ endfunction
 augroup mygroup
   autocmd!
   autocmd BufNewFile,BufRead *.ejs set filetype=html
+  autocmd BufNewFile,BufRead *.swift set filetype=swift
   autocmd FileType vim setlocal foldmethod=marker
   " 打开文件时光标自动定位到上次退出时的位置
   autocmd BufReadPost *
@@ -390,7 +398,7 @@ function! StartPlug(plugInDir)
     Plug 'w0rp/ale', { 'commit': 'a5240009ba5ff22daad95c306f7dec372d46bda0' }
   endif
   if s:use_ide_feature('vimconfig')
-    Plug 'bestofsong/vimconfig', { 'commit': '66cead73a02f18227c8c52012e59815ae705b18e' }
+    Plug 'bestofsong/vimconfig', { 'commit': '9a868b0c8baa9624562643ba32ce74461a964a61' }
   endif
   if s:use_ide_feature('typescript')
     Plug 'leafgarland/typescript-vim', { 'commit': '7704fac2c765aaf975ad4034933bf63113dd4a64' }
@@ -475,6 +483,15 @@ function! StartPlug(plugInDir)
   " 没有效果
   " Plug 'b4winckler/vim-objc'
   " Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  if s:use_ide_feature('async')
+    Plug 'prabirshrestha/async.vim', { 'commit': '627a8c4092df24260d3dc2104bc1d944c78f91ca' }
+  endif
+  if s:use_ide_feature('vim-lsp')
+    Plug 'prabirshrestha/vim-lsp', { 'commit': '094a49dccd2d92a57d754bcfaeb5f61b1ead70f4' }
+  endif
+  if s:use_ide_feature('swift')
+    Plug 'keith/swift.vim', { 'commit': '245e5f7aae6f1bc96849a0a01a58cb81cf56e721' }
+  endif
 endfunction
 
 function! EndPlug()
