@@ -100,3 +100,9 @@ test -f "${HOME}/.bashrc" && . "$_"
 #   bundled_rc="${this_dir}/.bashrc"
 #   test -r "$bundled_rc" && . "$_"
 # fi
+
+if type xcrun >/dev/null 2>&1 ; then
+  if sourcekit_lsp=$(xcrun --toolchain swift --find sourcekit-lsp) ; then
+    export SOURCEKIT_LSP_PATH="$sourcekit_lsp"
+  fi
+fi

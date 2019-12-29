@@ -259,11 +259,12 @@ set statusline^=%{coc#status()}
 
 
 " vim-lsp {{{
-" TODO: wansong 2019-11-17 locate sourcekit-lsp
-if executable('sourcekit-lsp')
+let g:lsp_log_verbose = 1
+let g:lsp_log_file = expand('~/.vim-lsp.log')
+if exists('$SOURCEKIT_LSP_PATH')
   autocmd User lsp_setup call lsp#register_server({
         \ 'name': 'sourcekit-lsp',
-        \ 'cmd': {server_info->['sourcekit-lsp']},
+        \ 'cmd': {server_info->[$SOURCEKIT_LSP_PATH]},
         \ 'whitelist': ['swift'],
         \ })
 endif
@@ -298,6 +299,7 @@ endfunction
 augroup mygroup
   autocmd!
   autocmd BufNewFile,BufRead *.ejs set filetype=html
+  autocmd BufNewFile,BufRead *.swift set filetype=swift
   autocmd FileType vim setlocal foldmethod=marker
   " 打开文件时光标自动定位到上次退出时的位置
   autocmd BufReadPost *
@@ -475,6 +477,12 @@ function! StartPlug(plugInDir)
   " 没有效果
   " Plug 'b4winckler/vim-objc'
   " Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  if s:use_ide_feature('async')
+    Plug 'prabirshrestha/async.vim', { 'commit': '627a8c4092df24260d3dc2104bc1d944c78f91ca' }
+  endif
+  if s:use_ide_feature('vim-lsp')
+    Plug 'prabirshrestha/vim-lsp', { 'commit': '094a49dccd2d92a57d754bcfaeb5f61b1ead70f4' }
+  endif
 endfunction
 
 function! EndPlug()
