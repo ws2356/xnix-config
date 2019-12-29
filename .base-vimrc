@@ -226,7 +226,9 @@ let g:ycm_autoclose_preview_window_after_insertion = 1
 " 配置ale {{{
 nnoremap <leader>] :ALEGoToDefinition<CR>
 nnoremap <leader>\ :ALEGoToDefinitionInVSplit<CR>
-nnoremap <leader>^ :ALEFindReferences<CR>
+nnoremap <leader>rf :ALEFindReferences<CR>
+nnoremap <leader>hv :ALEHover<CR>
+nnoremap <leader>fsm :ALESymbolSearch <cword><CR>
 " ycm semantic completion does not quite work, so i'm gonna: use ale to do lint and
 " semantic completion, use ycm to do tag based completion
 let g:ale_completion_enabled = 1
