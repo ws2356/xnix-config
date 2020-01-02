@@ -102,7 +102,7 @@ test -f "${HOME}/.bashrc" && . "$_"
 # fi
 
 if type xcrun >/dev/null 2>&1 ; then
-  if sourcekit_lsp=$(xcrun --toolchain swift --find sourcekit-lsp) ; then
+  if sourcekit_lsp=$(xcrun --toolchain swift --find sourcekit-lsp >/dev/null 2>&1) ; then
     export SOURCEKIT_LSP_PATH="$sourcekit_lsp"
   fi
 fi

@@ -354,7 +354,21 @@ nnoremap <leader>cc :cc<Space>
 
 
 " git
+function! WSOpenUrl(url)
+  let l:fixed=a:url
+  if a:url =~ '^git@'
+    let l:fixed = substitute(
+          \ a:url,
+          \ '^git@\(.\+\):\(.\+\)$',
+          \ {m -> 'http://' .  m[1] . '/' . m[2] },
+          \ 'g')
+  endif
+  execute '!open -a "Google Chrome" ' . l:fixed
+endfunction
+
+command! -nargs=1 WSOpenUrl call WSOpenUrl(<f-args>)
 nnoremap <leader>dg :diffget<CR>
+nnoremap <leader>link yi':WSOpenUrl <C-r>0<CR>
 
 
 " vim-fugitive {{{
