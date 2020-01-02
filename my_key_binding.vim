@@ -355,10 +355,11 @@ nnoremap <leader>cc :cc<Space>
 
 " git
 function! WSOpenUrl(url)
-  let l:fixed=a:url
+  let l:trimmed = trim(a:url)
+  let l:fixed = l:trimmed
   if a:url =~ '^git@'
     let l:fixed = substitute(
-          \ a:url,
+          \ l:trimmed,
           \ '^git@\(.\+\):\(.\+\)$',
           \ {m -> 'http://' .  m[1] . '/' . m[2] },
           \ 'g')
@@ -368,7 +369,9 @@ endfunction
 
 command! -nargs=1 WSOpenUrl call WSOpenUrl(<f-args>)
 nnoremap <leader>dg :diffget<CR>
-nnoremap <leader>link yi':WSOpenUrl <C-r>0<CR>
+nnoremap <leader>lnk yi':WSOpenUrl <C-r>0<CR>
+nnoremap <leader>llnk yy:WSOpenUrl <C-r>0<CR>
+nnoremap <leader>wlnk yy:WSOpenUrl <cWORD><CR>
 
 
 " vim-fugitive {{{
