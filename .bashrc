@@ -259,3 +259,12 @@ javasel() {
   export USE_JDK_VERSION=${version}
   . ~/.bash_profile
 }
+
+swift() {
+  local real_swift
+  if real_swift=$(xcrun --toolchain swift --find swift 2>/dev/null) ; then
+    "$real_swift" "$@"
+  else
+    command swift "$@"
+  fi
+}
