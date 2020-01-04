@@ -27,7 +27,6 @@ function! StartPlug(plugInDir)
   Plug 'mxw/vim-jsx', { 'commit': 'ffc0bfd9da15d0fce02d117b843f718160f7ad27' }
   Plug 'mattn/emmet-vim', { 'commit': 'd698f1658770ca5fa58c87e80421c8d65bbe9065' }
   Plug 'ap/vim-css-color', { 'commit': '8a84356d5319cad3da2835bd5fbc6318500f31ce' }
-  Plug 'ekalinin/Dockerfile.vim', { 'commit': 'f647f90dcecb8738cd53ac8dd293d93570039e00' }
   Plug 'shumphrey/fugitive-gitlab.vim', { 'commit': '43a13dbbc9aae85338877329ed28c9e4d8488db1' }
   Plug 'jiangmiao/auto-pairs', { 'commit': '39f06b873a8449af8ff6a3eee716d3da14d63a76' }
   Plug 'vim-ruby/vim-ruby', { 'commit': '1aa8f0cd0411c093d81f4139d151f93808e53966' }
