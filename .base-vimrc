@@ -270,7 +270,10 @@ let g:lsp_log_file = expand('~/.vim-lsp.log')
 if exists('$SOURCEKIT_LSP_PATH')
   autocmd User lsp_setup call lsp#register_server({
         \ 'name': 'sourcekit-lsp',
-        \ 'cmd': {server_info->[$SOURCEKIT_LSP_PATH]},
+        \ 'cmd': {server_info->[$SOURCEKIT_LSP_PATH,  '-Xswiftc', '-sdk',
+        \ '-Xswiftc', '/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.2.sdk',
+        \ '-Xswiftc', '-target',
+        \ '-Xswiftc', 'arm64-apple-ios13.3-iphoneos']},
         \ 'whitelist': ['swift'],
         \ })
 endif
