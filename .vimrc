@@ -44,7 +44,8 @@ function! StartPlug(plugInDir)
   " deoplete needs following two
   Plug 'roxma/nvim-yarp', { 'commit': '83c6f4e61aa73e2a53796ea6690fb7e5e64db50a' }
   Plug 'roxma/vim-hug-neovim-rpc', { 'commit': '701ecbb0a1f904c0b44c6beaafef35e1de998a94' }
-  Plug 'Shougo/deoplete.nvim', { 'commit': '840c46aed8033efe19c7a5a809713c809b4a6bb5' }
+  Plug 'Shougo/deoplete.nvim', { 'commit': '840c46aed8033efe19c7a5a809713c809b4a6bb5',
+        \'do': 'pip3 show pynvim 2>/dev/null 1>&2 \|\| pip3 install --user --upgrade pynvim' }
 endfunction
 
 function! EndPlug()
