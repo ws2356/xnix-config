@@ -130,6 +130,7 @@ set ignorecase
 set nogdefault
 set smartcase
 set relativenumber
+set pumheight=10
 " Switch syntax highlighting on, when the terminal has colors
 syntax on
 filetype plugin indent on
@@ -377,6 +378,12 @@ let dart_html_in_string=v:true
 " }}}
 
 
+" {{{ asyncomplete
+let g:asyncomplete_auto_popup = 0
+imap <c-\> <Plug>(asyncomplete_force_refresh)
+" }}}
+
+
 " {{{
 " let g:LanguageClient_serverCommands = {
 "       \ 'rust': ['rustup', 'run', 'stable', 'rls'],
@@ -500,6 +507,8 @@ function! StartPlug(plugInDir)
   if s:use_ide_feature('swift')
     Plug 'keith/swift.vim', { 'commit': '245e5f7aae6f1bc96849a0a01a58cb81cf56e721' }
   endif
+  Plug 'prabirshrestha/asyncomplete.vim', { 'commit': 'db3ab51ef6d42ac410afaea53fc0513afd0d5e25' }
+  Plug 'prabirshrestha/asyncomplete-lsp.vim', { 'commit': '9e7b2492578dca86ed12b6352cb56d9fc8ac9a6e' }
 endfunction
 
 function! EndPlug()
