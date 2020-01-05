@@ -186,11 +186,11 @@ let g:gutentags_ctags_tagfile = '.tags'
 let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
 let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
 let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
-let s:ctags_d = expand('~/.ctags')
+let s:ctags_d = s:this_dir . '/.ctags.d'
 if isdirectory(s:ctags_d)
   let g:gutentags_ctags_extra_args += ['--optlib-dir=+' . s:ctags_d]
 endif
-  let g:gutentags_ctags_extra_args += ['--options-maybe=swift.ctags']
+let g:gutentags_ctags_extra_args += ['--options-maybe=swift.ctags']
 let g:gutentags_ctags_exclude = ['node_modules', '.build']
 " }}}
 
