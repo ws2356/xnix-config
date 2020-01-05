@@ -46,6 +46,7 @@ function! StartPlug(plugInDir)
   Plug 'roxma/vim-hug-neovim-rpc', { 'commit': '701ecbb0a1f904c0b44c6beaafef35e1de998a94' }
   Plug 'Shougo/deoplete.nvim', { 'commit': '840c46aed8033efe19c7a5a809713c809b4a6bb5',
         \'do': 'pip3 show pynvim 2>/dev/null 1>&2 \|\| pip3 install --user --upgrade pynvim' }
+  Plug 'prabirshrestha/asyncomplete-tags.vim', { 'commit': 'eef50f9630db9a772204af13baa997c176ab1a4e' }
 endfunction
 
 function! EndPlug()
@@ -185,7 +186,12 @@ let g:gutentags_ctags_tagfile = '.tags'
 let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
 let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
 let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
-let g:gutentags_ctags_exclude = ['node_modules']
+let s:ctags_d = expand('~/.ctags')
+if isdirectory(s:ctags_d)
+  let g:gutentags_ctags_extra_args += ['--optlib-dir=+' . s:ctags_d]
+endif
+  let g:gutentags_ctags_extra_args += ['--options-maybe=swift.ctags']
+let g:gutentags_ctags_exclude = ['node_modules', '.build']
 " }}}
 
 
@@ -219,6 +225,9 @@ let g:ycm_clangd_uses_ycmd_caching = 0
 " Use installed clangd, not YCM-bundled clangd which doesn't get updates.
 let g:ycm_clangd_binary_path = s:resolved_clangd
 let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_filetype_blacklist = {
+      \ 'swift': 1
+      \ }
 " }}}
 
 
@@ -309,6 +318,14 @@ function! WSWrapYcmRestartServer(_)
   endif
 endfunction
 
+function! WSTurnOnOrOffDeoplete()
+  if &filetype == 'swift'
+    call deoplete#custom#option('auto_complete', 1)
+  else
+    call deoplete#custom#option('auto_complete', 0)
+  endif
+endfunction
+
 augroup mygroup
   autocmd!
   autocmd BufNewFile,BufRead *.ejs set filetype=html
@@ -322,6 +339,7 @@ augroup mygroup
   autocmd BufEnter COMMIT_EDITMSG let g:ycm_collect_identifiers_from_comments_and_strings = 1 | :silent call WSWrapYcmRestartServer(0)
   autocmd BufLeave COMMIT_EDITMSG let g:ycm_collect_identifiers_from_comments_and_strings = 0 | :silent call WSWrapYcmRestartServer(0)
   autocmd FileType json syntax match Comment +\/\/.\+$+
+  autocmd FileType * :silent call WSTurnOnOrOffDeoplete()
 augroup END
 " }}}
 
@@ -374,8 +392,17 @@ let dart_html_in_string=v:true
 
 
 " {{{ asyncomplete
-let g:asyncomplete_auto_popup = 0
+let g:asyncomplete_auto_popup = 1
+let g:asyncomplete_popup_delay = 1000
 imap <c-\> <Plug>(asyncomplete_force_refresh)
+autocmd mygroup User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#tags#get_source_options({
+    \ 'name': '.tags',
+    \ 'whitelist': ['swift'],
+    \ 'completor': function('asyncomplete#sources#tags#completor'),
+    \ 'config': {
+    \    'max_file_size': 50000000,
+    \  },
+    \ }))
 " }}}
 
 

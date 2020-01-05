@@ -268,5 +268,3 @@ swift() {
     command swift "$@"
   fi
 }
-
-. "/Users/ws2356/.config/shellpack/bin/shellpack_loader.sh"
