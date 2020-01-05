@@ -268,3 +268,5 @@ swift() {
     command swift "$@"
   fi
 }
+
+. ~/.config/shellpack/bin/shellpack_loader.sh
