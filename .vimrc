@@ -30,7 +30,10 @@ function! StartPlug(plugInDir)
   Plug 'shumphrey/fugitive-gitlab.vim', { 'commit': '43a13dbbc9aae85338877329ed28c9e4d8488db1' }
   Plug 'jiangmiao/auto-pairs', { 'commit': '39f06b873a8449af8ff6a3eee716d3da14d63a76' }
   Plug 'vim-ruby/vim-ruby', { 'commit': '1aa8f0cd0411c093d81f4139d151f93808e53966' }
-  Plug '/usr/local/opt/fzf'
+  let l:fzf_path = trim(system('type -p fzf'))
+  if exists(l:fzf_path)
+    Plug l:fzf_path
+  endif
   Plug 'junegunn/fzf.vim', { 'commit': '359a80e3a34aacbd5257713b6a88aa085337166f' }
   Plug 'vim-airline/vim-airline', { 'commit': 'c213f2ac44292a6c5548872e63acb0648cc07a9a' }
   Plug 'tpope/vim-rhubarb', { 'commit': 'c509c7eedeea641f5b0bdae708581ff610fbff5b' }
@@ -107,6 +110,7 @@ let g:WS_RIPGREP_GLOB = '--glob !.git/ '
       \ . '--glob !TMP/ '
       \ . '--glob !build/ '
       \ . '--glob !built/ '
+      \ . '--glob !.build/ '
       \ . '--glob !.tags '
       \ . '--glob !.tags.temp '
       \ . '--glob !*.pyc '
