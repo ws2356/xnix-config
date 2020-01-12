@@ -312,6 +312,13 @@ inoremap <C-b>f3 <C-r>=expand('#')<CR>
 " 绕过emmet不能完整展开自动补全的表达式的问题
 imap <C-y>\ <Esc>a<C-y>,
 " inoremap <expr> <C-b>r repeat(nr2char(getchar()), 10)
+function! AppendModeline()
+  let l:modeline = printf("vim: set sts=%d ts=%d sw=%d tw=%d %set :",
+        \ &tabstop, &tabstop, &shiftwidth, &textwidth, &expandtab ? '' : 'no')
+  let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
+  execute ':0s@^@' . l:modeline . '\r@'
+endfunction
+nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
 " }}}
 
 
