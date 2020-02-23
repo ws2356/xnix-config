@@ -274,16 +274,21 @@ set statusline^=%{coc#status()}
 
 
 " vim-lsp {{{
+" let g:ws_sourcekit_lsp_path
 let g:lsp_log_verbose = 1
 let g:lsp_log_file = expand('~/.vim-lsp.log')
+" macos系统可以用下面的命令获取相应环境
+" let g:ws_sourcekit_lsp_path = trim(system('xcrun --toolchain swift --find sourcekit-lsp'))
+" let g:ws_swift_sdk_path=trim(system('xcrun --toolchain swift -show-sdk-path'))
+" let g:ws_swift_triplet='x86_64-apple-macosx10.15'
 function! WS_start_sourcekit_lsp()
-  if exists('$SOURCEKIT_LSP_PATH') && exists('g:ws_swift_sdk_path') && exists('g:ws_swift_triplet')
+  if exists('g:ws_sourcekit_lsp_path') && exists('g:ws_swift_sdk_path') && exists('g:ws_swift_triplet')
     " let s:ws_lsp_default_ios_sdk_path=trim(system('get_default_ios_sdk_path'))
     " let s:ws_lsp_swift_host_triplet=trim(system('get_swift_host_triplet'))
     autocmd User lsp_setup call lsp#register_server({
           \ 'name': 'sourcekit-lsp',
           \ 'cmd': {server_info->[
-          \   $SOURCEKIT_LSP_PATH,
+          \   g:ws_sourcekit_lsp_path,
           \   '-Xswiftc', '-sdk',
           \   '-Xswiftc', g:ws_swift_sdk_path,
           \   '-Xswiftc', '-target',
