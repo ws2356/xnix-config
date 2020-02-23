@@ -249,7 +249,6 @@ let g:ale_linters = {
       \ 'objc': ['clangd'],
       \ 'objcpp': ['clangd'],
       \ 'dart': ['language_server'],
-      \ 'swift': ['swiftlint'],
       \ }
 let g:ale_cpp_clangd_executable = s:resolved_clangd
 let g:ale_cpp_clangd_options = join(s:CLANGD_OPTIONS)
