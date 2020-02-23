@@ -22,6 +22,11 @@ fi
 if ! [ -e ".vimrc" ] ; then
 output_file2='.vimrc'
 >>"$output_file2" cat <<'EOF'
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+
 let g:ws_sourcekit_lsp_path = trim(system('xcrun --toolchain swift --find sourcekit-lsp'))
 let g:ws_swift_sdk_path=trim(system('xcrun --toolchain swift -show-sdk-path'))
 let g:ws_swift_triplet=trim(system('guess_swift_host_triplet || printf "x86_64-apple-macosx10.15"'))
