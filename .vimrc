@@ -277,6 +277,7 @@ set statusline^=%{coc#status()}
 " let g:ws_sourcekit_lsp_path
 let g:lsp_log_verbose = 1
 let g:lsp_log_file = expand('~/.vim-lsp.log')
+let g:lsp_signs_error = {'text': '✗'}
 " macos系统可以用下面的命令获取相应环境
 " let g:ws_sourcekit_lsp_path = trim(system('xcrun --toolchain swift --find sourcekit-lsp'))
 " let g:ws_swift_sdk_path=trim(system('xcrun --toolchain swift -show-sdk-path'))
