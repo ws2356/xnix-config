@@ -12,7 +12,7 @@ function! StartPlug(plugInDir)
   Plug 'w0rp/ale', { 'commit': 'a5240009ba5ff22daad95c306f7dec372d46bda0' }
   Plug 'bestofsong/vimconfig', { 'commit': 'e4e034afdaf8b979d047e4160859bb8f5fd4d4e0' }
   Plug 'leafgarland/typescript-vim', { 'commit': '7704fac2c765aaf975ad4034933bf63113dd4a64' }
-  Plug 'godlygeek/tabular', { 'commit': '339091ac4dd1f17e225fe7d57b48aff55f99b23a' }
+  " Plug 'godlygeek/tabular', { 'commit': '339091ac4dd1f17e225fe7d57b48aff55f99b23a' }
   Plug 'wellle/targets.vim', { 'commit': 'a79447f261e4b8b4327557aa03726f3849334b84' }
   Plug 'easymotion/vim-easymotion', { 'commit': '85e90c9759e14633d878ed534ef313876ab96555' }
   Plug 'tpope/vim-fugitive', { 'commit': '6d42c7df44aa20252e5dac747c3ac9fa7450b21b' }
