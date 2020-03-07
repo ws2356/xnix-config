@@ -176,6 +176,15 @@ nnoremap <leader>al :call ToggleSourceHeader()<CR>
 nnoremap <leader>ju :jumps<CR>
 
 
+" lsp {{{
+nnoremap <leader>ne :throw 'reserved for lsp: next error'<CR>
+nnoremap <leader>nw :throw 'reserved for lsp: next warning'<CR>
+nnoremap <leader>pe :throw 'reserved for lsp: previous error'<CR>
+nnoremap <leader>pw :throw 'reserved for lsp: previous warning'<CR>
+nnoremap <leader>ae :throw 'reserved for lsp: list all diagnostic'<CR>
+" }}}
+
+
 " 宏
 xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
 function! ExecuteMacroOverVisualRange()

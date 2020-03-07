@@ -252,7 +252,6 @@ let g:ale_linters = {
       \ 'objc': ['clangd'],
       \ 'objcpp': ['clangd'],
       \ 'dart': ['language_server'],
-      \ 'swift': ['swiftlint'],
       \ }
 let g:ale_cpp_clangd_executable = s:resolved_clangd
 let g:ale_cpp_clangd_options = join(s:CLANGD_OPTIONS)
@@ -277,23 +276,33 @@ set statusline^=%{coc#status()}
 
 
 " vim-lsp {{{
+" let g:ws_sourcekit_lsp_path
 let g:lsp_log_verbose = 1
 let g:lsp_log_file = expand('~/.vim-lsp.log')
-if exists('$SOURCEKIT_LSP_PATH')
-  let s:ws_lsp_default_ios_sdk_path=trim(system('get_default_ios_sdk_path'))
-  let s:ws_lsp_swift_host_triplet=trim(system('get_swift_host_triplet'))
-  autocmd User lsp_setup call lsp#register_server({
-        \ 'name': 'sourcekit-lsp',
-        \ 'cmd': {server_info->[
-        \   $SOURCEKIT_LSP_PATH,
-        \   '-Xswiftc', '-sdk',
-        \   '-Xswiftc', s:ws_lsp_default_ios_sdk_path,
-        \   '-Xswiftc', '-target',
-        \   '-Xswiftc', s:ws_lsp_swift_host_triplet]
-        \ },
-        \ 'whitelist': ['swift'],
-        \ })
-endif
+let g:lsp_signs_error = {'text': '✗'}
+" macos系统可以用下面的命令获取相应环境
+" let g:ws_sourcekit_lsp_path = trim(system('xcrun --toolchain swift --find sourcekit-lsp'))
+" let g:ws_swift_sdk_path=trim(system('xcrun --toolchain swift -show-sdk-path'))
+" let g:ws_swift_triplet='x86_64-apple-macosx10.15'
+function! WS_start_sourcekit_lsp()
+  if exists('g:ws_sourcekit_lsp_path') && exists('g:ws_swift_sdk_path') && exists('g:ws_swift_triplet')
+    " let s:ws_lsp_default_ios_sdk_path=trim(system('get_default_ios_sdk_path'))
+    " let s:ws_lsp_swift_host_triplet=trim(system('get_swift_host_triplet'))
+    autocmd User lsp_setup call lsp#register_server({
+          \ 'name': 'sourcekit-lsp',
+          \ 'cmd': {server_info->[
+          \   g:ws_sourcekit_lsp_path,
+          \   '-Xswiftc', '-sdk',
+          \   '-Xswiftc', g:ws_swift_sdk_path,
+          \   '-Xswiftc', '-target',
+          \   '-Xswiftc', g:ws_swift_triplet]
+          \ },
+          \ 'whitelist': ['swift'],
+          \ })
+  else
+    echom 'Cannot start swift lsp, because either executable or build option not exist'
+  endif
+endfunction
 " }}}
 
 
