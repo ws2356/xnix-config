@@ -106,3 +106,5 @@ if type xcrun >/dev/null 2>&1 ; then
     export SOURCEKIT_LSP_PATH="$sourcekit_lsp"
   fi
 fi
+
+export PATH="$HOME/.cargo/bin:$PATH"

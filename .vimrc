@@ -319,15 +319,6 @@ let g:indentLine_concealcursor = 'c'
 
 
 " 自动命令 ---------------------- {{{
-" 该函数执行的时候vimrc可能还没有执行过，此时延时递归，否则立即执行
-function! WSWrapYcmRestartServer(_)
-  if v:vim_did_enter
-    :silent YcmRestartServer
-  else
-    call timer_start(1000, 'WSWrapYcmRestartServer')
-  endif
-endfunction
-
 function! WSTurnOnOrOffDeoplete()
   if &filetype == 'swift'
     call deoplete#custom#option('auto_complete', 1)
@@ -346,8 +337,6 @@ augroup mygroup
         \ if line("'\"") > 1 && line("'\"") <= line("$") && &ft !~# 'commit'
         \ |   exe "normal! g`\""
         \ | endif
-  autocmd BufEnter COMMIT_EDITMSG let g:ycm_collect_identifiers_from_comments_and_strings = 1 | :silent call WSWrapYcmRestartServer(0)
-  autocmd BufLeave COMMIT_EDITMSG let g:ycm_collect_identifiers_from_comments_and_strings = 0 | :silent call WSWrapYcmRestartServer(0)
   autocmd FileType json syntax match Comment +\/\/.\+$+
   autocmd FileType * :silent call WSTurnOnOrOffDeoplete()
 augroup END
