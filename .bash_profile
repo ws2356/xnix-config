@@ -22,7 +22,7 @@ path_prepend() {
   done
 }
 
-test -f ${HOME}/secrets/load.sh && . $_
+test -f ${HOME}/secrets/env.sh && . $_
 
 path_append "${HOME}/bin"
 
