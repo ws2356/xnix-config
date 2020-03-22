@@ -1,0 +1,10 @@
+Host pi
+  User pi
+  HostName pihome.local
+Host 47.75.161.*
+  User root
+  HostName %h
+  ProxyJump ubuntu@tc.vps
+Host tc
+  User ubuntu
+  HostName tc.vps
