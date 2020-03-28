@@ -1,0 +1,8 @@
+Host pi
+  User pi
+  HostName pihome.local
+Host tc
+  User ubuntu
+  HostName tc.vps
+Match exec "test -f ~/.ssh/config.private"
+  Include ~/.ssh/config.private

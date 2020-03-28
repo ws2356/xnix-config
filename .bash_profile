@@ -22,7 +22,7 @@ path_prepend() {
   done
 }
 
-test -f ${HOME}/secrets/load.sh && . $_
+test -f ${HOME}/secrets/env.sh && . $_
 
 path_append "${HOME}/bin"
 
@@ -106,3 +106,5 @@ if type xcrun >/dev/null 2>&1 ; then
     export SOURCEKIT_LSP_PATH="$sourcekit_lsp"
   fi
 fi
+
+export PATH="$HOME/.cargo/bin:$PATH"

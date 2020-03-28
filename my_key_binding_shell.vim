@@ -14,8 +14,6 @@ function! WS_BuildCmakeProj()
 endfunction
 
 function! WS_BuildSwiftProj()
-  " execute ':Spawn! -wait=always -dir=. ' .
-  "       \ shellescape(s:build_swift_proj_cmd)
   execute ':call system("' . s:build_swift_proj_cmd . '")'
 endfunction
 

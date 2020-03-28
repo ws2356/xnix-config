@@ -12,7 +12,7 @@ function! StartPlug(plugInDir)
   Plug 'w0rp/ale', { 'commit': 'a5240009ba5ff22daad95c306f7dec372d46bda0' }
   Plug 'bestofsong/vimconfig', { 'commit': 'e4e034afdaf8b979d047e4160859bb8f5fd4d4e0' }
   Plug 'leafgarland/typescript-vim', { 'commit': '7704fac2c765aaf975ad4034933bf63113dd4a64' }
-  Plug 'godlygeek/tabular', { 'commit': '339091ac4dd1f17e225fe7d57b48aff55f99b23a' }
+  " Plug 'godlygeek/tabular', { 'commit': '339091ac4dd1f17e225fe7d57b48aff55f99b23a' }
   Plug 'wellle/targets.vim', { 'commit': 'a79447f261e4b8b4327557aa03726f3849334b84' }
   Plug 'easymotion/vim-easymotion', { 'commit': '85e90c9759e14633d878ed534ef313876ab96555' }
   Plug 'tpope/vim-fugitive', { 'commit': '6d42c7df44aa20252e5dac747c3ac9fa7450b21b' }
@@ -30,7 +30,7 @@ function! StartPlug(plugInDir)
   Plug 'shumphrey/fugitive-gitlab.vim', { 'commit': '43a13dbbc9aae85338877329ed28c9e4d8488db1' }
   Plug 'jiangmiao/auto-pairs', { 'commit': '39f06b873a8449af8ff6a3eee716d3da14d63a76' }
   Plug 'vim-ruby/vim-ruby', { 'commit': '1aa8f0cd0411c093d81f4139d151f93808e53966' }
-  Plug '/usr/local/opt/fzf'
+  Plug 'junegunn/fzf', { 'commit': '7c40a424c0bf5a8967816d51ead6a71a334f30bb', 'do': './install --bin' }
   Plug 'junegunn/fzf.vim', { 'commit': '359a80e3a34aacbd5257713b6a88aa085337166f' }
   Plug 'vim-airline/vim-airline', { 'commit': 'c213f2ac44292a6c5548872e63acb0648cc07a9a' }
   Plug 'tpope/vim-rhubarb', { 'commit': 'c509c7eedeea641f5b0bdae708581ff610fbff5b' }
@@ -107,6 +107,7 @@ let g:WS_RIPGREP_GLOB = '--glob !.git/ '
       \ . '--glob !TMP/ '
       \ . '--glob !build/ '
       \ . '--glob !built/ '
+      \ . '--glob !.build/ '
       \ . '--glob !.tags '
       \ . '--glob !.tags.temp '
       \ . '--glob !*.pyc '
@@ -248,7 +249,6 @@ let g:ale_linters = {
       \ 'objc': ['clangd'],
       \ 'objcpp': ['clangd'],
       \ 'dart': ['language_server'],
-      \ 'swift': ['swiftlint'],
       \ }
 let g:ale_cpp_clangd_executable = s:resolved_clangd
 let g:ale_cpp_clangd_options = join(s:CLANGD_OPTIONS)
@@ -273,23 +273,33 @@ set statusline^=%{coc#status()}
 
 
 " vim-lsp {{{
+" let g:ws_sourcekit_lsp_path
 let g:lsp_log_verbose = 1
 let g:lsp_log_file = expand('~/.vim-lsp.log')
-if exists('$SOURCEKIT_LSP_PATH')
-  let s:ws_lsp_default_ios_sdk_path=trim(system('get_default_ios_sdk_path'))
-  let s:ws_lsp_swift_host_triplet=trim(system('get_swift_host_triplet'))
-  autocmd User lsp_setup call lsp#register_server({
-        \ 'name': 'sourcekit-lsp',
-        \ 'cmd': {server_info->[
-        \   $SOURCEKIT_LSP_PATH,
-        \   '-Xswiftc', '-sdk',
-        \   '-Xswiftc', s:ws_lsp_default_ios_sdk_path,
-        \   '-Xswiftc', '-target',
-        \   '-Xswiftc', s:ws_lsp_swift_host_triplet]
-        \ },
-        \ 'whitelist': ['swift'],
-        \ })
-endif
+let g:lsp_signs_error = {'text': '✗'}
+" macos系统可以用下面的命令获取相应环境
+" let g:ws_sourcekit_lsp_path = trim(system('xcrun --toolchain swift --find sourcekit-lsp'))
+" let g:ws_swift_sdk_path=trim(system('xcrun --toolchain swift -show-sdk-path'))
+" let g:ws_swift_triplet='x86_64-apple-macosx10.15'
+function! WS_start_sourcekit_lsp()
+  if exists('g:ws_sourcekit_lsp_path') && exists('g:ws_swift_sdk_path') && exists('g:ws_swift_triplet')
+    " let s:ws_lsp_default_ios_sdk_path=trim(system('get_default_ios_sdk_path'))
+    " let s:ws_lsp_swift_host_triplet=trim(system('get_swift_host_triplet'))
+    autocmd User lsp_setup call lsp#register_server({
+          \ 'name': 'sourcekit-lsp',
+          \ 'cmd': {server_info->[
+          \   g:ws_sourcekit_lsp_path,
+          \   '-Xswiftc', '-sdk',
+          \   '-Xswiftc', g:ws_swift_sdk_path,
+          \   '-Xswiftc', '-target',
+          \   '-Xswiftc', g:ws_swift_triplet]
+          \ },
+          \ 'whitelist': ['swift'],
+          \ })
+  else
+    echom 'Cannot start swift lsp, because either executable or build option not exist'
+  endif
+endfunction
 " }}}
 
 
@@ -309,15 +319,6 @@ let g:indentLine_concealcursor = 'c'
 
 
 " 自动命令 ---------------------- {{{
-" 该函数执行的时候vimrc可能还没有执行过，此时延时递归，否则立即执行
-function! WSWrapYcmRestartServer(_)
-  if v:vim_did_enter
-    :silent YcmRestartServer
-  else
-    call timer_start(1000, 'WSWrapYcmRestartServer')
-  endif
-endfunction
-
 function! WSTurnOnOrOffDeoplete()
   if &filetype == 'swift'
     call deoplete#custom#option('auto_complete', 1)
@@ -331,14 +332,13 @@ augroup mygroup
   autocmd BufNewFile,BufRead *.ejs set filetype=html
   autocmd BufNewFile,BufRead *.swift set filetype=swift
   autocmd BufNewFile,BufRead *.tsx set filetype=javascript
+  autocmd BufNewFile,BufRead Fastfile set filetype=ruby
   autocmd FileType vim setlocal foldmethod=marker
   " 打开文件时光标自动定位到上次退出时的位置
   autocmd BufReadPost *
         \ if line("'\"") > 1 && line("'\"") <= line("$") && &ft !~# 'commit'
         \ |   exe "normal! g`\""
         \ | endif
-  autocmd BufEnter COMMIT_EDITMSG let g:ycm_collect_identifiers_from_comments_and_strings = 1 | :silent call WSWrapYcmRestartServer(0)
-  autocmd BufLeave COMMIT_EDITMSG let g:ycm_collect_identifiers_from_comments_and_strings = 0 | :silent call WSWrapYcmRestartServer(0)
   autocmd FileType json syntax match Comment +\/\/.\+$+
   autocmd FileType * :silent call WSTurnOnOrOffDeoplete()
 augroup END
