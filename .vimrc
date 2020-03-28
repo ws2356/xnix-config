@@ -330,6 +330,7 @@ augroup mygroup
   autocmd!
   autocmd BufNewFile,BufRead *.ejs set filetype=html
   autocmd BufNewFile,BufRead *.swift set filetype=swift
+  autocmd BufNewFile,BufRead *.tsx set filetype=javascript
   autocmd FileType vim setlocal foldmethod=marker
   " 打开文件时光标自动定位到上次退出时的位置
   autocmd BufReadPost *
