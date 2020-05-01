@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -e
+
+xcode_snippets_dir="$HOME/Library/Developer/Xcode/UserData/CodeSnippets"
+
+target_dir='files/xcode/snippets'
+mkdir -p "$target_dir"
+
+for ff in "${xcode_snippets_dir}"/* ; do
+  orig_file="${ff}"
+  filename=$(xmlstarlet sel -T -t -c \
+    '(//key[text()="IDECodeSnippetTitle"]/following-sibling::*)[1]' \
+    "$orig_file")
+  cp "$orig_file" "${target_dir}/${filename}.codesnippet"
+done
+
+git add "${target_dir}"/*.codesnippet

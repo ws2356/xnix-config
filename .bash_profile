@@ -108,3 +108,4 @@ if type xcrun >/dev/null 2>&1 ; then
 fi
 
 export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="/Users/banshou/flutter/1.2/bin:/Users/banshou/flutter/1.2/bin/cache/dart-sdk/bin:${PATH}"
