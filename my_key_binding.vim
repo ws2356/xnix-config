@@ -1,16 +1,15 @@
 " 文件
+"
 nnoremap <leader>zz :normal! ZZ<CR>
 nnoremap <leader>qa :qa<CR>
 nnoremap <leader>qq :q<CR>
 nnoremap <leader>co :only<CR>
-nnoremap <leader>cl :close<CR>
 nnoremap <leader>ww :w<CR>
 nnoremap <leader>wa :wa<CR>
 nnoremap <leader>wq :wq<CR>
 nnoremap <leader>ed :edit<Space>
-vnoremap <leader>wr :write<Space>
-nnoremap <leader>gmks :call WS_gmks()<CR>
-nnoremap <leader>grs :call WS_grs()<CR>
+nnoremap <leader>mks :call WS_gmks()<CR>
+nnoremap <leader>rs :call WS_grs()<CR>
 function! WS_gmks()
   let l:session_filename = WS_get_session_filename()
   if l:session_filename ==# ''
@@ -61,7 +60,6 @@ nnoremap <leader>odt :!open -a iTerm.app <C-r>=expand('%:p:h')<CR><CR>
 
 
 " 缺省使用finder
-nnoremap <leader>od :normal ,odf<CR>
 nnoremap <leader>owd :!open -a iTerm.app .<CR>
 
 
