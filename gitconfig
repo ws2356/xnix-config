@@ -3,7 +3,7 @@
 [diff]
 	tool              = kdiff3
 [alias]
-    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset' --abbrev-commit --date=format-local:'%Y-%m-%d %z - %a'
-    ll = log --branches --remotes --tags --graph --oneline --decorate --color --abbrev-commit  --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset' --date=format-local:'%Y-%m-%d %z - %a'
+    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset' --abbrev-commit --date=format-local:'%Y-%m-%d %z %a'
+    ll = log --branches --remotes --tags --graph --oneline --decorate --color --abbrev-commit  --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset' --date=format-local:'%Y-%m-%d %z %a'
     ph = push --recurse-submodules=check
-    review = log --color --pretty=format:'%Cred%cd%Creset / %Cred%h%Creset / %C(bold blue)%an%Creset / %Cgreen%s%Creset' --date=format-local:'%Y-%m-%d %z - %a'
+    review = log --color --pretty=format:'%Cred%cd%Creset / %Cred%h%Creset / %C(bold blue)%an%Creset / %Cgreen%s%Creset' --date=format-local:'%Y-%m-%d %z %a'
