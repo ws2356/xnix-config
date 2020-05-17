@@ -47,6 +47,8 @@ function! StartPlug(plugInDir)
   Plug 'Shougo/deoplete.nvim', { 'commit': '840c46aed8033efe19c7a5a809713c809b4a6bb5',
         \'do': 'pip3 show pynvim 2>/dev/null 1>&2 \|\| pip3 install --user --upgrade pynvim' }
   Plug 'prabirshrestha/asyncomplete-tags.vim', { 'commit': 'eef50f9630db9a772204af13baa997c176ab1a4e' }
+  Plug 'natebosch/vim-lsc', { 'commit': '0784187894494b5f68bafdfbdd363aa01b1cd5b5' }
+  Plug 'natebosch/vim-lsc-dart', { 'commit': '0d51d570d1aaa3902bd17d40a01c5d6a1919bbc7' }
 endfunction
 
 function! EndPlug()
@@ -248,7 +250,6 @@ let g:ale_linters = {
       \ 'cpp': ['clangd'],
       \ 'objc': ['clangd'],
       \ 'objcpp': ['clangd'],
-      \ 'dart': ['language_server'],
       \ }
 let g:ale_cpp_clangd_executable = s:resolved_clangd
 let g:ale_cpp_clangd_options = join(s:CLANGD_OPTIONS)
@@ -389,6 +390,26 @@ endfunction
 
 " {{{ dart-vim-plugin
 let dart_html_in_string=v:true
+" }}}
+
+
+" {{{
+let g:lsc_server_commands = {'dart': 'dart_language_server'}
+let g:lsc_auto_map = {
+    \ 'GoToDefinition': '<leader>]',
+    \ 'GoToDefinitionSplit': ['<C-W>]', '<C-W><C-]>'],
+    \ 'FindReferences': 'gr',
+    \ 'NextReference': '<C-n>',
+    \ 'PreviousReference': '<C-p>',
+    \ 'FindImplementations': 'gI',
+    \ 'FindCodeActions': 'ga',
+    \ 'Rename': 'gR',
+    \ 'ShowHover': v:true,
+    \ 'DocumentSymbol': 'go',
+    \ 'WorkspaceSymbol': 'gS',
+    \ 'SignatureHelp': 'gm',
+    \ 'Completion': 'completefunc',
+    \}
 " }}}
 
 
