@@ -194,6 +194,7 @@ endfunction
 " 命令行 {{{
 nnoremap <leader>; :
 nnoremap <leader>sh :!
+nnoremap <leader>55 :%
 nnoremap <leader>sw :Spawn! -wait=always -dir=.
 nnoremap <leader>st :Spawn! -wait=error -dir=.
 nnoremap <leader>msg :messages<CR>
