@@ -343,6 +343,8 @@ augroup mygroup
         \ | endif
   autocmd FileType json syntax match Comment +\/\/.\+$+
   autocmd FileType * :silent call WSTurnOnOrOffDeoplete()
+  autocmd BufRead,BufNewFile {*.markdown,*.md} set filetype=markdown
+  autocmd FileType markdown setlocal syntax=off spell
 augroup END
 " }}}
 
