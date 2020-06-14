@@ -49,6 +49,7 @@ function! StartPlug(plugInDir)
   Plug 'prabirshrestha/asyncomplete-tags.vim', { 'commit': 'eef50f9630db9a772204af13baa997c176ab1a4e' }
   Plug 'natebosch/vim-lsc', { 'commit': '0784187894494b5f68bafdfbdd363aa01b1cd5b5' }
   Plug 'natebosch/vim-lsc-dart', { 'commit': '0d51d570d1aaa3902bd17d40a01c5d6a1919bbc7' }
+  Plug 'majutsushi/tagbar', { 'commit': '56399f446c64d187c106e112afa4d97985508eba' }
 endfunction
 
 function! EndPlug()
@@ -364,7 +365,10 @@ let g:fugitive_gitlab_domains = []
 
 " 配置tagbar {{{
 let g:tagbar_autoclose = 1
-noremap <silent> <F8> :TagbarToggle<CR>
+let g:tagbar_compact = 1
+let g:tagbar_show_linenumbers = 2
+let g:tagbar_foldlevel = 1
+nnoremap ,6 :TagbarToggle<CR>
 " }}}
 
 
@@ -456,5 +460,4 @@ endif
 
 call StartPlug('~/.vim/plugged')
 " Plug 'xxx/xxx'
-" call WS_unplug('majutsushi/tagbar')
 call EndPlug()
