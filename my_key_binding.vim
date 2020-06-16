@@ -391,11 +391,10 @@ nnoremap <leader>wlnk yy:WSOpenUrl <cWORD><CR>
 
 " vim-fugitive {{{
 nnoremap <leader>ge :Gedit<CR>
+nnoremap <leader>gg :Git!<Space>
 nnoremap <leader>gb :Gblame<CR>
 noremap <leader>gbr :Gbrowse<CR>
 nnoremap <leader>gs :Gstatus<CR>
-nnoremap <leader>ga :Git add -p<CR>
-nnoremap <leader>gc :Gcommit -v<CR>
 nnoremap <leader>gcm :Gcommit --amend<CR>
 nnoremap <leader>gp :Gpush<CR>
 nnoremap <leader>gvd :Gvdiff<CR>
