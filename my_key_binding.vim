@@ -118,7 +118,6 @@ endfunction
 
 
 " 窗口
-nnoremap <leader>vs :vsp ~/
 nnoremap <leader>ma 99<C-w>+
 nnoremap <leader>mi 99<C-w>-
 nnoremap <leader>hma 99<C-w>>
