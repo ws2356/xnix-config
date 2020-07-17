@@ -24,7 +24,7 @@ function! StartPlug(plugInDir)
   Plug 'tpope/vim-dispatch', { 'commit': '488940870ab478cc443b06d5a62fea7ab999eabf' }
   Plug 'morhetz/gruvbox', { 'commit': 'cb4e7a5643f7d2dd40e694bcbd28c4b89b185e86' }
   Plug 'pangloss/vim-javascript', { 'commit': 'ee445807a71ee6933cd6cbcd74940bc288815793' }
-  Plug 'mxw/vim-jsx', { 'commit': 'ffc0bfd9da15d0fce02d117b843f718160f7ad27' }
+  Plug 'MaxMEllon/vim-jsx-pretty'
   Plug 'mattn/emmet-vim', { 'commit': 'd698f1658770ca5fa58c87e80421c8d65bbe9065' }
   Plug 'ap/vim-css-color', { 'commit': '8a84356d5319cad3da2835bd5fbc6318500f31ce' }
   Plug 'shumphrey/fugitive-gitlab.vim', { 'commit': '43a13dbbc9aae85338877329ed28c9e4d8488db1' }
@@ -49,7 +49,7 @@ function! StartPlug(plugInDir)
   Plug 'prabirshrestha/asyncomplete-tags.vim', { 'commit': 'eef50f9630db9a772204af13baa997c176ab1a4e' }
   Plug 'natebosch/vim-lsc', { 'commit': '0784187894494b5f68bafdfbdd363aa01b1cd5b5' }
   Plug 'natebosch/vim-lsc-dart', { 'commit': '0d51d570d1aaa3902bd17d40a01c5d6a1919bbc7' }
-  Plug 'majutsushi/tagbar', { 'commit': '56399f446c64d187c106e112afa4d97985508eba' }
+  " Plug 'majutsushi/tagbar', { 'commit': '56399f446c64d187c106e112afa4d97985508eba' }
 endfunction
 
 function! EndPlug()
