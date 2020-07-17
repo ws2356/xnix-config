@@ -4,5 +4,12 @@ Host pi
 Host tc
   User ubuntu
   HostName tc.vps
+# password: stardust123
+Host mercury
+  User root
+  HostName 192.168.144.1
 Match exec "test -f ~/.ssh/config.private"
   Include ~/.ssh/config.private
+Host kim
+  User kim
+  HostName 172.17.208.17
