@@ -10,7 +10,7 @@ function! StartPlug(plugInDir)
   Plug 'ludovicchabant/vim-gutentags', { 'commit': 'eecb136fae97e30d5f01e71f0d3b775c8b017385' }
   Plug 'Valloric/YouCompleteMe', { 'commit': '04c3505129cd80b92f1b6177dca8aecc55cb0760' }
   Plug 'w0rp/ale', { 'commit': 'a5240009ba5ff22daad95c306f7dec372d46bda0' }
-  Plug 'bestofsong/vimconfig', { 'commit': '0e66271d2bd5818871809aced93e44ba6fd8ea54' }
+  Plug 'bestofsong/vimconfig', { 'commit': 'ba09eb3ddd0e0487745e48e457b103d0ab0fd15a' }
   Plug 'leafgarland/typescript-vim', { 'commit': '7704fac2c765aaf975ad4034933bf63113dd4a64' }
   " Plug 'godlygeek/tabular', { 'commit': '339091ac4dd1f17e225fe7d57b48aff55f99b23a' }
   Plug 'wellle/targets.vim', { 'commit': 'a79447f261e4b8b4327557aa03726f3849334b84' }
@@ -49,6 +49,7 @@ function! StartPlug(plugInDir)
   Plug 'prabirshrestha/asyncomplete-tags.vim', { 'commit': 'eef50f9630db9a772204af13baa997c176ab1a4e' }
   Plug 'natebosch/vim-lsc', { 'commit': '0784187894494b5f68bafdfbdd363aa01b1cd5b5' }
   Plug 'natebosch/vim-lsc-dart', { 'commit': '0d51d570d1aaa3902bd17d40a01c5d6a1919bbc7' }
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
   " Plug 'majutsushi/tagbar', { 'commit': '56399f446c64d187c106e112afa4d97985508eba' }
 endfunction
 
@@ -236,14 +237,14 @@ let g:ycm_filetype_blacklist = {
 
 
 " 配置ale {{{
-nnoremap <leader>] :ALEGoToDefinition<CR>
-nnoremap <leader>\ :ALEGoToDefinitionInVSplit<CR>
-nnoremap <leader>rf :ALEFindReferences<CR>
-nnoremap <leader>hv :ALEHover<CR>
-nnoremap <leader>fsm :ALESymbolSearch <cword><CR>
+" nnoremap <leader>] :ALEGoToDefinition<CR>
+" nnoremap <leader>\ :ALEGoToDefinitionInVSplit<CR>
+" nnoremap <leader>rf :ALEFindReferences<CR>
+" nnoremap <leader>hv :ALEHover<CR>
+" nnoremap <leader>fsm :ALESymbolSearch <cword><CR>
 " ycm semantic completion does not quite work, so i'm gonna: use ale to do lint and
 " semantic completion, use ycm to do tag based completion
-let g:ale_completion_enabled = 1
+let g:ale_completion_enabled = 0
 let g:ale_set_highlights = 0 " Disable highligting
 " let g:ale_set_signs = 0
 let g:ale_linters = {
@@ -400,7 +401,19 @@ let dart_html_in_string=v:true
 
 
 " {{{
-let g:lsc_server_commands = {'dart': 'dart_language_server'}
+" let g:lsc_auto_map = v:true
+" let g:lsc_server_commands = {
+"   \ 'javascript': {
+"   \   'command': 'typescript-language-server --stdio',
+"   \   'log_level': 4,
+"   \   'suppress_stderr': v:true,
+"   \ },
+"   \ 'typescript': {
+"   \   'command': 'typescript-language-server --stdio',
+"   \   'log_level': 4,
+"   \   'suppress_stderr': v:true,
+"   \ },
+" \}
 let g:lsc_auto_map = {
     \ 'GoToDefinition': '<leader>]',
     \ 'GoToDefinitionSplit': ['<C-W>]', '<C-W><C-]>'],

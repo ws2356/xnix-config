@@ -280,12 +280,6 @@ function! GoPrevFold(cnt)
   call GoPrevFold(a:cnt - 1)
 endfunction
 
-" ale 导航命令
-nnoremap <leader>en :ALENext -wrap<CR>
-nnoremap <leader>ep :ALEPrevious -wrap<CR>
-" }}}
-
-
 " 编辑 {{{
 " 删除当前行末尾空白符
 nnoremap <leader>dsp :.s/\v\s+$//e<CR>
