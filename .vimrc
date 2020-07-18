@@ -159,7 +159,7 @@ set linebreak
 set expandtab
 set foldmethod=indent
 " foldlevel初始值，高于此值的fold会默认关闭
-set foldlevelstart=4
+set foldlevelstart=6
 " 搜索逐字符高亮
 set hlsearch
 set incsearch
