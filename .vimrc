@@ -50,7 +50,7 @@ function! StartPlug(plugInDir)
   Plug 'natebosch/vim-lsc', { 'commit': '0784187894494b5f68bafdfbdd363aa01b1cd5b5' }
   Plug 'natebosch/vim-lsc-dart', { 'commit': '0d51d570d1aaa3902bd17d40a01c5d6a1919bbc7' }
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  " Plug 'majutsushi/tagbar', { 'commit': '56399f446c64d187c106e112afa4d97985508eba' }
+  Plug 'othree/csscomplete.vim', { 'commit': 'f1c7288a4e63b736678dba6fe4f8e825a8a9fd4b' }
 endfunction
 
 function! EndPlug()
@@ -354,6 +354,7 @@ augroup mygroup
   autocmd FileType * :silent call WSTurnOnOrOffDeoplete()
   autocmd BufRead,BufNewFile {*.markdown,*.md} set filetype=markdown
   autocmd FileType markdown setlocal syntax=off spell
+  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS noci
 augroup END
 " }}}
 

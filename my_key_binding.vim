@@ -320,6 +320,8 @@ function! AppendModeline()
   execute ':0s@^@' . l:modeline . '\r@'
 endfunction
 nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
+
+inoremap <S-TAB> <C-X><C-O>
 " }}}
 
 
