@@ -10,7 +10,7 @@ function! StartPlug(plugInDir)
   Plug 'ludovicchabant/vim-gutentags', { 'commit': 'eecb136fae97e30d5f01e71f0d3b775c8b017385' }
   Plug 'Valloric/YouCompleteMe', { 'commit': '04c3505129cd80b92f1b6177dca8aecc55cb0760' }
   Plug 'w0rp/ale', { 'commit': 'a5240009ba5ff22daad95c306f7dec372d46bda0' }
-  Plug 'bestofsong/vimconfig', { 'commit': 'ba09eb3ddd0e0487745e48e457b103d0ab0fd15a' }
+  Plug 'bestofsong/vimconfig', { 'commit': 'd9f0bab706aaf550e6175272115b79cde7ca82f5' }
   Plug 'leafgarland/typescript-vim', { 'commit': '7704fac2c765aaf975ad4034933bf63113dd4a64' }
   " Plug 'godlygeek/tabular', { 'commit': '339091ac4dd1f17e225fe7d57b48aff55f99b23a' }
   Plug 'wellle/targets.vim', { 'commit': 'a79447f261e4b8b4327557aa03726f3849334b84' }
