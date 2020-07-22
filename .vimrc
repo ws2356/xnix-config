@@ -230,18 +230,19 @@ let g:ycm_clangd_uses_ycmd_caching = 0
 " Use installed clangd, not YCM-bundled clangd which doesn't get updates.
 let g:ycm_clangd_binary_path = s:resolved_clangd
 let g:ycm_autoclose_preview_window_after_insertion = 1
+" 两个名单都允许才行
 let g:ycm_filetype_whitelist = {
       \ 'cpp': 1,
       \ 'python': 1,
       \ }
-" let g:ycm_filetype_blacklist = {
-"       \ 'swift': 1
-"       \ 'javascript': 1
-"       \ 'javascriptreact': 1
-"       \ 'typescript': 1
-"       \ 'typescriptreact': 1
-"       \ }
-" }}}
+let g:ycm_filetype_blacklist = {
+      \ 'swift': 1,
+      \ 'javascript': 1,
+      \ 'javascriptreact': 1,
+      \ 'typescript': 1,
+      \ 'typescriptreact': 1,
+      \ }
+"}}}
 
 
 " 配置ale {{{
