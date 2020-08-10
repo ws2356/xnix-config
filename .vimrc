@@ -49,8 +49,9 @@ function! StartPlug(plugInDir)
   Plug 'prabirshrestha/asyncomplete-tags.vim', { 'commit': 'eef50f9630db9a772204af13baa997c176ab1a4e' }
   Plug 'natebosch/vim-lsc', { 'commit': '0784187894494b5f68bafdfbdd363aa01b1cd5b5' }
   Plug 'natebosch/vim-lsc-dart', { 'commit': '0d51d570d1aaa3902bd17d40a01c5d6a1919bbc7' }
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  Plug 'neoclide/coc.nvim', { 'commit': 'd033fbfe526be910ea0be61e1ae1c220937bc17f' }
   Plug 'othree/csscomplete.vim', { 'commit': 'f1c7288a4e63b736678dba6fe4f8e825a8a9fd4b' }
+  Plug 'octol/vim-cpp-enhanced-highlight', { 'commit': '27e0ffc215b81fa5aa87eca396acd4421d36c060' }
 endfunction
 
 function! EndPlug()
@@ -466,6 +467,11 @@ autocmd mygroup User asyncomplete_setup call asyncomplete#register_source(asynco
 " nnoremap <silent> <leader>gd :call LanguageClient#textDocument_definition()<CR>
 " nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 " set completefunc=LanguageClient#complete
+" }}}
+
+
+" octol/vim-cpp-enhanced-highlight {{{
+let g:cpp_class_scope_highlight = 1
 " }}}
 
 
