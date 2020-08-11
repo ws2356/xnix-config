@@ -251,8 +251,6 @@ if type brew &>/dev/null; then
   fi
 fi
 
-export VIM_SPECIFIED_CLANG='brew'
-
 javasel() {
   local -a brew_casks
   brew_casks=($(brew cask list))

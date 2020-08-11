@@ -8,9 +8,9 @@ function! StartPlug(plugInDir)
   call plug#begin(a:plugInDir)
   Plug 'scrooloose/nerdtree', { 'commit': '28eb47e2678cf629d92b4f1f00dd56cba22fc4ae' }
   Plug 'ludovicchabant/vim-gutentags', { 'commit': 'eecb136fae97e30d5f01e71f0d3b775c8b017385' }
-  Plug 'Valloric/YouCompleteMe', { 'commit': '04c3505129cd80b92f1b6177dca8aecc55cb0760' }
+  " Plug 'Valloric/YouCompleteMe', { 'commit': '04c3505129cd80b92f1b6177dca8aecc55cb0760' }
   Plug 'w0rp/ale', { 'commit': 'a5240009ba5ff22daad95c306f7dec372d46bda0' }
-  Plug 'bestofsong/vimconfig', { 'commit': 'f47034cb2dacff1a273e1c89e927b3778b51baa0' }
+  Plug 'bestofsong/vimconfig', { 'commit': 'b008fdab5882dacc7e1a9bcb0808a28eac41611a' }
   Plug 'leafgarland/typescript-vim', { 'commit': '7704fac2c765aaf975ad4034933bf63113dd4a64' }
   " Plug 'godlygeek/tabular', { 'commit': '339091ac4dd1f17e225fe7d57b48aff55f99b23a' }
   Plug 'wellle/targets.vim', { 'commit': 'a79447f261e4b8b4327557aa03726f3849334b84' }
@@ -62,38 +62,10 @@ endfunction
 
 
 " config for current environment {{{
+let s:resolved_clangd = trim(system('xcrun -f clangd'))
+let s:resolved_clang = trim(system('xcrun -f clang'))
 let s:ncpucores = str2nr(system('getconf _NPROCESSORS_ONLN 2>/dev/null || sysctl -n hw.ncpu | sed "s/[^0-9]//g"'))
-" 三种clang安装方式，按照binary，brew，ycm的顺序解析
-let s:brew_clangd = trim(system('type brew 2>/dev/null 1>&2 && brew --prefix || echo /dev/null')) . '/opt/llvm/bin/clangd'
-" 需要把二进制的llvm套件安装在~/usr
-" FIXME: customize this?
-let s:binary_clangd = expand('~/usr/bin/clangd')
-
-" set this to one of three (brew|binary|ycm) to specify version of clang to use
-let s:specified_clang = ''
-let s:resolved_clangd = ''
 let s:resolved_resource_dir = trim(system('xcrun clang -print-resource-dir'))
-
-" 可以通过环境变量选择clang版本
-if exists('$VIM_SPECIFIED_CLANG')
-  let s:specified_clang = $VIM_SPECIFIED_CLANG
-endif
-
-if index(['', 'binary'], s:specified_clang) >= 0 && filereadable(s:binary_clangd)
-  let s:resolved_clangd = s:binary_clangd
-  let s:resolved_clang = expand('~/usr/bin/clang')
-elseif index(['', 'brew'], s:specified_clang) >= 0 && filereadable(s:brew_clangd)
-  let s:resolved_clangd = s:brew_clangd
-  let s:resolved_clang = '/usr/local/opt/llvm/bin/clang'
-elseif index(['', 'ycm'], s:specified_clang) >= 0
-  let s:locate_ycm_clang_script = s:this_dir . '/bin/locate_ycm_clang.vim'
-  :execute 'source ' . s:locate_ycm_clang_script
-  let s:ycm_clangd = WS_get_ycm_clangd()
-  if filereadable(s:ycm_clangd)
-    let s:resolved_clangd = s:ycm_clangd
-  endif
-endif
-
 let s:CLANGD_OPTIONS = ['-completion-style=detailed', '-log=error',
       \'-pretty', '-limit-results=100', '-j=' . s:ncpucores / 2, '-pch-storage=disk',
       \'-resource-dir=' . s:resolved_resource_dir]
@@ -277,6 +249,8 @@ endif
 
 " coc {{{
 " Remap keys for gotos
+" :CocInstall coc-tsserver
+" :CocInstall coc-json
 nmap <leader>gd <Plug>(coc-definition)
 nmap <leader>gy <Plug>(coc-type-definition)
 nmap <leader>gi <Plug>(coc-implementation)
