@@ -24,13 +24,16 @@ function! StartPlug(plugInDir)
   Plug 'tpope/vim-dispatch', { 'commit': '488940870ab478cc443b06d5a62fea7ab999eabf' }
   Plug 'morhetz/gruvbox', { 'commit': 'cb4e7a5643f7d2dd40e694bcbd28c4b89b185e86' }
   Plug 'pangloss/vim-javascript', { 'commit': 'ee445807a71ee6933cd6cbcd74940bc288815793' }
-  Plug 'MaxMEllon/vim-jsx-pretty'
+  Plug 'MaxMEllon/vim-jsx-pretty', { 'commit': 'c665d5ca4247b696f478f91b7c97b9e44442e4b6' }
   Plug 'mattn/emmet-vim', { 'commit': 'd698f1658770ca5fa58c87e80421c8d65bbe9065' }
   Plug 'ap/vim-css-color', { 'commit': '8a84356d5319cad3da2835bd5fbc6318500f31ce' }
   Plug 'shumphrey/fugitive-gitlab.vim', { 'commit': '43a13dbbc9aae85338877329ed28c9e4d8488db1' }
   Plug 'jiangmiao/auto-pairs', { 'commit': '39f06b873a8449af8ff6a3eee716d3da14d63a76' }
   Plug 'vim-ruby/vim-ruby', { 'commit': '1aa8f0cd0411c093d81f4139d151f93808e53966' }
-  Plug 'junegunn/fzf', { 'commit': '7c40a424c0bf5a8967816d51ead6a71a334f30bb', 'do': './install --bin' }
+  Plug 'junegunn/fzf', {
+        \ 'commit': '7c40a424c0bf5a8967816d51ead6a71a334f30bb',
+        \ 'do': './install --bin'
+        \ }
   Plug 'junegunn/fzf.vim', { 'commit': '359a80e3a34aacbd5257713b6a88aa085337166f' }
   Plug 'vim-airline/vim-airline', { 'commit': 'c213f2ac44292a6c5548872e63acb0648cc07a9a' }
   Plug 'tpope/vim-rhubarb', { 'commit': 'c509c7eedeea641f5b0bdae708581ff610fbff5b' }
@@ -44,12 +47,17 @@ function! StartPlug(plugInDir)
   " deoplete needs following two
   Plug 'roxma/nvim-yarp', { 'commit': '83c6f4e61aa73e2a53796ea6690fb7e5e64db50a' }
   Plug 'roxma/vim-hug-neovim-rpc', { 'commit': '701ecbb0a1f904c0b44c6beaafef35e1de998a94' }
-  Plug 'Shougo/deoplete.nvim', { 'commit': '840c46aed8033efe19c7a5a809713c809b4a6bb5',
-        \'do': 'pip3 show pynvim 2>/dev/null 1>&2 \|\| pip3 install --user --upgrade pynvim' }
+  Plug 'Shougo/deoplete.nvim', {
+        \ 'commit': '840c46aed8033efe19c7a5a809713c809b4a6bb5',
+        \ 'do': 'pip3 show pynvim 2>/dev/null 1>&2 \|\| pip3 install --user --upgrade pynvim'
+        \ }
   Plug 'prabirshrestha/asyncomplete-tags.vim', { 'commit': 'eef50f9630db9a772204af13baa997c176ab1a4e' }
   Plug 'natebosch/vim-lsc', { 'commit': '0784187894494b5f68bafdfbdd363aa01b1cd5b5' }
   Plug 'natebosch/vim-lsc-dart', { 'commit': '0d51d570d1aaa3902bd17d40a01c5d6a1919bbc7' }
-  Plug 'neoclide/coc.nvim', { 'commit': 'd033fbfe526be910ea0be61e1ae1c220937bc17f' }
+  Plug 'neoclide/coc.nvim', {
+        \ 'commit': 'd033fbfe526be910ea0be61e1ae1c220937bc17f',
+        \ 'do': ':CocInstall coc-json coc-tsserver coc-ultisnips coc-tag',
+        \ }
   Plug 'othree/csscomplete.vim', { 'commit': 'f1c7288a4e63b736678dba6fe4f8e825a8a9fd4b' }
   Plug 'octol/vim-cpp-enhanced-highlight', { 'commit': '27e0ffc215b81fa5aa87eca396acd4421d36c060' }
 endfunction
@@ -256,6 +264,10 @@ nmap <leader>gy <Plug>(coc-type-definition)
 nmap <leader>gi <Plug>(coc-implementation)
 nmap <leader>gr <Plug>(coc-references)
 set statusline^=%{coc#status()}
+let g:coc_snippet_next = '<C-n>'
+let g:coc_snippet_prev = '<C-p>'
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : 
+      \"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 " }}}
 
 
