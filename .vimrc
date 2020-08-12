@@ -12,7 +12,6 @@ function! StartPlug(plugInDir)
   Plug 'w0rp/ale', { 'commit': 'a5240009ba5ff22daad95c306f7dec372d46bda0' }
   Plug 'bestofsong/vimconfig', { 'commit': 'b008fdab5882dacc7e1a9bcb0808a28eac41611a' }
   Plug 'leafgarland/typescript-vim', { 'commit': '7704fac2c765aaf975ad4034933bf63113dd4a64' }
-  " Plug 'godlygeek/tabular', { 'commit': '339091ac4dd1f17e225fe7d57b48aff55f99b23a' }
   Plug 'wellle/targets.vim', { 'commit': 'a79447f261e4b8b4327557aa03726f3849334b84' }
   Plug 'easymotion/vim-easymotion', { 'commit': '85e90c9759e14633d878ed534ef313876ab96555' }
   Plug 'tpope/vim-fugitive', { 'commit': '6d42c7df44aa20252e5dac747c3ac9fa7450b21b' }
@@ -60,6 +59,11 @@ function! StartPlug(plugInDir)
         \ }
   Plug 'othree/csscomplete.vim', { 'commit': 'f1c7288a4e63b736678dba6fe4f8e825a8a9fd4b' }
   Plug 'octol/vim-cpp-enhanced-highlight', { 'commit': '27e0ffc215b81fa5aa87eca396acd4421d36c060' }
+  Plug 'liuchengxu/vista.vim', {
+	\ 'commit': 'dc84cda95c1a408dca72a5e540903b6a8a6bdcfe',
+	\ 'do': 'export tmp_repo=\"$(mktemp -d)\" && git clone \"https://github.com/ws2356/fonts\" \"$tmp_repo\"'
+	\ . ' && cd \"${tmp_repo}\" && ./install.sh'
+	\ }
 endfunction
 
 function! EndPlug()
@@ -343,6 +347,7 @@ augroup mygroup
   autocmd BufRead,BufNewFile {*.markdown,*.md} set filetype=markdown
   autocmd FileType markdown setlocal syntax=off spell
   autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS noci
+  autocmd FileType vista,vista_kind nnoremap <buffer> <silent> / :<c-u>call vista#finder#fzf#Run()<CR>
 augroup END
 " }}}
 
@@ -458,6 +463,31 @@ autocmd mygroup User asyncomplete_setup call asyncomplete#register_source(asynco
 
 " octol/vim-cpp-enhanced-highlight {{{
 let g:cpp_class_scope_highlight = 1
+" }}}
+
+
+" vim-airline {{{
+let g:airline_powerline_fonts = 1
+" }}}
+
+" vista {{{
+let g:vista_default_executive = 'coc'
+let g:vista_finder_alternative_executives = 'vim-lsp'
+let g:vista_executive_for = {
+  \ 'c': 'coc',
+  \ 'cpp': 'coc',
+  \ 'javascript': 'coc',
+  \ 'javascriptreact': 'coc',
+  \ 'typescript': 'coc',
+  \ 'typescriptreact': 'coc',
+  \ }
+" let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
+" Ensure you have installed some decent font to show these pretty symbols, then you can enable icon for the kind.
+let g:vista#renderer#enable_icon = 0
+
+nnoremap <C-p>n :Vista coc<CR>
+" affect performance
+" let g:vista_log_file = expand('~/.vista.vim.log')
 " }}}
 
 

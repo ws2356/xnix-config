@@ -404,13 +404,3 @@ nnoremap <leader>gph :Gpush<Space>
 nnoremap <leader>gpl :Gpull<Space>
 nnoremap <leader>gfh :Gfetch<CR>
 " }}}
-
-
-" syntax {{{
-map <F7> :if exists("g:syntax_on") <Bar>
-      \   syntax off <Bar>
-      \ else <Bar>
-      \   syntax enable <Bar>
-      \ endif <CR>
-" }}}
-
