@@ -17,15 +17,25 @@
         "-j=6",
         "-pch-storage=disk",
         "-resource-dir=xcrun clang -print-resource-dir"],
-      "rootPatterns": ["compile_flags.txt", "compile_commands.json", ".vim/", ".git/", ".hg/"],
-      "filetypes": ["c", "c++", "cc", "cpp", "objc", "objcpp"],
-      "trace.server": "verbose"
+        "rootPatterns": ["compile_flags.txt", "compile_commands.json", ".vim/", ".git/", ".hg/"],
+        "filetypes": ["c", "c++", "cc", "cpp", "objc", "objcpp"],
+        "trace.server": "verbose"
     },
     "bash": {
       "command": "( type bash-language-server || yarn global add bash-language-server ) >/dev/null 2>&1 && echo bash-language-server",
       "args": ["start"],
       "filetypes": ["sh"],
       "ignoredRootPaths": ["~"]
+    },
+    "cmake": {
+      "command": "( type cmake-language-server || pip3 install cmake-language-server ) >/dev/null 2>&1 && echo cmake-language-server",
+      "filetypes": ["cmake"],
+      "rootPatterns": [
+        "build/"
+      ],
+      "initializationOptions": {
+        "buildDirectory": "build"
+      }
     }
   }
 }
