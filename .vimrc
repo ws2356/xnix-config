@@ -61,9 +61,9 @@ function! StartPlug(plugInDir)
   Plug 'octol/vim-cpp-enhanced-highlight', { 'commit': '27e0ffc215b81fa5aa87eca396acd4421d36c060' }
   Plug 'liuchengxu/vista.vim', {
 	\ 'commit': 'dc84cda95c1a408dca72a5e540903b6a8a6bdcfe',
-	\ 'do': 'export tmp_repo=\"$(mktemp -d)\" && git clone \"https://github.com/ws2356/fonts\" \"$tmp_repo\"'
-	\ . ' && cd \"${tmp_repo}\" && ./install.sh'
 	\ }
+        " \ 'do': 'export tmp_repo=\"$(mktemp -d)\" && git clone \"https://github.com/ws2356/fonts\" \"$tmp_repo\"'
+        " \ . ' && cd \"${tmp_repo}\" && ./install.sh'
 endfunction
 
 function! EndPlug()
@@ -467,7 +467,7 @@ let g:cpp_class_scope_highlight = 1
 
 
 " vim-airline {{{
-let g:airline_powerline_fonts = 1
+" let g:airline_powerline_fonts = 1
 " }}}
 
 " vista {{{
