@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+set -e
+
+this_file="$(type -p "${BASH_SOURCE[0]}")"
+if ! [ -e "$this_file" ] ; then
+  echo "Failed to resolve file."
+  exit 1
+fi
+if ! [[ "$this_file" =~ ^/ ]] ; then
+  this_file="$(pwd)/$this_file"
+fi
+while [ -h "$this_file" ] ; do
+    ls_res="$(ls -ld "$this_file")"
+    link_target=$(expr "$ls_res" : '.*-> \(.*\)$')
+    if [[ "$link_target" =~ ^/ ]] ; then
+      this_file="$link_target"
+    else
+      this_file="$(dirname "$this_file")/$link_target"
+    fi
+done
+this_dir="$(dirname "$this_file")"
+
+xcode_snippets_dir="$HOME/Library/Developer/Xcode/UserData/CodeSnippets"
+
+backup_dir="${this_dir}/../files/xcode/snippets"
+
+if ! [ -d "$backup_dir" ] ; then
+  exit
+fi
+
+# 不直接拷贝，而是导出文件对应关系，每个snip占一行，格式：<from_file_path><to_file_path>
+
+for ff in "${backup_dir}"/* ; do
+  orig_file="${ff}"
+  filename=$(xmlstarlet sel -T -t -c \
+    '(//key[text()="IDECodeSnippetIdentifier"]/following-sibling::*)[1]' \
+    "$orig_file")
+  echo "${orig_file}${xcode_snippets_dir}/${filename}.codesnippet"
+done

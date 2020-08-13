@@ -13,3 +13,12 @@ Match exec "test -f ~/.ssh/config.private"
 Host kim
   User kim
   HostName 172.17.208.17
+Host pro
+  User kimmacjenkins
+  HostName 172.17.205.203
+Host ky
+  User root
+  HostName 172.29.38.90
+Host kvm
+  User root
+  HostName 172.29.38.158
