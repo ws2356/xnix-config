@@ -1,3 +1,7 @@
+[include]
+  path = ~/.gitconfig-site
+[core]
+	autocrlf = input
 [merge]
 	tool              = kdiff3
 [diff]
