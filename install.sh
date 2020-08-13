@@ -53,6 +53,9 @@ backup_file() {
   mv "$ff" "${backup_ff}.${suffix}"
 }
 
+# generate coc_config
+"${this_dir}/install_coc_config.sh"
+
 install_file "${this_dir}/gitconfig" "$HOME/.gitconfig"
 install_file "${this_dir}/coc_config.json" "$HOME/.vim/coc-settings.json" 
 install_file "${this_dir}/.vimrc" "$HOME/.vimrc" 
