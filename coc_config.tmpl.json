@@ -1,0 +1,31 @@
+{
+  "languageserver": {
+    "swift": {
+      "enabled": false,
+      "command": "xcrun --find sourcekit-lsp",
+      "args": [],
+      "rootPatterns": ["Package.swift", ".vim/", ".git/"],
+      "filetypes": ["c", "swift"]
+    },
+    "clangd": {
+      "enable": true,
+      "command": "xcrun --find clangd",
+      "args": ["-completion-style=detailed",
+        "-log=error",
+        "-pretty",
+        "-limit-results=100",
+        "-j=6",
+        "-pch-storage=disk",
+        "-resource-dir=xcrun clang -print-resource-dir"],
+      "rootPatterns": ["compile_flags.txt", "compile_commands.json", ".vim/", ".git/", ".hg/"],
+      "filetypes": ["c", "c++", "cc", "cpp", "objc", "objcpp"],
+      "trace.server": "verbose"
+    },
+    "bash": {
+      "command": "( type bash-language-server || yarn global add bash-language-server ) >/dev/null 2>&1 && echo bash-language-server",
+      "args": ["start"],
+      "filetypes": ["sh"],
+      "ignoredRootPaths": ["~"]
+    }
+  }
+}
