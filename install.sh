@@ -27,6 +27,7 @@ install_file() {
     from_file="$(pwd)/$from_file"
   fi
   local to_file=$2
+  mkdir -p "$(dirname "$to_file")"
   backup_file "$to_file"
   if ! ln -s "$from_file" "$to_file" ; then
     echo "Failed to create symbolic link from $from_file to ${to_file}: maybe parent dir not exist or no permission to do so"
@@ -64,6 +65,7 @@ install_file "${this_dir}/.bashrc" "$HOME/.bashrc"
 install_file "${this_dir}/.bash_profile" "$HOME/.bash_profile" 
 install_file "${this_dir}/tigrc" "$HOME/.tigrc" 
 install_file "${this_dir}/ssh/config" "$HOME/.ssh/config" 
+install_file "${this_dir}/efm-langserver_config.yaml" "$HOME/.config/efm-langserver/config.yaml" 
 
 export -f install_file
 "${this_dir}/bin/xcode_snippets_restore" 2>/dev/null | {

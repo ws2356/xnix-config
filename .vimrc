@@ -10,7 +10,7 @@ function! StartPlug(plugInDir)
   Plug 'ludovicchabant/vim-gutentags', { 'commit': 'eecb136fae97e30d5f01e71f0d3b775c8b017385' }
   " Plug 'Valloric/YouCompleteMe', { 'commit': '04c3505129cd80b92f1b6177dca8aecc55cb0760' }
   Plug 'w0rp/ale', { 'commit': 'a5240009ba5ff22daad95c306f7dec372d46bda0' }
-  Plug 'bestofsong/vimconfig', { 'commit': 'acdf0c7a31a261b6332b6469ce1e217093279c87' }
+  Plug 'bestofsong/vimconfig', { 'commit': 'b58473986f90750918cf4892c6d301f85f717511' }
   Plug 'leafgarland/typescript-vim', { 'commit': '7704fac2c765aaf975ad4034933bf63113dd4a64' }
   Plug 'wellle/targets.vim', { 'commit': 'a79447f261e4b8b4327557aa03726f3849334b84' }
   Plug 'easymotion/vim-easymotion', { 'commit': '85e90c9759e14633d878ed534ef313876ab96555' }
@@ -55,7 +55,7 @@ function! StartPlug(plugInDir)
   Plug 'natebosch/vim-lsc-dart', { 'commit': '0d51d570d1aaa3902bd17d40a01c5d6a1919bbc7' }
   Plug 'neoclide/coc.nvim', {
         \ 'commit': 'd033fbfe526be910ea0be61e1ae1c220937bc17f',
-        \ 'do': ':CocInstall coc-json coc-tsserver coc-ultisnips coc-tag',
+        \ 'do': ':CocInstall coc-json coc-tsserver coc-ultisnips coc-tag coc-solargraph',
         \ }
   Plug 'othree/csscomplete.vim', { 'commit': 'f1c7288a4e63b736678dba6fe4f8e825a8a9fd4b' }
   Plug 'octol/vim-cpp-enhanced-highlight', { 'commit': '27e0ffc215b81fa5aa87eca396acd4421d36c060' }
@@ -334,6 +334,7 @@ augroup mygroup
   autocmd!
   autocmd BufNewFile,BufRead *.ejs set filetype=html
   autocmd BufNewFile,BufRead *.swift set filetype=swift
+  autocmd BufNewFile,BufRead *.graphql set filetype=graphql
   " autocmd BufNewFile,BufRead *.tsx set filetype=javascript
   autocmd BufNewFile,BufRead Fastfile set filetype=ruby
   autocmd FileType vim setlocal foldmethod=marker

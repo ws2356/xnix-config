@@ -36,6 +36,22 @@
       "initializationOptions": {
         "buildDirectory": "build"
       }
+    },
+    "dockerfile": {
+      "command": "( type dockerfile-language-server-nodejs || yarn global add dockerfile-language-server-nodejs ) >/dev/null 2>&1 && echo docker-langserver",
+      "filetypes": ["dockerfile"],
+      "args": ["--stdio"]
+    },
+    "sql": {
+      "command": "( type sql-language-server || yarn global add sql-language-server ) >/dev/null 2>&1 && echo sql-language-server",
+      "args" : ["up", "--method", "stdio"],
+      "filetypes": ["sql", "mysql"]
+    },
+    "graphql": {
+      "command": "( type graphql-lsp || yarn global add graphql-config graphql-language-service-cli ) >/dev/null 2>&1 && echo graphql-lsp",
+      "args": ["server", "-m", "stream"],
+      "filetypes": ["graphql"],
+      "trace.server": "verbose"
     }
   }
 }
