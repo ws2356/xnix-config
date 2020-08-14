@@ -37,7 +37,7 @@
       }
     },
     "dockerfile": {
-      "command": "( type dockerfile-language-server-nodejs || yarn global add dockerfile-language-server-nodejs ) 1>&2 && echo docker-langserver",
+      "command": "( type docker-langserver || yarn global add dockerfile-language-server-nodejs ) 1>&2 && echo docker-langserver",
       "filetypes": ["dockerfile"],
       "args": ["--stdio"]
     },
@@ -51,6 +51,9 @@
       "args": ["server", "-m", "stream"],
       "filetypes": ["graphql"],
       "trace.server": "verbose"
+    },
+    "solargraph": {
+      "useBundler": true
     }
   }
 }
