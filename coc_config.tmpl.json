@@ -47,7 +47,7 @@
       "filetypes": ["sql", "mysql"]
     },
     "graphql": {
-      "command": "( type graphql-lsp || yarn global add graphql-config graphql-language-service-cli ) 1>&2 && echo graphql-lsp",
+      "command": "( type graphql-lsp || yarn global add graphql graphql-config graphql-language-service-cli ) 1>&2 && echo graphql-lsp",
       "args": ["server", "-m", "stream"],
       "filetypes": ["graphql"],
       "trace.server": "verbose"
