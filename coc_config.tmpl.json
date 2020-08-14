@@ -1,7 +1,6 @@
 {
   "languageserver": {
     "swift": {
-      "enabled": false,
       "command": "xcrun --find sourcekit-lsp",
       "args": [],
       "rootPatterns": ["Package.swift", ".vim/", ".git/"],
