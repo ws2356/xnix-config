@@ -21,13 +21,13 @@
         "trace.server": "verbose"
     },
     "bash": {
-      "command": "( type bash-language-server || yarn global add bash-language-server ) >/dev/null 2>&1 && echo bash-language-server",
+      "command": "( type bash-language-server || yarn global add bash-language-server ) 1>&2 && echo bash-language-server",
       "args": ["start"],
       "filetypes": ["sh"],
       "ignoredRootPaths": ["~"]
     },
     "cmake": {
-      "command": "( type cmake-language-server || pip3 install cmake-language-server ) >/dev/null 2>&1 && echo cmake-language-server",
+      "command": "( type cmake-language-server || pip3 install cmake-language-server ) 1>&2 && echo cmake-language-server",
       "filetypes": ["cmake"],
       "rootPatterns": [
         "build/"
@@ -37,17 +37,17 @@
       }
     },
     "dockerfile": {
-      "command": "( type dockerfile-language-server-nodejs || yarn global add dockerfile-language-server-nodejs ) >/dev/null 2>&1 && echo docker-langserver",
+      "command": "( type dockerfile-language-server-nodejs || yarn global add dockerfile-language-server-nodejs ) 1>&2 && echo docker-langserver",
       "filetypes": ["dockerfile"],
       "args": ["--stdio"]
     },
     "sql": {
-      "command": "( type sql-language-server || yarn global add sql-language-server ) >/dev/null 2>&1 && echo sql-language-server",
+      "command": "( type sql-language-server || yarn global add sql-language-server ) 1>&2 && echo sql-language-server",
       "args" : ["up", "--method", "stdio"],
       "filetypes": ["sql", "mysql"]
     },
     "graphql": {
-      "command": "( type graphql-lsp || yarn global add graphql-config graphql-language-service-cli ) >/dev/null 2>&1 && echo graphql-lsp",
+      "command": "( type graphql-lsp || yarn global add graphql-config graphql-language-service-cli ) 1>&2 && echo graphql-lsp",
       "args": ["server", "-m", "stream"],
       "filetypes": ["graphql"],
       "trace.server": "verbose"
