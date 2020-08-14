@@ -51,9 +51,10 @@
       "args": ["server", "-m", "stream"],
       "filetypes": ["graphql"],
       "trace.server": "verbose"
-    },
-    "solargraph": {
-      "useBundler": true
     }
-  }
+  },
+  "solargraph.useBundler": true,
+  "solargraph.trace.server": "verbose",
+  "solargraph.diagnostics": true,
+  "solargraph.logLevel": "debug"
 }
