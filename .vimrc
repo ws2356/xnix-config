@@ -8,7 +8,6 @@ function! StartPlug(plugInDir)
   call plug#begin(a:plugInDir)
   Plug 'scrooloose/nerdtree', { 'commit': '28eb47e2678cf629d92b4f1f00dd56cba22fc4ae' }
   Plug 'ludovicchabant/vim-gutentags', { 'commit': 'eecb136fae97e30d5f01e71f0d3b775c8b017385' }
-  " Plug 'Valloric/YouCompleteMe', { 'commit': '04c3505129cd80b92f1b6177dca8aecc55cb0760' }
   Plug 'w0rp/ale', { 'commit': 'a5240009ba5ff22daad95c306f7dec372d46bda0' }
   Plug 'bestofsong/vimconfig', { 'commit': 'b58473986f90750918cf4892c6d301f85f717511' }
   Plug 'leafgarland/typescript-vim', { 'commit': '7704fac2c765aaf975ad4034933bf63113dd4a64' }
@@ -51,8 +50,6 @@ function! StartPlug(plugInDir)
         \ 'do': 'pip3 show pynvim 2>/dev/null 1>&2 \|\| pip3 install --user --upgrade pynvim'
         \ }
   Plug 'prabirshrestha/asyncomplete-tags.vim', { 'commit': 'eef50f9630db9a772204af13baa997c176ab1a4e' }
-  Plug 'natebosch/vim-lsc', { 'commit': '0784187894494b5f68bafdfbdd363aa01b1cd5b5' }
-  Plug 'natebosch/vim-lsc-dart', { 'commit': '0d51d570d1aaa3902bd17d40a01c5d6a1919bbc7' }
   Plug 'neoclide/coc.nvim', {
         \ 'commit': 'd033fbfe526be910ea0be61e1ae1c220937bc17f',
         \ 'do': ':CocInstall coc-json coc-tsserver coc-ultisnips coc-tag coc-solargraph',
@@ -192,43 +189,6 @@ noremap <leader>ee :NERDTree <bar> NERDTreeFind <C-R>%<CR>
 " }}}
 
 
-" 配置ycm {{{
-if $VIRTUAL_ENV != ''
-  let g:python3_host_prog = $VIRTUAL_ENV . '/bin/python3'
-  let g:ycm_python_interpreter_path = $VIRTUAL_ENV . '/bin/python3'
-endif
-
-function! s:MyYCMTheme()
-  highlight YcmErrorSection ctermbg=DarkRed
-  highlight YcmErrorSign ctermbg=DarkRed
-endfunction
-
-noremap <leader>ja :YcmCompleter GoTo<CR>
-noremap <leader>jd :YcmCompleter GoToDefinition<CR>
-noremap <leader>jr :YcmCompleter GoToReferences<CR>
-noremap <leader>ef :YcmShowDetailedDiagnostic<CR>
-noremap <leader>ycmdbg :YcmDebugInfo<CR>
-noremap <leader>ycmrst :YcmRestartServer<CR>
-let g:ycm_clangd_args = s:CLANGD_OPTIONS
-" Let clangd fully control code completion
-let g:ycm_clangd_uses_ycmd_caching = 0
-" Use installed clangd, not YCM-bundled clangd which doesn't get updates.
-let g:ycm_clangd_binary_path = s:resolved_clangd
-let g:ycm_autoclose_preview_window_after_insertion = 1
-" 两个名单都允许才行
-let g:ycm_filetype_whitelist = {
-      \ 'cpp': 1,
-      \ 'python': 1,
-      \ }
-let g:ycm_filetype_blacklist = {
-      \ 'swift': 1,
-      \ 'javascript': 1,
-      \ 'javascriptreact': 1,
-      \ 'typescript': 1,
-      \ 'typescriptreact': 1,
-      \ }
-"}}}
-
 
 " 配置ale {{{
 " nnoremap <leader>] :ALEGoToDefinition<CR>
@@ -236,8 +196,6 @@ let g:ycm_filetype_blacklist = {
 " nnoremap <leader>rf :ALEFindReferences<CR>
 " nnoremap <leader>hv :ALEHover<CR>
 " nnoremap <leader>fsm :ALESymbolSearch <cword><CR>
-" ycm semantic completion does not quite work, so i'm gonna: use ale to do lint and
-" semantic completion, use ycm to do tag based completion
 let g:ale_completion_enabled = 0
 let g:ale_set_highlights = 0 " Disable highligting
 " let g:ale_set_signs = 0
@@ -393,45 +351,12 @@ function! s:load_custom_color_scheme()
   " 依赖plugin的初始化
   set background=dark
   colorscheme gruvbox
-  call s:MyYCMTheme()
 endfunction
 " }}}
 
 
 " {{{ dart-vim-plugin
 let dart_html_in_string=v:true
-" }}}
-
-
-" {{{
-" let g:lsc_auto_map = v:true
-" let g:lsc_server_commands = {
-"   \ 'javascript': {
-"   \   'command': 'typescript-language-server --stdio',
-"   \   'log_level': 4,
-"   \   'suppress_stderr': v:true,
-"   \ },
-"   \ 'typescript': {
-"   \   'command': 'typescript-language-server --stdio',
-"   \   'log_level': 4,
-"   \   'suppress_stderr': v:true,
-"   \ },
-" \}
-let g:lsc_auto_map = {
-    \ 'GoToDefinition': '<leader>]',
-    \ 'GoToDefinitionSplit': ['<C-W>]', '<C-W><C-]>'],
-    \ 'FindReferences': 'gr',
-    \ 'NextReference': '<C-n>',
-    \ 'PreviousReference': '<C-p>',
-    \ 'FindImplementations': 'gI',
-    \ 'FindCodeActions': 'ga',
-    \ 'Rename': 'gR',
-    \ 'ShowHover': v:true,
-    \ 'DocumentSymbol': 'go',
-    \ 'WorkspaceSymbol': 'gS',
-    \ 'SignatureHelp': 'gm',
-    \ 'Completion': 'completefunc',
-    \}
 " }}}
 
 
@@ -449,27 +374,6 @@ autocmd mygroup User asyncomplete_setup call asyncomplete#register_source(asynco
     \ }))
 " }}}
 
-
-" {{{
-" let g:LanguageClient_serverCommands = {
-"       \ 'rust': ['rustup', 'run', 'stable', 'rls'],
-"       \ 'objc': ['/Users/ws2356/.vim/plugged/YouCompleteMe/third_party/ycmd/third_party/clangd/output/bin/clangd', '-log=error', '-pretty', '-limit-results=100', '-j=12', '-pch-storage=disk', '-header-insertion-decorators=0', '-resource-dir=/Users/ws2356/.vim/plugged/YouCompleteMe/third_party/ycmd/third_party/clang/lib/clang/8.0.0'],
-"       \ }
-" nnoremap <silent> <leader>K :call LanguageClient#textDocument_hover()<CR>
-" nnoremap <silent> <leader>gd :call LanguageClient#textDocument_definition()<CR>
-" nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
-" set completefunc=LanguageClient#complete
-" }}}
-
-
-" octol/vim-cpp-enhanced-highlight {{{
-let g:cpp_class_scope_highlight = 1
-" }}}
-
-
-" vim-airline {{{
-" let g:airline_powerline_fonts = 1
-" }}}
 
 " vista {{{
 let g:vista_default_executive = 'coc'
@@ -489,6 +393,15 @@ let g:vista#renderer#enable_icon = 0
 nnoremap <C-p>n :Vista coc<CR>
 " affect performance
 " let g:vista_log_file = expand('~/.vista.vim.log')
+" }}}
+
+
+" vim-cpp-enhanced-highlight {{{
+let g:cpp_class_scope_highlight = 1
+let g:cpp_member_variable_highlight = 1
+let g:cpp_class_decl_highlight = 1
+let g:cpp_posix_standard = 1
+let g:cpp_experimental_template_highlight = 1
 " }}}
 
 
