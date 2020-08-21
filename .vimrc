@@ -111,6 +111,7 @@ set history=10000
 set exrc
 set nowrapscan
 set wildmenu
+set tildeop
 
 set ignorecase
 set nogdefault
