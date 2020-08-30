@@ -12,7 +12,7 @@ Match exec "test -f ~/.ssh/config.private"
   Include ~/.ssh/config.private
 Host kim
   User kim
-  HostName 172.17.208.17
+  HostName 172.18.10.8
 Host pro
   User kimmacjenkins
   HostName 172.17.205.203
