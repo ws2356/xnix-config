@@ -287,3 +287,6 @@ swift() {
 }
 
 . ~/.config/shellpack/bin/shellpack_loader.sh
+
+# git cli
+export GIT_DIFF_OPTS=--unified=20

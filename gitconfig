@@ -6,6 +6,7 @@
   tool              = kdiff3
 [diff]
   tool              = kdiff3
+  context              = 20
 [core]
   editor = vim
 [alias]
