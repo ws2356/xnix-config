@@ -9,7 +9,7 @@ function! StartPlug(plugInDir)
   Plug 'scrooloose/nerdtree', { 'commit': '28eb47e2678cf629d92b4f1f00dd56cba22fc4ae' }
   Plug 'ludovicchabant/vim-gutentags', { 'commit': 'eecb136fae97e30d5f01e71f0d3b775c8b017385' }
   Plug 'w0rp/ale', { 'commit': 'a5240009ba5ff22daad95c306f7dec372d46bda0' }
-  Plug 'bestofsong/vimconfig', { 'commit': 'b58473986f90750918cf4892c6d301f85f717511' }
+  Plug 'bestofsong/vimconfig', { 'commit': '3241a33f5f2b36f41740b4e5a4ee9ed794527fed' }
   Plug 'leafgarland/typescript-vim', { 'commit': '7704fac2c765aaf975ad4034933bf63113dd4a64' }
   Plug 'wellle/targets.vim', { 'commit': 'a79447f261e4b8b4327557aa03726f3849334b84' }
   Plug 'easymotion/vim-easymotion', { 'commit': '85e90c9759e14633d878ed534ef313876ab96555' }
@@ -52,7 +52,7 @@ function! StartPlug(plugInDir)
   Plug 'prabirshrestha/asyncomplete-tags.vim', { 'commit': 'eef50f9630db9a772204af13baa997c176ab1a4e' }
   Plug 'neoclide/coc.nvim', {
         \ 'commit': 'd033fbfe526be910ea0be61e1ae1c220937bc17f',
-        \ 'do': ':CocInstall coc-json coc-tsserver coc-ultisnips coc-tag coc-solargraph',
+        \ 'do': ':CocInstall coc-json coc-tsserver coc-ultisnips coc-tag coc-solargraph coc-python',
         \ }
   Plug 'othree/csscomplete.vim', { 'commit': 'f1c7288a4e63b736678dba6fe4f8e825a8a9fd4b' }
   Plug 'octol/vim-cpp-enhanced-highlight', { 'commit': '27e0ffc215b81fa5aa87eca396acd4421d36c060' }
