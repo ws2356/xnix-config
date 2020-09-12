@@ -291,3 +291,6 @@ swift() {
 # git cli
 # git add -p时控制hunk大小
 export GIT_DIFF_OPTS=--unified=10
+
+# default SDK_NAME
+export SDK_NAME=macosx
