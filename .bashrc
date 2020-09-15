@@ -294,3 +294,9 @@ export GIT_DIFF_OPTS=--unified=10
 
 # default SDK_NAME
 export SDK_NAME=macosx
+
+# 快速切换目录
+if [ -z "${CDPATH:-}" ] ; then
+  export CDPATH="."
+fi
+export CDPATH="${CDPATH}:${HOME}/Developer/apps:${HOME}/Developer"
