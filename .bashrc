@@ -299,4 +299,6 @@ export SDK_NAME=macosx
 if [ -z "${CDPATH:-}" ] ; then
   export CDPATH="."
 fi
-export CDPATH="${CDPATH}:${HOME}/Developer/apps:${HOME}/Developer"
+
+# shellcheck source=/dev/null
+test -f "${HOME}/.bashrc.local" && . "$_"
