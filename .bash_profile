@@ -5,10 +5,8 @@
 
 export BASH_SILENCE_DEPRECATION_WARNING=1
 export HOMEBREW_NO_AUTO_UPDATE=1
-HOMEBREW_PREFIX=$(brew --prefix)
-
-# shellcheck source=/dev/null
-test -r "${HOME}/.bash_profile.before" && . "$_"
+# caution: non local, cli completion needs this to work
+HOMEBREW_PREFIX=/usr/local
 
 path_append() {
   for p in "$@"; do
@@ -28,7 +26,7 @@ path_prepend() {
   done
 }
 
-test -f ${HOME}/secrets/env.sh && . $_
+test -f ${HOME}/secrets/env.sh && \. $_
 
 path_append "${HOME}/bin"
 
@@ -39,9 +37,7 @@ export NVM_DIR="$HOME/.nvm"
 # config rbenv
 path_prepend "${HOME}/.rbenv/shims"
 export RBENV_SHELL=bash
-if command -v rbenv >/dev/null ; then
-  eval "$(rbenv init -)"
-fi
+eval "$(rbenv init -)" || echo "rbenv not install correctly."
 rbenv() {
   local command
   command="$1"
@@ -89,11 +85,8 @@ fi
 
 path_prepend "${HOME}/go/bin"
 
-test -e ~/bin/goto_dir_of.sh && . $_
-
 # shellcheck source=/dev/null
-test -f "${HOME}/.bash_profile.after" && . "$_"
-test -f "${HOME}/.bashrc" && . "$_"
+test -f "${HOME}/.bashrc" && \. "$_"
 
 # if [ -r "${HOME}/.bashrc" ] ; then
 #   . "${HOME}/.bashrc"

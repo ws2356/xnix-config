@@ -68,11 +68,6 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
-
-
 #-----------
 ## export two environmental variables: http_proxy, https_proxy for most other cli to use (automatically)
 ## refer to ${HOMEBREW_PREFIX}/etc/privoxy/config
@@ -297,4 +292,4 @@ if [ -z "${CDPATH:-}" ] ; then
 fi
 
 # shellcheck source=/dev/null
-test -f "${HOME}/.bashrc.local" && . "$_"
+test -f "${HOME}/.bashrc.local" && \. "$_"
