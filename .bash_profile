@@ -1,3 +1,8 @@
+# set -x
+# logfile=/tmp/bashstart.$$.log
+# PS4='+ $(date "+%s.%N")\011 '
+# exec 3>&2 2>"$logfile"
+
 export BASH_SILENCE_DEPRECATION_WARNING=1
 export HOMEBREW_NO_AUTO_UPDATE=1
 HOMEBREW_PREFIX=$(brew --prefix)
@@ -102,10 +107,14 @@ test -f "${HOME}/.bashrc" && . "$_"
 #   test -r "$bundled_rc" && . "$_"
 # fi
 
-if type xcrun >/dev/null 2>&1 ; then
-  if sourcekit_lsp=$(xcrun --toolchain swift --find sourcekit-lsp 2>/dev/null) ; then
-    export SOURCEKIT_LSP_PATH="$sourcekit_lsp"
-  fi
-fi
+# not working, comment to save time
+#if type xcrun >/dev/null 2>&1 ; then
+#  if sourcekit_lsp=$(xcrun --toolchain swift --find sourcekit-lsp 2>/dev/null) ; then
+#    export SOURCEKIT_LSP_PATH="$sourcekit_lsp"
+#  fi
+#fi
 
 export PATH="$HOME/.cargo/bin:$PATH"
+
+# set +x
+# exec 2>&3 3>&-

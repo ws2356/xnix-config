@@ -231,8 +231,6 @@ test -f $git_completion_bash && source $_
 
 export TERM="xterm-256color"
 
-test -f ${HOMEBREW_PREFIX}/etc/profile.d/autojump.sh && . $_
-
 # maybe will cause bad things?
 #if [ -d "${HOMEBREW_PREFIX}/opt/llvm/bin" ] ; then
 #  path_prepend "${HOMEBREW_PREFIX}/opt/llvm/bin"
