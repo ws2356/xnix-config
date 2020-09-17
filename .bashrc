@@ -286,8 +286,6 @@ swift() {
   fi
 }
 
-. ~/.config/shellpack/bin/shellpack_loader.sh
-
 # git cli
 # git add -p时控制hunk大小
 export GIT_DIFF_OPTS=--unified=10
