@@ -288,7 +288,7 @@ export SDK_NAME=macosx
 
 # 快速切换目录
 if [ -z "${CDPATH:-}" ] ; then
-  export CDPATH="."
+  CDPATH="."
 fi
 
 # shellcheck source=/dev/null
