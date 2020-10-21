@@ -111,3 +111,6 @@ export PATH="$HOME/.cargo/bin:$PATH"
 
 # set +x
 # exec 2>&3 3>&-
+
+test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+

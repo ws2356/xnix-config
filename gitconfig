@@ -5,7 +5,7 @@
 [merge]
   tool              = kdiff3
 [diff]
-  tool              = kdiff3
+  tool              = vimdiff
   context              = 20
 [core]
   editor = vim
