@@ -19,3 +19,8 @@
     review = log --color --pretty=format:'%Cred%cd%Creset / %Cred%h%Creset / %C(bold blue)%an%Creset / %Cgreen%s%Creset' --date=format-local:'%Y-%m-%d %z %a' --all
     review-plain = log --pretty=format:'%cd / %h / %an / %s' --date=format-local:'%Y-%m-%d %z %a' --all
     recent = reflog '--pretty=format:%Cred%cd%Creset %C(yellow)%h%Creset %Cgreen%d%Creset %gs' --date=format-local:'%Y-%m-%d %z %a'
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
