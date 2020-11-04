@@ -22,3 +22,6 @@ Host ky
 Host kvm
   User root
   HostName 172.29.38.158
+Host tc2
+  User lighthouse
+  HostName 101.32.244.220
