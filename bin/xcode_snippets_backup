@@ -11,7 +11,7 @@ for ff in "${xcode_snippets_dir}"/* ; do
   filename=$(xmlstarlet sel -T -t -c \
     '(//key[text()="IDECodeSnippetTitle"]/following-sibling::*)[1]' \
     "$orig_file")
-  cp "$orig_file" "${target_dir}/${filename}.codesnippet"
+  cp "$orig_file" "${target_dir}/${filename}.codesnippet" || true
 done
 
 git add "${target_dir}"/*.codesnippet
