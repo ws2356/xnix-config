@@ -31,11 +31,11 @@ install_file "${this_dir}/ssh/config" "$HOME/.ssh/config"
 install_file "${this_dir}/efm-langserver_config.yaml" "$HOME/.config/efm-langserver/config.yaml" 
 install_file "${this_dir}/npmrc-taobao" "$HOME/.npmrc" 
 
-export -f install_file
-"${this_dir}/bin/xcode_snippets_restore" 2>/dev/null | {
-  IFS_="$IFS"
-  export IFS=""
-  while read -r -a ll ; do
-    IFS="$IFS_" install_file "${ll[@]}"
-  done
-}
+# export -f install_file
+# "${this_dir}/bin/xcode_snippets_restore" 2>/dev/null | {
+#   IFS_="$IFS"
+#   export IFS=""
+#   while read -r -a ll ; do
+#     IFS="$IFS_" install_file "${ll[@]}"
+#   done
+# }
