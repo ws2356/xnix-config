@@ -11,7 +11,8 @@
 	<key>IDECodeSnippetContents</key>
 	<string>
 &lt;#private#&gt; &lt;#private(set)#&gt; lazy var &lt;#name#&gt;: &lt;#type#&gt; = {
-    return &lt;#expression#&gt;
+    let ret = &lt;#expression#&gt;
+    return ret
 }()</string>
 	<key>IDECodeSnippetIdentifier</key>
 	<string>65A370A9-873C-4924-90EC-1610FBD0B543</string>
