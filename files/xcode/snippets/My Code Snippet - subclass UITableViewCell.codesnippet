@@ -10,6 +10,8 @@
 	</array>
 	<key>IDECodeSnippetContents</key>
 	<string>class &lt;#class name#&gt;: &lt;#UITableViewCell#&gt; {
+    
+  private(set) var disposeBag = DisposeBag()
 
   private lazy var &lt;#subview#&gt;: &lt;#UIView#&gt; = {
     let ret = &lt;#UIView()#&gt;
@@ -26,11 +28,12 @@
   }
   
   func configure(model: &lt;#model type#&gt;) {
+    disposeBag = DisposeBag()
   }
   
   private func setup() {
-    makeConstraints()
     &lt;#code#&gt;
+    makeConstraints()
   }
   
   private func makeConstraints() {

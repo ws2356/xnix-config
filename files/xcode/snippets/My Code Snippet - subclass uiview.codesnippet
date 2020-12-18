@@ -23,8 +23,8 @@ class &lt;#class name#&gt;: &lt;#UIView#&gt; {
     }
 
   private func setup() {
-    makeConstraints()
     &lt;#code#&gt;
+    makeConstraints()
   }
 
   private func makeConstraints() {
