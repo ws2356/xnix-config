@@ -35,5 +35,5 @@ for ff in "${backup_dir}"/* ; do
   filename=$(xmlstarlet sel -T -t -c \
     '(//key[text()="IDECodeSnippetIdentifier"]/following-sibling::*)[1]' \
     "$orig_file")
-  echo "${orig_file}${xcode_snippets_dir}/${filename}.codesnippet"
+  install_file "${orig_file}" "${xcode_snippets_dir}/${filename}.codesnippet"
 done
