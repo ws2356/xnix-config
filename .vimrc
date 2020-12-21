@@ -29,10 +29,10 @@ function! StartPlug(plugInDir)
   Plug 'jiangmiao/auto-pairs', { 'commit': '39f06b873a8449af8ff6a3eee716d3da14d63a76' }
   Plug 'vim-ruby/vim-ruby', { 'commit': '1aa8f0cd0411c093d81f4139d151f93808e53966' }
   Plug 'junegunn/fzf', {
-        \ 'commit': '7c40a424c0bf5a8967816d51ead6a71a334f30bb',
-        \ 'do': './install --bin'
+        \ 'commit': 'ab3937ee5a62d63bac9307bfe72601eeb4fc9cd2',
+        \ 'do': { -> fzf#install() }
         \ }
-  Plug 'junegunn/fzf.vim', { 'commit': '359a80e3a34aacbd5257713b6a88aa085337166f' }
+  Plug 'junegunn/fzf.vim' , { 'commit': 'e9d62b4c873f5f207202b4ba5bbd63de7003a0d3' }
   Plug 'vim-airline/vim-airline', { 'commit': 'c213f2ac44292a6c5548872e63acb0648cc07a9a' }
   Plug 'tpope/vim-rhubarb', { 'commit': 'c509c7eedeea641f5b0bdae708581ff610fbff5b' }
   Plug 'vim-scripts/MPage', { 'commit': 'c7915d434d66d51de6f7bb805f353946fd08a5de' }

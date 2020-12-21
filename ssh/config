@@ -1,6 +1,9 @@
 Host pi
   User pi
   HostName pihome.local
+Host pipan
+  User pi
+  HostName pipan.local
 Host tc
   User ubuntu
   HostName tc.vps
@@ -25,3 +28,7 @@ Host kvm
 Host tc2
   User lighthouse
   HostName 101.32.244.220
+
+Host r0
+  User root
+  HostName 192.168.2.1
