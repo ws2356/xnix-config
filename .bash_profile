@@ -83,8 +83,6 @@ fi
 #  export CPPFLAGS="-I${HOMEBREW_PREFIX}/opt/llvm/include"
 #fi
 
-path_prepend "${HOME}/go/bin"
-
 # shellcheck source=/dev/null
 test -f "${HOME}/.bashrc" && \. "$_"
 

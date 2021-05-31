@@ -28,7 +28,15 @@ Host kvm
 Host tc2
   User lighthouse
   HostName 101.32.244.220
+Host tcpi
+  User pi
+  HostName 101.32.244.220
+  Port 8302
 
 Host r0
   User root
   HostName 192.168.2.1
+
+Host github.com
+  IdentityFile ~/.ssh/id_rsa
+  IdentitiesOnly yes

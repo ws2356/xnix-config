@@ -1,3 +1,6 @@
+let &t_TI = ""
+let &t_TE = ""
+
 let s:this_file=resolve(expand('<sfile>:p'))
 let s:this_dir=fnamemodify(s:this_file, ':p:h')
 
@@ -18,7 +21,7 @@ function! StartPlug(plugInDir)
   Plug 'honza/vim-snippets', { 'commit': 'a11cf5b47fcb9de72b5c8694a4e2fe2dca8c0ae7' }
   Plug 'tpope/vim-commentary', { 'commit': '141d9d32a9fb58fe474fcc89cd7221eb2dd57b3a' }
   Plug 'tpope/vim-surround', { 'commit': 'ca58a2d886cc18734c90c9665da4775d444b0c04' }
-  Plug 'Yggdroot/indentLine', { 'commit': '47648734706fb2cd0e4d4350f12157d1e5f4c465' }
+  Plug 'Yggdroot/indentLine', { 'commit': '5617a1cf7d315e6e6f84d825c85e3b669d220bfa' }
   Plug 'tpope/vim-dispatch', { 'commit': '488940870ab478cc443b06d5a62fea7ab999eabf' }
   Plug 'morhetz/gruvbox', { 'commit': 'cb4e7a5643f7d2dd40e694bcbd28c4b89b185e86' }
   Plug 'pangloss/vim-javascript', { 'commit': 'ee445807a71ee6933cd6cbcd74940bc288815793' }
@@ -40,7 +43,7 @@ function! StartPlug(plugInDir)
   Plug 'prabirshrestha/async.vim', { 'commit': '627a8c4092df24260d3dc2104bc1d944c78f91ca' }
   Plug 'prabirshrestha/vim-lsp', { 'commit': '094a49dccd2d92a57d754bcfaeb5f61b1ead70f4' }
   Plug 'keith/swift.vim', { 'commit': '245e5f7aae6f1bc96849a0a01a58cb81cf56e721' }
-  Plug 'prabirshrestha/asyncomplete.vim', { 'commit': 'db3ab51ef6d42ac410afaea53fc0513afd0d5e25' }
+  "Plug 'prabirshrestha/asyncomplete.vim', { 'commit': 'db3ab51ef6d42ac410afaea53fc0513afd0d5e25' }
   Plug 'prabirshrestha/asyncomplete-lsp.vim', { 'commit': '9e7b2492578dca86ed12b6352cb56d9fc8ac9a6e' }
   " deoplete needs following two
   Plug 'roxma/nvim-yarp', { 'commit': '83c6f4e61aa73e2a53796ea6690fb7e5e64db50a' }
@@ -242,6 +245,49 @@ inoremap <silent><expr> <Tab>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<Tab>" :
       \ coc#refresh()
+
+" inoremap <expr><C-f> coc#util#has_float() ? coc#util#float_scroll(1) : "\<C-f>"
+" inoremap <expr><C-b> coc#util#has_float() ? coc#util#float_scroll(0) : "\<C-b>"
+function! s:coc_float_scroll(amount) abort
+  let float = coc#util#get_float()
+  if !float | return '' | endif
+  let buf = nvim_win_get_buf(float)
+  let buf_height = nvim_buf_line_count(buf)
+  let win_height = nvim_win_get_height(float)
+  if buf_height < win_height | return '' | endif
+  let pos = nvim_win_get_cursor(float)
+  try
+    let last_amount = nvim_win_get_var(float, 'coc_float_scroll_last_amount')
+  catch
+    let last_amount = 0
+  endtry
+  if a:amount > 0
+    if pos[0] == 1
+      let pos[0] += a:amount + win_height - 2
+    elseif last_amount > 0
+      let pos[0] += a:amount
+    else
+      let pos[0] += a:amount + win_height - 3
+    endif
+    let pos[0] = pos[0] < buf_height ? pos[0] : buf_height
+  elseif a:amount < 0
+    if pos[0] == buf_height
+      let pos[0] += a:amount - win_height + 2
+    elseif last_amount < 0
+      let pos[0] += a:amount
+    else
+      let pos[0] += a:amount - win_height + 3
+    endif
+    let pos[0] = pos[0] > 1 ? pos[0] : 1
+  endif
+  call nvim_win_set_var(float, 'coc_float_scroll_last_amount', a:amount)
+  call nvim_win_set_cursor(float, pos)
+  return ''
+endfunction
+inoremap <silent><expr> <leader>j coc#util#has_float() ? <SID>coc_float_scroll(1) : "\<c-j>"
+inoremap <silent><expr> <c-k> coc#util#has_float() ? <SID>coc_float_scroll(-1) : "\<c-k>"
+vnoremap <silent><expr> <c-j> coc#util#has_float() ? <SID>coc_float_scroll(1) : "\<c-j>"
+vnoremap <silent><expr> <c-k> coc#util#has_float() ? <SID>coc_float_scroll(-1) : "\<c-k>"
 " }}}
 
 
@@ -285,6 +331,7 @@ let g:UltiSnipsJumpBackwardTrigger = "<C-k>"
 
 
 " Config indentLine {{{
+let g:indentLine_enabled = 1
 let g:indentLine_char_list = ['|', '¦', '┆',  '↓', '↑', '†', '·', '‖', 'ˇ', '┊']
 nnoremap <leader>ig :IndentLinesToggle<CR>
 let g:indentLine_concealcursor = 'c'
