@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+set -eu
+if ! shopt -s nullglob globstar ; then
+  os_name="$(uname | tr '[:upper:]' '[:lower:]')"
+  if [ "$os_name" = "darwin" ] ; then
+    brew install bash
+  elif [ "$os_name" = "linux" ] ; then
+    sudo apt install bash
+  else
+    printf 'Very ancient version of bash detected. Go update it.\n'
+  fi
+  exit 1
+fi
+
+echo "complete vim environments:"
+
+echo -e "\n[os]:"
+uname -a
+
+echo -e "\n[python] if it helps (probably wont):"
+type -p python
+command python --version
+
+echo -e "\n[vim bin]:"
+type -p vim
+
+echo -e "\n[vim --version]:"
+vim --version
+
+
+cd "${HOME}/.vim/plugged"
+echo -e "\n[vim-plug]:"
+for dd in ./* ; do
+  if ! [ -d "$dd" ] ; then
+    continue
+  fi
+  repo_name="$(basename "$dd")"
+  repo_revision="$(cd "$dd" && git rev-parse --verify @)"
+  echo "${repo_name}: ${repo_revision}"
+done

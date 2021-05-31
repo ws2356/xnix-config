@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>testcase</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>import XCTest
+import SnapshotTesting
+import Cuckoo
+import Swift
+@testable import KimSim
+
+class &lt;#MyCoolTestCase#&gt;: XCTestCase {
+  
+  override class func setUp() {
+    super.setUp()
+    KimLangHelper.setLang(.zh)
+  }
+  
+  override class func tearDown() {
+    super.tearDown()
+    KimLangHelper.reset()
+  }
+  
+  override func setUpWithError() throws {
+    do {
+      try super.setUpWithError()
+    } catch let error {
+      print(error)
+    }
+  }
+  
+  override func tearDownWithError() throws {
+    do {
+      try super.tearDownWithError()
+    } catch let error {
+      print(error)
+    }
+  }
+  
+  func &lt;#testMyCoolUIComponent#&gt;() {
+  }
+}
+</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>0E3385AA-446D-40CF-AAED-53D92AD3F41C</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string></string>
+	<key>IDECodeSnippetTitle</key>
+	<string>Create a unittest</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

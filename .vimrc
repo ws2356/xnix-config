@@ -402,6 +402,19 @@ let g:fzf_buffers_jump = 1
 nnoremap <silent> <C-p>p :Files<CR>
 nnoremap <silent> <C-p>b :Buffers<CR>
 nnoremap <silent> <C-p>l :Lines<CR>
+function! s:copy_results(lines)
+  let joined_lines = join(a:lines, "\n")
+  if len(a:lines) > 1
+    let joined_lines .= "\n"
+  endif
+  let @+ = joined_lines
+endfunction
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit',
+  \ 'ctrl-o': function('s:copy_results'),
+  \ }
 " }}}
 
 

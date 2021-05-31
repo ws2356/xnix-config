@@ -3,25 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>IDECodeSnippetCompletionPrefix</key>
-	<string>lazy</string>
+	<string>lintfu</string>
 	<key>IDECodeSnippetCompletionScopes</key>
 	<array>
 		<string>All</string>
 	</array>
 	<key>IDECodeSnippetContents</key>
-	<string>
-&lt;#private#&gt; &lt;#private(set)#&gt; lazy var &lt;#name#&gt;: &lt;#type#&gt; = {
-    let ret = &lt;#expression#&gt;
-    return ret
-}()</string>
+	<string>// swiftlint:disable:next force_unwrapping</string>
 	<key>IDECodeSnippetIdentifier</key>
-	<string>65A370A9-873C-4924-90EC-1610FBD0B543</string>
+	<string>30AF9C29-1D6A-44C3-8AAC-192DBA33905F</string>
 	<key>IDECodeSnippetLanguage</key>
 	<string>Xcode.SourceCodeLanguage.Swift</string>
 	<key>IDECodeSnippetSummary</key>
-	<string></string>
+	<string>disable force unwrapping</string>
 	<key>IDECodeSnippetTitle</key>
-	<string>My Code Snippet - lazy closure</string>
+	<string>lintfu</string>
 	<key>IDECodeSnippetUserSnippet</key>
 	<true/>
 	<key>IDECodeSnippetVersion</key>
