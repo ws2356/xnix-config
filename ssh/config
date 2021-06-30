@@ -40,3 +40,8 @@ Host r0
 Host github.com
   IdentityFile ~/.ssh/id_rsa
   IdentitiesOnly yes
+  
+Host tcpi
+  User pi
+  HostName 101.32.244.220
+  Port 8302
