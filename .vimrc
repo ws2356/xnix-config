@@ -112,6 +112,7 @@ set nocompatible
 set termguicolors
 set history=10000
 set exrc
+set secure
 set nowrapscan
 set wildmenu
 set tildeop

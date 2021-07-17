@@ -15,7 +15,7 @@ function! WS_gmks()
   if l:session_filename ==# ''
     return
   endif
-  execute ':mks! ' . l:session_filename
+  execute ':mksession! ' . l:session_filename
 endfunction
 
 function! WS_grs()
