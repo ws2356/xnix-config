@@ -64,12 +64,19 @@ function! StartPlug(plugInDir)
 	\ }
         " \ 'do': 'export tmp_repo=\"$(mktemp -d)\" && git clone \"https://github.com/ws2356/fonts\" \"$tmp_repo\"'
         " \ . ' && cd \"${tmp_repo}\" && ./install.sh'
+  Plug 'MattesGroeger/vim-bookmarks', { 'commit': '3adeae10639edcba29ea80dafa1c58cf545cb80e' }
 endfunction
 
 function! EndPlug()
   call plug#end()
   call s:load_custom_color_scheme()
 endfunction
+" }}}
+
+
+" vim-bookmarks config {{{
+let g:bookmark_save_per_working_dir = 1
+let g:bookmark_auto_save = 1
 " }}}
 
 
