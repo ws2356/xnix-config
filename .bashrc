@@ -293,3 +293,46 @@ fi
 
 # shellcheck source=/dev/null
 test -f "${HOME}/.bashrc.local" && \. "$_"
+
+calc() {
+  if [ "$#" -eq 0 ] ; then
+    read -r expression
+    calc "${expression:-1}"
+    return
+  fi
+  echo "scale=6; ${1}" | bc
+}
+
+socks5() {
+  if [ $# -le 0 ] ;  then
+    socks5_
+    return
+  fi
+  local onoff="${1:-on}"
+  local port="${2:-8087}"
+  local serv=
+  {
+    while { serv='' ; read -r serv || [ -n "$serv" ] ; } ; do
+      if ! networksetup -getinfo "$serv" >/dev/null 2>&1 ; then
+        continue
+      fi
+      if [ "$onoff" = "on" ] ; then
+        sudo networksetup -setsocksfirewallproxy "$serv" 127.0.0.1  "$port" ||  true
+      else
+        sudo networksetup -setsocksfirewallproxystate "$serv" "$onoff" ||  true
+      fi
+    done
+  } < <(networksetup -listallnetworkservices)
+}
+
+socks5_() {
+  local serv=
+  {
+    while { serv='' ; read -r serv || [ -n "$serv" ] ; } ; do
+      if networksetup -getinfo "$serv" >/dev/null 2>&1 ; then
+        echo "${serv}:"
+        networksetup -getsocksfirewallproxy "$serv" ||  true
+      fi
+    done
+  } < <(networksetup -listallnetworkservices)
+}
