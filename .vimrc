@@ -370,6 +370,7 @@ let g:fzf_buffers_jump = 1
 nnoremap <silent> <C-p>p :Files<CR>
 nnoremap <silent> <C-p>b :Buffers<CR>
 nnoremap <silent> <C-p>l :Lines<CR>
+nnoremap <silent> <C-p>f :Rg<CR>
 function! s:copy_results(lines)
   let joined_lines = join(a:lines, "\n")
   if len(a:lines) > 1
