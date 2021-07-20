@@ -7,7 +7,6 @@ Host pipan
 Host tc
   User ubuntu
   HostName tc.vps
-# password: stardust123
 Host mercury
   User root
   HostName 192.168.144.1
@@ -19,12 +18,6 @@ Host kim
 Host pro
   User kimmacjenkins
   HostName 172.17.205.203
-Host ky
-  User root
-  HostName 172.29.38.90
-Host kvm
-  User root
-  HostName 172.29.38.158
 Host tc2
   User lighthouse
   HostName 101.32.244.220
@@ -37,9 +30,9 @@ Host r0
   User root
   HostName 192.168.2.1
 
-Host github.com
-  IdentityFile ~/.ssh/id_rsa
-  IdentitiesOnly yes
+# Host github.com
+#   IdentityFile ~/.ssh/id_rsa
+#   IdentitiesOnly yes
   
 Host tcpi
   User pi
