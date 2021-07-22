@@ -6,8 +6,6 @@ nnoremap <leader>qq :q<CR>
 nnoremap <leader>co :only<CR>
 nnoremap <leader>ww :w<CR>
 nnoremap <leader>wa :wa<CR>
-nnoremap <leader>wq :wq<CR>
-nnoremap <leader>ed :edit<Space>
 nnoremap <leader>mks :call WS_gmks()<CR>
 nnoremap <leader>rs :call WS_grs()<CR>
 function! WS_gmks()
@@ -46,75 +44,11 @@ endfunction
 
 
 " 快速打开文件
-nnoremap <C-W><C-F> <C-W>vgf
-nnoremap <C-W><C-^> :vs #<CR>
 nnoremap <leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
 nnoremap <leader>br :browse filter /\v/ oldfiles<S-Left><Left><Left>
-nnoremap <leader>of :!open -a 'Google Chrome' <C-r>=expand('%:p')<CR><C-b><S-Right><S-Right><S-Right><S-Right><Left>
-
-
-" 打开目录
-nnoremap <leader>odf :!open <C-r>=expand('%:p:h')<CR><CR>
-nnoremap <leader>odt :!open -a iTerm.app <C-r>=expand('%:p:h')<CR><CR>
-
-
-" 缺省使用finder
-nnoremap <leader>owd :!open -a iTerm.app .<CR>
-
-
-" 文件路径操作 {{{
-function! WS_get_repo_root()
-  let s:cur_dir = expand('%:p:h')
-  if s:cur_dir == ''
-    let s:cur_dir = getcwd()
-  endif
-
-  while 1
-    let s:git_dir = fnamemodify(s:cur_dir, ':s;\v/?$;/.git;')
-    if isdirectory(s:git_dir) || filereadable(s:git_dir)
-      return s:cur_dir
-    endif
-    let s:cur_dir = fnamemodify(s:cur_dir, ':s;\v/[^/]+/?$;/;')
-    if s:cur_dir == '/' || s:cur_dir == ''
-      return ''
-    endif
-  endwhile
-endfunction
-
-function! s:get_top_dir(path)
-  let s:ret = fnamemodify(a:path, ':s;\v^(/[^/]*).*$;\1;')
-  return s:ret
-endfunction
-
-function! s:trim_top_dir(path)
-  return fnamemodify(a:path, ':s;\v^/[^/]*/?(.*)$;/\1;')
-endfunction
-
-function! WS_relative_to(base_, path_)
-  let s:base = a:base_
-  let s:path = a:path_
-  let s:base = fnamemodify(s:base, ':p')
-  let s:path = fnamemodify(s:path, ':p')
-  if s:base == s:path
-    return '.'
-  endif
-  while s:get_top_dir(s:base) == s:get_top_dir(s:path)
-        \ && s:get_top_dir(s:path) != '/'
-    let s:base = s:trim_top_dir(s:base)
-    let s:path = s:trim_top_dir(s:path)
-  endwhile
-  while s:base =~ '[^/.]'
-    let s:base = fnamemodify(s:base, ':s;\v/[^/]*[^/.]+[^/]*;/..;g')
-  endwhile
-  let s:base = fnamemodify(s:base, ':s;\v^/?;;')
-  let s:base = fnamemodify(s:base, ':s;\v/?$;;')
-  if s:base == '/' || s:base == ''
-    let s:base = '.'
-  endif
-  return s:base . fnamemodify(s:path, ':s;\v^/?(.*)$;/\1;')
-endfunction
-" }}}
+" nnoremap <leader>of :!open -a 'Google Chrome' <C-r>=expand('%:p')<CR><C-b><S-Right><S-Right><S-Right><S-Right><Left>
+nnoremap <leader>of :!open -a 'Google Chrome' <C-r>=expand('%:p')<CR><CR> \| <CR>
 
 
 " 窗口
@@ -133,9 +67,6 @@ noremap <leader>sc :MPage 2<CR>
 noremap <leader>tbn :tabnew<Space>
 noremap <leader>tbs :tabs<CR>
 noremap <leader>tbo :tabonly<CR>
-noremap <leader>tb7 :tablast<CR>
-noremap <leader>tb1 :tabfirst<CR>
-" 可以连续使用,ts<xxxx>来代替（xxxx是任意normal命令）
 noremap <leader>ts :tab split<CR>
 
 
@@ -311,6 +242,7 @@ inoremap <C-b>ft <C-r>=expand('%:t')<CR>
 inoremap <C-b>f5 <C-r>=expand('%')<CR>
 inoremap <C-b>f3 <C-r>=expand('#')<CR>
 " 绕过emmet不能完整展开自动补全的表达式的问题
+" deprecate: coc基于lsp提供的补全似乎够用
 imap <C-y>\ <Esc>a<C-y>,
 " inoremap <expr> <C-b>r repeat(nr2char(getchar()), 10)
 function! AppendModeline()
@@ -323,7 +255,6 @@ nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
 
 inoremap <S-TAB> <C-X><C-O>
 " }}}
-
 
 " 搜索 {{{
 command! -nargs=+ -complete=file GRR call GrepSourceCodeRaw(<f-args>)
