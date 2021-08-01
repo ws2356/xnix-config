@@ -336,3 +336,19 @@ socks5_() {
     done
   } < <(networksetup -listallnetworkservices)
 }
+
+jwtinspect() {
+  local header=
+  local claims=
+  local signature=
+  local IFS_="$IFS"
+  IFS='.' read -r header claims signature
+  IFS="$IFS_"
+
+  echo 'header:'
+  echo "$header" | base64 -d | jq
+  echo 'claims:'
+  echo "$claims" | base64 -d | jq
+  echo 'signature:'
+  echo "$signature"
+}
