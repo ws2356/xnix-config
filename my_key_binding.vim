@@ -51,7 +51,7 @@ nnoremap <C-W><C-^> :vs #<CR>
 nnoremap <leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
 nnoremap <leader>br :browse filter /\v/ oldfiles<S-Left><Left><Left>
-nnoremap <leader>of :!open -a 'Google Chrome' <C-r>=expand('%:p')<CR><C-b><S-Right><S-Right><S-Right><S-Right><Left>
+nnoremap <leader>of :!open -a 'Google Chrome' '<C-r>=expand('%:p')<CR>'<C-b><S-Right><S-Right><S-Right><S-Right><Left>
 
 
 " 打开目录
@@ -225,7 +225,6 @@ vnoremap <expr> \; '":'
 " 剪切板
 " y后面可跟p, h, t, e, r等，用于展开相关路径
 nnoremap <expr> <leader>y ':let @+ = expand("%:' . nr2char(getchar()) . '")<CR>'
-nnoremap <leader>y3 :let @+ = expand('#')<CR>
 nnoremap <leader>ywd :let @+ = getcwd()<CR>
 
 
