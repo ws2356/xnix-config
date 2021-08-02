@@ -337,6 +337,15 @@ socks5_() {
   } < <(networksetup -listallnetworkservices)
 }
 
+jwtinspect_base64_url_decode_prepare() {
+  local cred="$1"
+  cred="$(printf %s "$cred" | tr '-' '+' | tr '_' '/')"
+  while [ $(( ${#cred} % 4 )) -ne 0 ] ; do
+    cred="${cred}="
+  done
+  printf %s "$cred"
+}
+
 jwtinspect() {
   local header=
   local claims=
@@ -346,9 +355,24 @@ jwtinspect() {
   IFS="$IFS_"
 
   echo 'header:'
-  echo "$header" | base64 -d | jq
+  jwtinspect_base64_url_decode_prepare "$header" | base64 -d | jq
   echo 'claims:'
-  echo "$claims" | base64 -d | jq
+  jwtinspect_base64_url_decode_prepare "$claims" | base64 -d | jq
   echo 'signature:'
   echo "$signature"
+}
+
+pf80() {
+  sudo pfctl -ef - <<'EOF'
+
+rdr pass inet proto tcp from any to any port 80 -> 127.0.0.1 port 8787
+EOF
+}
+
+pf80off() {
+  sudo pfctl -F all -f /etc/pf.conf
+}
+
+pfshow() {
+  sudo pfctl -s nat
 }
