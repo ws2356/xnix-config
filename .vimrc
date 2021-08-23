@@ -55,7 +55,7 @@ function! StartPlug(plugInDir)
   Plug 'prabirshrestha/asyncomplete-tags.vim', { 'commit': 'eef50f9630db9a772204af13baa997c176ab1a4e' }
   Plug 'neoclide/coc.nvim', {
         \ 'commit': '1a74bf3c57fec8442f837b3baad0d6fb75d1b97a',
-        \ 'do': ':CocInstall coc-json coc-tsserver coc-ultisnips coc-tag coc-solargraph coc-python coc-css',
+        \ 'do': ':CocInstall coc-json coc-tsserver coc-ultisnips coc-tag coc-solargraph coc-python coc-css coc-go coc-snippets',
         \ }
   Plug 'othree/csscomplete.vim', { 'commit': 'f1c7288a4e63b736678dba6fe4f8e825a8a9fd4b' }
   Plug 'octol/vim-cpp-enhanced-highlight', { 'commit': '27e0ffc215b81fa5aa87eca396acd4421d36c060' }
@@ -256,6 +256,18 @@ inoremap <silent><expr> <Tab>
 
 inoremap <silent><expr> <c-f> coc#float#has_float() ? coc#float#scroll(1) : "\<c-f>"
 inoremap <silent><expr> <c-b> coc#float#has_float() ? coc#float#scroll(0) : "\<c-b>"
+
+" Use <C-l> for trigger snippet expand.
+imap <C-l> <Plug>(coc-snippets-expand)
+" Use <C-j> for select text for visual placeholder of snippet.
+vmap <C-j> <Plug>(coc-snippets-select)
+" Use <C-j> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_next = '<c-j>'
+" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+let g:coc_snippet_prev = '<c-k>'
+
+
+
 " }}}
 
 
