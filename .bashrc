@@ -377,5 +377,7 @@ pfshow() {
   sudo pfctl -s nat
 }
 
-
-export PATH=$PATH:$(go env GOPATH)/bin
+if GOPATH=$(go env GOPATH) ; then
+  export GOPATH
+  export PATH=$PATH:$GOPATH
+fi
