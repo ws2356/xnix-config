@@ -376,3 +376,6 @@ pf80off() {
 pfshow() {
   sudo pfctl -s nat
 }
+
+
+export PATH=$PATH:$(go env GOPATH)/bin
