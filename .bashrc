@@ -380,4 +380,13 @@ pfshow() {
 if GOPATH=$(go env GOPATH) ; then
   export GOPATH
   export PATH=$PATH:$GOPATH
+  gosrc() {
+    cd "${GOPATH}/src" || echo "$_ not exist"
+  }
+  gobin() {
+    cd "${GOPATH}/bin" || echo "$_ not exist"
+  }
+  gohome() {
+    cd "${GOPATH}" || echo "$_ not exist"
+  }
 fi
