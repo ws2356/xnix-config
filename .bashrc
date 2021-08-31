@@ -377,16 +377,16 @@ pfshow() {
   sudo pfctl -s nat
 }
 
-if GOPATH=$(go env GOPATH) ; then
+if GOPATH=$(go env GOPATH 2>/dev/null) ; then
   export GOPATH
   export PATH=$PATH:${GOPATH}/bin
   gosrc() {
-    cd "${GOPATH}/src" || echo "$_ not exist"
+    cd "${GOPATH}/src" || true
   }
   gobin() {
-    cd "${GOPATH}/bin" || echo "$_ not exist"
+    cd "${GOPATH}/bin" || true
   }
   gohome() {
-    cd "${GOPATH}" || echo "$_ not exist"
+    cd "${GOPATH}" || true
   }
 fi
