@@ -30,10 +30,6 @@ test -f ${HOME}/secrets/env.sh && \. $_
 
 path_append "${HOME}/bin"
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
 # config rbenv
 path_prepend "${HOME}/.rbenv/shims"
 export RBENV_SHELL=bash

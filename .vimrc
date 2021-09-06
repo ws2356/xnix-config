@@ -238,6 +238,7 @@ nmap <leader>gd <Plug>(coc-definition)
 nmap <leader>gy <Plug>(coc-type-definition)
 nmap <leader>gi <Plug>(coc-implementation)
 nmap <leader>gr <Plug>(coc-references)
+nmap <leader>rn <Plug>(coc-rename)
 set statusline^=%{coc#status()}
 let g:coc_snippet_next = '<C-n>'
 let g:coc_snippet_prev = '<C-p>'
