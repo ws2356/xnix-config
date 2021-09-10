@@ -408,7 +408,7 @@ let g:fzf_action = {
 " {{{ colorscheme
 function! s:load_custom_color_scheme()
   " 依赖plugin的初始化
-  set background=light
+  set background=dark
   colorscheme gruvbox
 endfunction
 " }}}
