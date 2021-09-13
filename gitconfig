@@ -17,7 +17,7 @@
     l = log -c
     summary = log --color --pretty=format:'%Cred%cd%Creset / %Cred%h%Creset / %C(bold blue)%an%Creset / %Cgreen%s%Creset' --date=format-local:'%Y-%m-%d %z %a' --all
     recent = reflog '--pretty=format:%Cred%cd%Creset %C(yellow)%h%Creset %Cgreen%d%Creset %gs' --date=format-local:'%Y-%m-%d %z %a'
-	alias = ! git config --get-regexp ^alias\\. | sed -e s/^alias\\.// -e s/\\ /\\ =\\ /
+    alias = ! git config --get-regexp ^alias\\. | sed -e s/^alias\\.// -e s/\\ /\\ =\\ /
 [filter "lfs"]
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
