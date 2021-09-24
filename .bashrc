@@ -303,9 +303,9 @@ calc() {
   echo "scale=6; ${1}" | bc
 }
 
-socks5() {
+webproxy() {
   if [ $# -le 0 ] ;  then
-    socks5_
+    webproxy_
     return
   fi
   local onoff="${1:-on}"
@@ -317,21 +317,24 @@ socks5() {
         continue
       fi
       if [ "$onoff" = "on" ] ; then
-        sudo networksetup -setsocksfirewallproxy "$serv" 127.0.0.1  "$port" ||  true
+        sudo networksetup -setwebproxy "$serv" 127.0.0.1  "$port" ||  true
+        sudo networksetup -setsecurewebproxy "$serv" 127.0.0.1  "$port" ||  true
       else
-        sudo networksetup -setsocksfirewallproxystate "$serv" "$onoff" ||  true
+        sudo networksetup -setwebproxystate "$serv" "$onoff" ||  true
+        sudo networksetup -setsecurewebproxystate "$serv" "$onoff" ||  true
       fi
     done
   } < <(networksetup -listallnetworkservices)
 }
 
-socks5_() {
+webproxy_() {
   local serv=
   {
     while { serv='' ; read -r serv || [ -n "$serv" ] ; } ; do
       if networksetup -getinfo "$serv" >/dev/null 2>&1 ; then
         echo "${serv}:"
-        networksetup -getsocksfirewallproxy "$serv" ||  true
+        networksetup -getwebproxy "$serv" ||  true
+        networksetup -getsecurewebproxy "$serv" ||  true
       fi
     done
   } < <(networksetup -listallnetworkservices)
