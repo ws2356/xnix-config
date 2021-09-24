@@ -340,6 +340,23 @@ webproxy_() {
   } < <(networksetup -listallnetworkservices)
 }
 
+pac() {
+  local onoff="${1:-on}"
+  local serv=
+  {
+    while { serv='' ; read -r serv || [ -n "$serv" ] ; } ; do
+      if ! networksetup -getinfo "$serv" >/dev/null 2>&1 ; then
+        continue
+      fi
+      if [ "$onoff" = "on" ] ; then
+        sudo networksetup -setautoproxyurl "$serv" "http://127.0.0.1:8080/sso.pac" ||  true
+      else
+        sudo networksetup -setautoproxyurl "$serv" "" ||  true
+      fi
+    done
+  } < <(networksetup -listallnetworkservices)
+}
+
 jwtinspect_base64_url_decode_prepare() {
   local cred="$1"
   cred="$(printf %s "$cred" | tr '-' '+' | tr '_' '/')"
