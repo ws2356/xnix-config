@@ -197,20 +197,12 @@ function packup() {
   local sshfiles=.ssh
   local local_only_dir=local-only/
   local my_archives=my-archives/
-  local kubeconfig=kube.config
+  # local kubeconfig=kube.config
   local output_zip=packed.zip
 
   # 导出一些配置数据
   ls /Applications > "${my_archives}Applications.txt"
   zip -r "$output_zip" "$gitconfig" "$sshfiles" "$user_profile" "$local_only_dir" "$my_archives" "$kubeconfig"
-
-  # 全局文档
-  cd /
-  zip -r ${HOME}/packed-system.zip \
-    Library/LaunchDaemons/site.xway.privoxy.plist \
-    Library/LaunchDaemons/demo.python.web.plist \
-    ${HOMEBREW_PREFIX}/etc/privoxy/config
-  cd - >/dev/null 2>&1
 }
 
 set -o vi

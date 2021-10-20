@@ -21,11 +21,15 @@ Host pro
 Host tc2
   User lighthouse
   HostName 101.32.244.220
+  IdentityFile ~/local-only/tc2sshkey/id_rsa
 Host tcpi
   User pi
   HostName 101.32.244.220
   Port 8302
-
+Host blackbox
+  User wansong
+  HostName wansong.vip
+  Port 8302
 Host r0
   User root
   HostName 192.168.2.1
