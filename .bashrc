@@ -202,6 +202,7 @@ function packup() {
   local output_zip=packed.zip
 
   test -e "$output_zip" && rm "$_"
+  mkdir -p "$my_archives"
 
   # 导出一些配置数据
   ls /Applications > "${my_archives}Applications.txt"
