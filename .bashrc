@@ -205,7 +205,7 @@ function packup() {
 
   # 导出一些配置数据
   ls /Applications > "${my_archives}Applications.txt"
-  zip -r "$output_zip" "$gitconfig" "$sshfiles" "$user_profile" "$local_only_dir" "$my_archives" "$kubeconfig" "$rsyncconf"
+  zip -r "$output_zip" "$gitconfig" "$sshfiles" "$user_profile" "$local_only_dir" "$my_archives" "$kubeconfig" "$rsyncconf" raspbian
 }
 
 set -o vi
