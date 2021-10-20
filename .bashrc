@@ -198,11 +198,14 @@ function packup() {
   local local_only_dir=local-only/
   local my_archives=my-archives/
   # local kubeconfig=kube.config
+  local rsyncconf=rsyncd.conf
   local output_zip=packed.zip
+
+  test -e "$output_zip" && rm "$_"
 
   # 导出一些配置数据
   ls /Applications > "${my_archives}Applications.txt"
-  zip -r "$output_zip" "$gitconfig" "$sshfiles" "$user_profile" "$local_only_dir" "$my_archives" "$kubeconfig"
+  zip -r "$output_zip" "$gitconfig" "$sshfiles" "$user_profile" "$local_only_dir" "$my_archives" "$kubeconfig" "$rsyncconf"
 }
 
 set -o vi
