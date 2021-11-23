@@ -66,6 +66,8 @@ function! StartPlug(plugInDir)
         " \ . ' && cd \"${tmp_repo}\" && ./install.sh'
   Plug 'MattesGroeger/vim-bookmarks', { 'commit': '3adeae10639edcba29ea80dafa1c58cf545cb80e' }
   Plug 'mlaursen/vim-react-snippets', { 'commit': '6815640e37f8f3f4ff5ca1492bd3825ea90ccf43' }
+  Plug 'yaegassy/coc-nginx', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'nginx/nginx', { 'rtp': 'contrib/vim' }
 endfunction
 
 function! EndPlug()
