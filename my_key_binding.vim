@@ -333,3 +333,8 @@ nnoremap <leader>gph :Gpush<Space>
 nnoremap <leader>gpl :Gpull<Space>
 nnoremap <leader>gfh :Gfetch<CR>
 " }}}
+
+
+" 搜索 {{{
+nnoremap <silent> <F3> :redir @a<CR>:g//<CR>:redir END<CR>:tabnew<CR>:put! a<CR>
+" }}}
