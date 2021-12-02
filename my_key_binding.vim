@@ -256,7 +256,7 @@ inoremap <S-TAB> <C-X><C-O>
 
 " 搜索 {{{
 command! -nargs=+ -complete=file GRR call GrepSourceCodeRaw(<f-args>)
-command! -complete=file GRV call VGrepSourceCode()
+command! GRV call VGrepSourceCode()
 " 根据正则表达式匹配，其他的是匹配原始字符
 command! -nargs=+ -complete=file GRE call EGrepSourceCode(<f-args>)
 nnoremap <leader>ff :GRR<Space><Space>.<Left><Left>

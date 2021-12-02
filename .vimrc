@@ -54,7 +54,7 @@ function! StartPlug(plugInDir)
         \ }
   Plug 'prabirshrestha/asyncomplete-tags.vim', { 'commit': 'eef50f9630db9a772204af13baa997c176ab1a4e' }
   Plug 'neoclide/coc.nvim', {
-        \ 'commit': '1a74bf3c57fec8442f837b3baad0d6fb75d1b97a',
+        \ 'commit': '287c743c9f227fdf0e1db452bbb8ae3c5caffc36',
         \ 'do': ':CocInstall coc-json coc-tsserver coc-ultisnips coc-tag coc-solargraph coc-python coc-css coc-go coc-snippets coc-sourcekit',
         \ }
   Plug 'othree/csscomplete.vim', { 'commit': 'f1c7288a4e63b736678dba6fe4f8e825a8a9fd4b' }
@@ -270,8 +270,29 @@ let g:coc_snippet_next = '<c-j>'
 " Use <C-k> for jump to previous placeholder, it's default of coc.nvim
 let g:coc_snippet_prev = '<c-k>'
 
+function! s:get_nvm_node_path(node_version)
+  let l:coc_node_path_tmp = trim(system('. "${NVM_DIR}/nvm.sh" >/dev/null 2>&1 ; nvm which ' . a:node_version))
+  if v:shell_error == 0
+    return l:coc_node_path_tmp
+  endif
+  return ''
+endfunction
 
+let s:coc_node_path_tmp = ''
+let s:node_version = 12
+while s:node_version <= 30
+  let s:coc_node_path_tmp = s:get_nvm_node_path(s:node_version)
+  if s:coc_node_path_tmp != ''
+    break
+  endif
+  let s:node_version += 1
+endwhile
+unlet s:node_version
 
+if s:coc_node_path_tmp != ''
+  let g:coc_node_path = s:coc_node_path_tmp
+endif
+unlet s:coc_node_path_tmp
 " }}}
 
 

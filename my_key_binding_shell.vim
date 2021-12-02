@@ -18,6 +18,6 @@ function! WS_BuildSwiftProj()
 endfunction
 
 command! -complete=file -nargs=* BuildXcProj call WS_BuildXcProj(<f-args>) 
-command! -complete=file BuildCmakeProj call WS_BuildCmakeProj()
+command! BuildCmakeProj call WS_BuildCmakeProj()
 command! BuildSwiftProj call WS_BuildSwiftProj()
 " }}}
