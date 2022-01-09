@@ -14,6 +14,23 @@
         "filetypes": ["c", "c++", "cc", "cpp", "objc", "objcpp"],
         "trace.server": "verbose"
     },
+    "swift": {
+      "enable": true,
+      "command": "get_sourcekit_path",
+      "args": [
+	"-Xswiftc",
+	"-sdk",
+	"-Xswiftc",
+	"get_sdk_path",
+	"-Xswiftc",
+	"-target",
+	"-Xswiftc",
+	"get_target_triplet"
+      ],
+      "rootPatterns": ["Package.swift", ".vim/", ".git/"],
+      "filetypes": ["c", "swift"],
+      "trace.server": "verbose"
+    },
     "bash": {
       "command": "( type bash-language-server || yarn global add bash-language-server ) 1>&2 && echo bash-language-server",
       "args": ["start"],
@@ -50,5 +67,7 @@
   "solargraph.useBundler": true,
   "solargraph.trace.server": "verbose",
   "solargraph.diagnostics": true,
-  "solargraph.logLevel": "debug"
+  "solargraph.logLevel": "debug",
+  "python.setLinter": "pylint",
+  "python.setInterpreter": "test -n "${VIRTUAL_ENV:-}" && echo $_ || type -p python3"
 }
