@@ -54,8 +54,7 @@ function proml {
     ;;
   esac
 
-  # local wan=$'\xe5\x8d\x8d'
-  local wan=$'\xe2\x98\xaf'
+  local wan=$'\xf0\x9f\x90\x99'
 # $BLUE[$RED\$(date +%H:%M)$BLUE]\
   PS1="${TITLEBAR}\
 ${BLUE}[$RED\u@\h:\W$GREEN\$(parse_git_branch)$BLUE]\
