@@ -1,13 +1,16 @@
 [include]
   path = ~/.gitconfig-site
 [core]
-  autocrlf = input
+  autocrlf = true # if windows then true else input
 [merge]
-  tool              = kdiff3
+  tool              = vimdiff
 [diff]
   tool              = vimdiff
 [core]
   editor = vim
+  autocrlf = true
+  fscache = true
+  symlinks = false
 [pull]
   rebase = false
 [alias]
@@ -23,3 +26,12 @@
 	process = git-lfs filter-process
 	required = true
 	clean = git-lfs clean -- %f
+#[credential]
+#	helper = "/cygdrive/c/Program\\ Files\\ \\(x86\\)/Git\\ Credential\\ Manager/git-credential-manager-core.exe"
+#[credential "https://dev.azure.com"]
+	#useHttpPath = true
+[init]
+	defaultBranch = main
+#[user]
+	#email = "songwan@microsoft.com"
+	#name = songwan

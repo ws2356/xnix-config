@@ -10,68 +10,21 @@ let s:this_dir=fnamemodify(s:this_file, ':p:h')
 function! StartPlug(plugInDir)
   call plug#begin(a:plugInDir)
   Plug 'scrooloose/nerdtree', { 'commit': '28eb47e2678cf629d92b4f1f00dd56cba22fc4ae' }
-  Plug 'ludovicchabant/vim-gutentags', { 'commit': 'eecb136fae97e30d5f01e71f0d3b775c8b017385' }
-  Plug 'w0rp/ale', { 'commit': 'a5240009ba5ff22daad95c306f7dec372d46bda0' }
-  Plug 'bestofsong/vimconfig', { 'tag': 'v*' }
-  Plug 'leafgarland/typescript-vim', { 'commit': '7704fac2c765aaf975ad4034933bf63113dd4a64' }
   Plug 'wellle/targets.vim', { 'commit': 'a79447f261e4b8b4327557aa03726f3849334b84' }
   Plug 'easymotion/vim-easymotion', { 'commit': '85e90c9759e14633d878ed534ef313876ab96555' }
   Plug 'tpope/vim-fugitive', { 'commit': '6d42c7df44aa20252e5dac747c3ac9fa7450b21b' }
   Plug 'SirVer/ultisnips', { 'commit': '1a99766b73783bafb08cfa07d7e29e5387c55189' }
-  Plug 'honza/vim-snippets', { 'commit': 'a11cf5b47fcb9de72b5c8694a4e2fe2dca8c0ae7' }
   Plug 'tpope/vim-commentary', { 'commit': '141d9d32a9fb58fe474fcc89cd7221eb2dd57b3a' }
   Plug 'tpope/vim-surround', { 'commit': 'ca58a2d886cc18734c90c9665da4775d444b0c04' }
   Plug 'Yggdroot/indentLine', { 'commit': '5617a1cf7d315e6e6f84d825c85e3b669d220bfa' }
-  Plug 'tpope/vim-dispatch', { 'commit': '488940870ab478cc443b06d5a62fea7ab999eabf' }
   Plug 'morhetz/gruvbox', { 'commit': 'cb4e7a5643f7d2dd40e694bcbd28c4b89b185e86' }
-  Plug 'pangloss/vim-javascript', { 'commit': 'ee445807a71ee6933cd6cbcd74940bc288815793' }
-  Plug 'MaxMEllon/vim-jsx-pretty', { 'commit': 'c665d5ca4247b696f478f91b7c97b9e44442e4b6' }
-  Plug 'mattn/emmet-vim', { 'commit': 'd698f1658770ca5fa58c87e80421c8d65bbe9065' }
-  Plug 'ap/vim-css-color', { 'commit': '8a84356d5319cad3da2835bd5fbc6318500f31ce' }
-  Plug 'shumphrey/fugitive-gitlab.vim', { 'commit': '43a13dbbc9aae85338877329ed28c9e4d8488db1' }
   Plug 'jiangmiao/auto-pairs', { 'commit': '39f06b873a8449af8ff6a3eee716d3da14d63a76' }
-  Plug 'vim-ruby/vim-ruby', { 'commit': '1aa8f0cd0411c093d81f4139d151f93808e53966' }
   Plug 'junegunn/fzf', {
         \ 'commit': 'ab3937ee5a62d63bac9307bfe72601eeb4fc9cd2',
         \ 'do': { -> fzf#install() }
         \ }
   Plug 'junegunn/fzf.vim' , { 'commit': 'e9d62b4c873f5f207202b4ba5bbd63de7003a0d3' }
   Plug 'vim-airline/vim-airline', { 'commit': 'c213f2ac44292a6c5548872e63acb0648cc07a9a' }
-  Plug 'tpope/vim-rhubarb', { 'commit': 'c509c7eedeea641f5b0bdae708581ff610fbff5b' }
-  Plug 'vim-scripts/MPage', { 'commit': 'c7915d434d66d51de6f7bb805f353946fd08a5de' }
-  Plug 'dart-lang/dart-vim-plugin', { 'commit': '1dca4e12299e26bf4277992fd9b8b22bcc2f4e56' }
-  Plug 'prabirshrestha/async.vim', { 'commit': '627a8c4092df24260d3dc2104bc1d944c78f91ca' }
-  Plug 'prabirshrestha/vim-lsp', { 'commit': '094a49dccd2d92a57d754bcfaeb5f61b1ead70f4' }
-  Plug 'keith/swift.vim', { 'commit': '245e5f7aae6f1bc96849a0a01a58cb81cf56e721' }
-  "Plug 'prabirshrestha/asyncomplete.vim', { 'commit': 'db3ab51ef6d42ac410afaea53fc0513afd0d5e25' }
-  Plug 'prabirshrestha/asyncomplete-lsp.vim', { 'commit': '9e7b2492578dca86ed12b6352cb56d9fc8ac9a6e' }
-  " deoplete needs following two
-  Plug 'roxma/nvim-yarp', { 'commit': '83c6f4e61aa73e2a53796ea6690fb7e5e64db50a' }
-  Plug 'roxma/vim-hug-neovim-rpc', { 'commit': '701ecbb0a1f904c0b44c6beaafef35e1de998a94' }
-  Plug 'Shougo/deoplete.nvim', {
-        \ 'commit': '840c46aed8033efe19c7a5a809713c809b4a6bb5',
-        \ 'do': 'pip3 show pynvim 2>/dev/null 1>&2 \|\| pip3 install --user --upgrade pynvim'
-        \ }
-  Plug 'prabirshrestha/asyncomplete-tags.vim', { 'commit': 'eef50f9630db9a772204af13baa997c176ab1a4e' }
-  Plug 'neoclide/coc.nvim', {
-        \ 'commit': '287c743c9f227fdf0e1db452bbb8ae3c5caffc36',
-        \ 'do': ':CocInstall coc-json coc-tsserver coc-ultisnips coc-tag coc-solargraph coc-python coc-css coc-go coc-snippets coc-sourcekit',
-        \ }
-  Plug 'othree/csscomplete.vim', { 'commit': 'f1c7288a4e63b736678dba6fe4f8e825a8a9fd4b' }
-  Plug 'octol/vim-cpp-enhanced-highlight', { 'commit': '27e0ffc215b81fa5aa87eca396acd4421d36c060' }
-  Plug 'liuchengxu/vista.vim', {
-	\ 'commit': 'dc84cda95c1a408dca72a5e540903b6a8a6bdcfe',
-	\ }
-        " \ 'do': 'export tmp_repo=\"$(mktemp -d)\" && git clone \"https://github.com/ws2356/fonts\" \"$tmp_repo\"'
-        " \ . ' && cd \"${tmp_repo}\" && ./install.sh'
-  Plug 'MattesGroeger/vim-bookmarks', { 'commit': '3adeae10639edcba29ea80dafa1c58cf545cb80e' }
-  Plug 'mlaursen/vim-react-snippets', { 'commit': '6815640e37f8f3f4ff5ca1492bd3825ea90ccf43' }
-  Plug 'yaegassy/coc-nginx', {
-        \ 'commit': '3f53bf3546599d50b559beb52d112d6c4ade855b',
-        \ 'do': 'yarn install --frozen-lockfile'}
-  Plug 'nginx/nginx', {
-        \ 'commit': '5c3249964403356601e64ab701f2e563a1f98630',
-        \ 'rtp': 'contrib/vim' }
 endfunction
 
 function! EndPlug()
@@ -348,14 +301,6 @@ let g:indentLine_concealcursor = 'c'
 
 
 " 自动命令 ---------------------- {{{
-function! WSTurnOnOrOffDeoplete()
-  if &filetype == 'swift'
-    call deoplete#custom#option('auto_complete', 1)
-  else
-    call deoplete#custom#option('auto_complete', 0)
-  endif
-endfunction
-
 augroup mygroup
   autocmd!
   autocmd BufNewFile,BufRead *.ejs set filetype=html
@@ -370,7 +315,6 @@ augroup mygroup
         \ |   exe "normal! g`\""
         \ | endif
   autocmd FileType json syntax match Comment +\/\/.\+$+
-  autocmd FileType * :silent call WSTurnOnOrOffDeoplete()
   autocmd BufRead,BufNewFile {*.markdown,*.md} set filetype=markdown
   autocmd FileType markdown setlocal syntax=off spell
   autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS noci
