@@ -31,23 +31,25 @@ test -f ${HOME}/secrets/env.sh && \. $_
 path_append "${HOME}/bin"
 
 # config rbenv
-path_prepend "${HOME}/.rbenv/shims"
-export RBENV_SHELL=bash
-eval "$(rbenv init -)" || echo "rbenv not install correctly."
-rbenv() {
-  local command
-  command="$1"
-  if [ "$#" -gt 0 ]; then
-    shift
-  fi
+if type -p rbenv >/dev/null 2>&1 ; then
+  path_prepend "${HOME}/.rbenv/shims"
+  export RBENV_SHELL=bash
+  eval "$(rbenv init -)" || echo "rbenv not install correctly."
+  rbenv() {
+    local command
+    command="$1"
+    if [ "$#" -gt 0 ]; then
+      shift
+    fi
 
-  case "$command" in
-  rehash|shell)
-    eval "$(rbenv "sh-$command" "$@")";;
-  *)
-    command rbenv "$command" "$@";;
-  esac
-}
+    case "$command" in
+    rehash|shell)
+      eval "$(rbenv "sh-$command" "$@")";;
+    *)
+      command rbenv "$command" "$@";;
+    esac
+  }
+fi
 
 USE_JDK_VERSION=${USE_JDK_VERSION:=1.8}
 if POSSIBLE_JAVA_HOME="$(/usr/libexec/java_home -v $USE_JDK_VERSION 2>/dev/null)"; then
