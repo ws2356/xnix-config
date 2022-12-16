@@ -3,7 +3,10 @@ Host pi
   HostName pihome.local
 Host pipan
   User pi
-  HostName pipan.local
+  HostName 192.168.6.1
+Host pieth
+  User pi
+  HostName 192.168.1.88
 Host tc
   User ubuntu
   HostName tc.vps
@@ -42,3 +45,7 @@ Host tcpi
   User pi
   HostName 101.32.244.220
   Port 8302
+Host azvm2
+  User ws2356
+  HostName azurevm2.wansong.vip
+  Port 22
