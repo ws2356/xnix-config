@@ -42,3 +42,16 @@ Host tcpi
   User pi
   HostName 101.32.244.220
   Port 8302
+
+Host azvm
+  User ws2356
+  HostName azure-vm.wansong.vip
+  Port 22
+  IdentityFile ~/Downloads/azure/vm2356_key.pem
+
+Host azvmdeploy
+  User deploy
+  HostName azure-vm.wansong.vip
+  Port 22
+  IdentityFile ~/Downloads/azure/deploy/id_rsa
+
