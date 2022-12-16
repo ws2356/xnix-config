@@ -110,24 +110,20 @@ function kubeprod {
 }
 
 
-function start_virtual_python_env {
-  python_exe=$1
-  if [ ! -d "$HOME/.virtualenv" ] ;then
-    mkdir "$HOME/.virtualenv"
-  fi
-  
-  if [ ! -d "$HOME/.virtualenv/$python_exe" ] ;then
-    virtualenv -p $python_exe "$HOME/.virtualenv/$python_exe"
-  fi
-
-  source "$HOME/.virtualenv/$python_exe/bin/activate"
-}
-
 #-----------
 ## call this to setup a virtual python 3 env(install if needed)
 #-----------
-function vpy3 {
-  start_virtual_python_env python3
+vpy3() {
+  local python_ver=python3
+  local virtualenv_home="${1:-$HOME/.virtualenv}"
+  mkdir -p "$virtualenv_home"
+  local virtualenv_dir="$virtualenv_home/$python_ver"
+  
+  if [ ! -d "$virtualenv_dir" ] ;then
+    virtualenv -p $python_ver "$virtualenv_dir"
+  fi
+
+  source "$virtualenv_dir/bin/activate"
 }
 
 #-----------
