@@ -1,6 +1,6 @@
 Host pi
   User pi
-  HostName pihome.local
+  HostName 192.168.50.35
 Host pipan
   User pi
   HostName 192.168.6.1
@@ -50,6 +50,10 @@ Host azvm2
   HostName azurevm2.wansong.vip
   Port 22
 
+Host r
+  User admin
+  HostName 192.168.50.1
+  
 Host azvm
   User ws2356
   HostName azure-vm.wansong.vip
@@ -61,4 +65,3 @@ Host azvmdeploy
   HostName azure-vm.wansong.vip
   Port 22
   IdentityFile ~/Downloads/azure/deploy/id_rsa
-
