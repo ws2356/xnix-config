@@ -244,10 +244,12 @@ fi
 
 javasel() {
   local -a brew_casks
-  brew_casks=($(brew cask list))
+  brew_casks=($(brew list))
   local -a jdk_versions
   for cask in "${brew_casks[@]}" ; do
-    if [[ "$cask" =~ adoptopenjdk([[:digit:]]+) ]] ; then
+    if [[ "$cask" =~ openjdk([[:digit:]]+) ]] ; then
+      jdk_versions+=("${BASH_REMATCH[1]}")
+    elif [[ "$cask" =~ openjdk@([[:digit:]]+) ]] ; then
       jdk_versions+=("${BASH_REMATCH[1]}")
     fi
   done
