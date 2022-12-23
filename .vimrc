@@ -72,7 +72,6 @@ function! StartPlug(plugInDir)
   Plug 'nginx/nginx', {
         \ 'commit': '5c3249964403356601e64ab701f2e563a1f98630',
         \ 'rtp': 'contrib/vim' }
-  Plug 'pappasam/coc-jedi', { 'do': 'yarn install --frozen-lockfile && yarn build', 'branch': 'main' }
 endfunction
 
 function! EndPlug()
