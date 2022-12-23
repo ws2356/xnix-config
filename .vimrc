@@ -55,7 +55,7 @@ function! StartPlug(plugInDir)
   Plug 'prabirshrestha/asyncomplete-tags.vim', { 'commit': 'eef50f9630db9a772204af13baa997c176ab1a4e' }
   Plug 'neoclide/coc.nvim', {
         \ 'commit': '287c743c9f227fdf0e1db452bbb8ae3c5caffc36',
-        \ 'do': ':CocInstall coc-json coc-tsserver coc-ultisnips coc-tag coc-solargraph coc-pyright coc-css coc-go coc-snippets coc-sourcekit coc-emoji',
+        \ 'do': ':CocInstall coc-json coc-tsserver coc-ultisnips coc-tag coc-solargraph coc-css coc-go coc-snippets coc-sourcekit coc-emoji',
         \ }
   Plug 'othree/csscomplete.vim', { 'commit': 'f1c7288a4e63b736678dba6fe4f8e825a8a9fd4b' }
   Plug 'octol/vim-cpp-enhanced-highlight', { 'commit': '27e0ffc215b81fa5aa87eca396acd4421d36c060' }
@@ -72,6 +72,7 @@ function! StartPlug(plugInDir)
   Plug 'nginx/nginx', {
         \ 'commit': '5c3249964403356601e64ab701f2e563a1f98630',
         \ 'rtp': 'contrib/vim' }
+  Plug 'pappasam/coc-jedi', { 'do': 'yarn install --frozen-lockfile && yarn build', 'branch': 'main' }
 endfunction
 
 function! EndPlug()
