@@ -114,7 +114,7 @@ function kubeprod {
 ## call this to setup a virtual python 3 env(install if needed)
 #-----------
 vpy3() {
-  local dir="${1:-.}"
+  local dir="${1:-.venv}"
   local activate="${dir}/bin/activate"
   if ! [ -r "$activate" ] ; then
     python3 -m venv "$dir"
