@@ -1,12 +1,12 @@
 Host pi
   User pi
-  HostName 192.168.50.35
+  HostName pihome
 Host pipan
   User pi
   HostName 192.168.6.1
 Host pieth
   User pi
-  HostName 192.168.1.88
+  HostName pihome
 Host tc
   User ubuntu
   HostName tc.vps
@@ -52,16 +52,18 @@ Host azvm2
 
 Host r
   User admin
-  HostName 192.168.50.1
+  HostName RAX50-273F.home
   
 Host azvm
   User ws2356
   HostName azure-vm.wansong.vip
   Port 22
-  IdentityFile ~/Downloads/azure/vm2356_key.pem
+Match exec "test -f ~/local-only/keys/vm2356_key.pem"
+  IdentityFile ~/local-only/keys/vm2356_key.pem
 
 Host azvmdeploy
   User deploy
   HostName azure-vm.wansong.vip
   Port 22
-  IdentityFile ~/Downloads/azure/deploy/id_rsa
+Match exec "test -f ~/local-only/keys/deploy/id_rsa"
+  IdentityFile ~/local-only/keys/deploy/id_rsa
