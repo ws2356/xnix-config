@@ -205,23 +205,31 @@ function kubesel {
 }
 
 # 一键打包所有本地重要文档
-function packup() {
+packup() {
   # 当前用户的文档
-  local user_profile=.bash_profile
-  local gitconfig=.gitconfig
-  local sshfiles=.ssh
-  local local_only_dir=local-only/
-  local my_archives=my-archives/
-  # local kubeconfig=kube.config
-  local rsyncconf=rsyncd.conf
+  local -a default_input_files=(".bash_profile"
+  ".gitconfig"
+  ".ssh"
+  "local-only/"
+  "rsyncd.conf"
+  "raspbian"
+  )
+
+  local -a filtered_list=()
+  for ff in "${default_input_files[@]}" "$@" ; do
+    if [ -e "$ff" ] ; then
+      filtered_list+=("$ff")
+    fi
+  done
+
+  if [ "${#filtered_list[@]}" -eq 0 ] ; then
+    return
+  fi
+
   local output_zip=packed.zip
-
   test -e "$output_zip" && rm "$_"
-  mkdir -p "$my_archives"
 
-  # 导出一些配置数据
-  ls /Applications > "${my_archives}Applications.txt"
-  zip -r "$output_zip" "$gitconfig" "$sshfiles" "$user_profile" "$local_only_dir" "$my_archives" "$kubeconfig" "$rsyncconf" raspbian
+  zip -r "$output_zip" "${filtered_list[@]}"
 }
 
 set -o vi
