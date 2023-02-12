@@ -72,6 +72,10 @@ function! StartPlug(plugInDir)
   Plug 'nginx/nginx', {
         \ 'commit': '5c3249964403356601e64ab701f2e563a1f98630',
         \ 'rtp': 'contrib/vim' }
+  " VimspectorInstall vscode-node-debug2/debugpy/debugger-for-chrome
+  Plug 'puremourning/vimspector', {
+        \ 'commit': '4deaffdec34508621934fa4532748ee9deb1f55c'
+        \ }
 endfunction
 
 function! EndPlug()
@@ -479,6 +483,20 @@ let g:vista#renderer#enable_icon = 0
 nnoremap <C-p>n :Vista coc<CR>
 " affect performance
 " let g:vista_log_file = expand('~/.vista.vim.log')
+" }}}
+
+
+
+" vimspector {{{
+map <F5> <Plug>VimspectorContinue
+map <F12> <Plug>VimspectorStop
+nmap <F4> <Plug>VimspectorStepOut
+nmap <F6> <Plug>VimspectorStepInto
+nmap <F7> <Plug>VimspectorStepOver
+nmap <F8> <Plug>VimspectorGoToCurrentLine
+nmap <leader>br <Plug>VimspectorToggleBreakpoint
+nmap <leader>bl <Plug>VimspectorBreakpoints
+nmap <leader>bc <Plug>ClearBreakpoints
 " }}}
 
 
