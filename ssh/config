@@ -1,3 +1,11 @@
+Match host azvm exec "test -f ~/local-only/keys/vm2356_key.pem"
+  IdentityFile ~/local-only/keys/vm2356_key.pem
+Match host azvmdeploy exec "test -f ~/local-only/keys/deploy/id_rsa"
+  IdentityFile ~/local-only/keys/deploy/id_rsa
+
+Match exec "test -f ~/.ssh/config.private"
+  Include ~/.ssh/config.private
+
 Host pi
   User pi
   HostName pihome
@@ -13,18 +21,12 @@ Host tc
 Host mercury
   User root
   HostName 192.168.144.1
-Match exec "test -f ~/.ssh/config.private"
-  Include ~/.ssh/config.private
 Host kim
   User kim
   HostName 172.18.10.8
 Host pro
   User kimmacjenkins
   HostName 172.17.205.203
-Host tc2
-  User lighthouse
-  HostName 101.32.244.220
-  IdentityFile ~/local-only/tc2sshkey/id_rsa
 Host tcpi
   User pi
   HostName 101.32.244.220
@@ -36,10 +38,6 @@ Host blackbox
 Host r0
   User root
   HostName 192.168.2.1
-
-# Host github.com
-#   IdentityFile ~/.ssh/id_rsa
-#   IdentitiesOnly yes
   
 Host tcpi
   User pi
@@ -57,13 +55,7 @@ Host r
 Host azvm
   User ws2356
   HostName azure-vm.wansong.vip
-  Port 22
-Match exec "test -f ~/local-only/keys/vm2356_key.pem"
-  IdentityFile ~/local-only/keys/vm2356_key.pem
 
 Host azvmdeploy
   User deploy
   HostName azure-vm.wansong.vip
-  Port 22
-Match exec "test -f ~/local-only/keys/deploy/id_rsa"
-  IdentityFile ~/local-only/keys/deploy/id_rsa
