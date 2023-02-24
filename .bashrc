@@ -300,6 +300,9 @@ swift() {
   fi
 }
 
+# forgot why I set this
+# export LC_ALL=en_US.UTF-8
+
 # git cli
 # git add -p时控制hunk大小
 # export GIT_DIFF_OPTS=--unified=10

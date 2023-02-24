@@ -1,2 +1,4 @@
 [credential]
 	helper = osxkeychain
+[merge]
+  tool              = kdiff3
