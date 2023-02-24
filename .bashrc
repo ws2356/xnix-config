@@ -114,10 +114,23 @@ function kubeprod {
 ## call this to setup a virtual python 3 env(install if needed)
 #-----------
 vpy3() {
+  local self_args=()
+  local pass_args=()
+  for arg in "$@" ; do
+    if [ "$arg" == "-g" ] ; then
+      pass_args+=("--system-site-packages")
+    else
+      self_args+=("$arg")
+    fi
+  done
+
+  set -- "${self_args[@]}"
+
   local dir="${1:-.venv}"
   local activate="${dir}/bin/activate"
+
   if ! [ -r "$activate" ] ; then
-    python3 -m venv "$dir"
+    python3 -m venv "$dir" "${pass_args[@]}"
   fi
   . "$activate"
 }
