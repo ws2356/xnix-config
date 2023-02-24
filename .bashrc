@@ -300,8 +300,8 @@ swift() {
   fi
 }
 
-# forgot why I set this
-# export LC_ALL=en_US.UTF-8
+# sudo locale-gen en_US.UTF-8
+# export LC_ALL=en_GB.UTF-8
 
 # git cli
 # git add -p时控制hunk大小
