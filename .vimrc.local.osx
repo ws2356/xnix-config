@@ -1,4 +1,5 @@
-function s:plug_local()
+function PlugLocal()
+  command! -nargs=+ -bar Plug call plug#(<args>)
   Plug 'ludovicchabant/vim-gutentags', { 'commit': 'eecb136fae97e30d5f01e71f0d3b775c8b017385' }
   Plug 'w0rp/ale', { 'commit': 'a5240009ba5ff22daad95c306f7dec372d46bda0' }
   Plug 'MaxMEllon/vim-jsx-pretty', { 'commit': 'c665d5ca4247b696f478f91b7c97b9e44442e4b6' }
@@ -11,5 +12,3 @@ function s:plug_local()
   Plug 'othree/csscomplete.vim', { 'commit': 'f1c7288a4e63b736678dba6fe4f8e825a8a9fd4b' }
   Plug 'mlaursen/vim-react-snippets', { 'commit': '6815640e37f8f3f4ff5ca1492bd3825ea90ccf43' }
 endfunction
-
-call plug_local()

@@ -3,15 +3,21 @@ let &t_TE = ""
 
 let s:this_file=resolve(expand('<sfile>:p'))
 let s:this_dir=fnamemodify(s:this_file, ':p:h')
-let s:vimrc_local = expand('~/.vimrc.local')
 
 " vim-plug插件 {{{
 " plug begin with given dir; add common plugins
 function! StartPlug(plugInDir)
   call plug#begin(a:plugInDir)
-  if exists(s:vimrc_local)
-    source s:vimrc_local
+
+  let s:vimrc_local = expand('~/.vimrc.local')
+  if filereadable(s:vimrc_local)
+    :execute 'source ' . s:vimrc_local
   endif
+
+  if exists('*PlugLocal')
+    call PlugLocal()
+  endif
+
   Plug 'scrooloose/nerdtree', { 'commit': '28eb47e2678cf629d92b4f1f00dd56cba22fc4ae' }
   " Plug 'ludovicchabant/vim-gutentags', { 'commit': 'eecb136fae97e30d5f01e71f0d3b775c8b017385' }
   " Plug 'w0rp/ale', { 'commit': 'a5240009ba5ff22daad95c306f7dec372d46bda0' }
