@@ -38,9 +38,9 @@ cp_safe() {
   local src=$1
   local dest=$2
   if [ -e "$src" ] ; then
-    [ test -e "$dest" ] && mv "$dest" "${dest}.$('+%Y-%m-%dT%H:%M:%S%z')"
-    cp "$src" "$dest"
+    [ -e "$dest" ] && mv "$dest" "${dest}.$(date '+%Y-%m-%dT%H:%M:%S%z')"
   fi
+  cp "$src" "$dest"
 }
 
 bashrc_file="${proj_root}/.bashrc"
