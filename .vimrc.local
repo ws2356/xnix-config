@@ -1,0 +1,15 @@
+function s:plug_local()
+  Plug 'ludovicchabant/vim-gutentags', { 'commit': 'eecb136fae97e30d5f01e71f0d3b775c8b017385' }
+  Plug 'w0rp/ale', { 'commit': 'a5240009ba5ff22daad95c306f7dec372d46bda0' }
+  Plug 'MaxMEllon/vim-jsx-pretty', { 'commit': 'c665d5ca4247b696f478f91b7c97b9e44442e4b6' }
+  Plug 'mattn/emmet-vim', { 'commit': 'd698f1658770ca5fa58c87e80421c8d65bbe9065' }
+  Plug 'ap/vim-css-color', { 'commit': '8a84356d5319cad3da2835bd5fbc6318500f31ce' }
+  Plug 'vim-ruby/vim-ruby', { 'commit': '1aa8f0cd0411c093d81f4139d151f93808e53966' }
+  Plug 'dart-lang/dart-vim-plugin', { 'commit': '1dca4e12299e26bf4277992fd9b8b22bcc2f4e56' }
+  Plug 'prabirshrestha/vim-lsp', { 'commit': '094a49dccd2d92a57d754bcfaeb5f61b1ead70f4' }
+  Plug 'keith/swift.vim', { 'commit': '245e5f7aae6f1bc96849a0a01a58cb81cf56e721' }
+  Plug 'othree/csscomplete.vim', { 'commit': 'f1c7288a4e63b736678dba6fe4f8e825a8a9fd4b' }
+  Plug 'mlaursen/vim-react-snippets', { 'commit': '6815640e37f8f3f4ff5ca1492bd3825ea90ccf43' }
+endfunction
+
+call plug_local()
