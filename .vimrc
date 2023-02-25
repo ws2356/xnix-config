@@ -249,21 +249,15 @@ nmap <leader>gi <Plug>(coc-implementation)
 nmap <leader>gr <Plug>(coc-references)
 nmap <leader>rn <Plug>(coc-rename)
 set statusline^=%{coc#status()}
-let g:coc_snippet_next = '<C-n>'
-let g:coc_snippet_prev = '<C-p>'
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : 
-      \"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#_select_confirm()
+      \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " use <tab> for trigger completion and navigate to the next complete item
 function! s:check_back_space() abort
   let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
+  return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
-
-inoremap <silent><expr> <Tab>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<Tab>" :
-      \ coc#refresh()
 
 inoremap <silent><expr> <c-f> coc#float#has_float() ? coc#float#scroll(1) : "\<c-f>"
 inoremap <silent><expr> <c-b> coc#float#has_float() ? coc#float#scroll(0) : "\<c-b>"
