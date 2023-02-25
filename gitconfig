@@ -1,5 +1,5 @@
 [include]
-  path = ~/.gitconfig-site
+  path = ~/.gitconfig.local
 [core]
   autocrlf = input
 [diff]

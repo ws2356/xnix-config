@@ -49,9 +49,9 @@ ln -s "$bashrc_file" ~/.bashrc
 test -e "$bashrc_file_local" && cp_safe "$_" ~/.bashrc.local
 
 gitconfig_file="${proj_root}/gitconfig"
-gitconfig_file_local="${proj_root}/gitconfig-site${os_suffix}"
+gitconfig_file_local="${proj_root}/gitconfig.local${os_suffix}"
 ln -s "$gitconfig_file" ~/.gitconfig
-test -e "$gitconfig_file_local" && cp_safe "$_" ~/.gitconfig-site
+test -e "$gitconfig_file_local" && cp_safe "$_" ~/.gitconfig.local
 
 vimrc_file="${proj_root}/.vimrc"
 vimrc_file_local="${proj_root}/.vimrc.local${os_suffix}"
