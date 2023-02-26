@@ -33,10 +33,13 @@ fi
 
 
 # User specific aliases and functions
-function parse_git_branch {
+parse_git_branch() {
   git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
-function proml {
+ssh_server_name() {
+  printf '%s' "$_SSO_SERVER_NAME"
+}
+proml() {
   local        BLUE="\[\033[0;34m\]"
   local         RED="\[\033[0;31m\]"
   local   LIGHT_RED="\[\033[1;31m\]"
@@ -44,21 +47,16 @@ function proml {
   local LIGHT_GREEN="\[\033[1;32m\]"
   local       WHITE="\[\033[1;37m\]"
   local  LIGHT_GRAY="\[\033[0;37m\]"
-  case $TERM in
-    xterm*)
-        TITLEBAR='\[\033]0;\u@\h:\w\007\]'
-
-        ;;
-    *)
-    TITLEBAR=""
-    ;;
-  esac
-
   local wan=$'\xf0\x9f\x90\x99'
-# $BLUE[$RED\$(date +%H:%M)$BLUE]\
-  PS1="${TITLEBAR}\
-${BLUE}[$RED\u@\h:\W$GREEN\$(parse_git_branch)$BLUE]\
- $GREEN$wan$WHITE "
+  local server_name=$(ssh_server_name)
+
+  if [ -n "$server_name" ] ; then
+    PS1="${BLUE}[$RED\u@${server_name}:\W$GREEN\$(parse_git_branch)$BLUE]\
+$GREEN$wan$WHITE "
+  else
+    PS1="${BLUE}[$RED\u@\h:\W$GREEN\$(parse_git_branch)$BLUE]\
+$GREEN$wan$WHITE "
+  fi
   PS2='> '
   PS4='+ '
 }
