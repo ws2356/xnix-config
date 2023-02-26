@@ -24,15 +24,13 @@ done
 this_dir="$(dirname "$this_file")"
 proj_root="${this_dir}/.."
 
-os_name=${1:-}
-os_suffix=
-if [ -n "$os_name" ] ; then
-  if [ "$os_name" != 'pi' ] && [ "$os_name" != 'osx' ] ; then
-    echo "os_name must be one of pi/osx"
-    exit 1
-  fi
-  os_suffix=".$os_name"
+
+select flavor in lite full ; do break ; done
+if [ -z "${flavor:-}" ] ; then
+  echo "flavor must be one of lite/full"
+  exit 1
 fi
+flavor_suffix=".$flavor"
 
 cp_safe() {
   local src=$1
@@ -44,16 +42,16 @@ cp_safe() {
 }
 
 bashrc_file="${proj_root}/.bashrc"
-bashrc_file_local="${proj_root}/.bashrc.local${os_suffix}"
+bashrc_file_local="${proj_root}/.bashrc.local${flavor_suffix}"
 ln -s "$bashrc_file" ~/.bashrc
 test -e "$bashrc_file_local" && cp_safe "$_" ~/.bashrc.local
 
 gitconfig_file="${proj_root}/gitconfig"
-gitconfig_file_local="${proj_root}/gitconfig.local${os_suffix}"
+gitconfig_file_local="${proj_root}/gitconfig.local${flavor_suffix}"
 ln -s "$gitconfig_file" ~/.gitconfig
 test -e "$gitconfig_file_local" && cp_safe "$_" ~/.gitconfig.local
 
 vimrc_file="${proj_root}/.vimrc"
-vimrc_file_local="${proj_root}/.vimrc.local${os_suffix}"
+vimrc_file_local="${proj_root}/.vimrc.local${flavor_suffix}"
 ln -s "$vimrc_file" ~/.vimrc
 test -e "$vimrc_file_local" && cp_safe "$_" ~/.vimrc.local
