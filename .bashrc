@@ -39,7 +39,7 @@ parse_git_branch() {
   git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
 ssh_server_name() {
-  printf '%s' "${_SSH_SERVER_NAME:-}"
+  printf '%s' "${HOSTNAME_OVERRIDE:-}"
 }
 proml() {
   local        BLUE="\[\033[0;34m\]"
