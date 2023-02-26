@@ -4,15 +4,15 @@ let &t_TE = ""
 let s:this_file=resolve(expand('<sfile>:p'))
 let s:this_dir=fnamemodify(s:this_file, ':p:h')
 
+let s:vimrc_local = expand('~/.vimrc.local')
+if filereadable(s:vimrc_local)
+  :execute 'source ' . s:vimrc_local
+endif
+
 " vim-plug插件 {{{
 " plug begin with given dir; add common plugins
 function! StartPlug(plugInDir)
   call plug#begin(a:plugInDir)
-
-  let s:vimrc_local = expand('~/.vimrc.local')
-  if filereadable(s:vimrc_local)
-    :execute 'source ' . s:vimrc_local
-  endif
 
   if exists('*PlugLocal')
     call PlugLocal()

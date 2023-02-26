@@ -7,6 +7,9 @@ case $- in
       *) return;;
 esac
 
+# shellcheck source=/dev/null
+test -f "${HOME}/.bashrc.local" && \. "$_"
+
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
@@ -31,13 +34,12 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
-
 # User specific aliases and functions
 parse_git_branch() {
   git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
 ssh_server_name() {
-  printf '%s' "$_SSO_SERVER_NAME"
+  printf '%s' "${_SSH_SERVER_NAME:-}"
 }
 proml() {
   local        BLUE="\[\033[0;34m\]"
@@ -312,9 +314,6 @@ export SDK_NAME=macosx
 if [ -z "${CDPATH:-}" ] ; then
   CDPATH="."
 fi
-
-# shellcheck source=/dev/null
-test -f "${HOME}/.bashrc.local" && \. "$_"
 
 calc() {
   if [ "$#" -eq 0 ] ; then
