@@ -63,7 +63,7 @@ function! StartPlug(plugInDir)
   " Plug 'prabirshrestha/asyncomplete-tags.vim', { 'commit': 'eef50f9630db9a772204af13baa997c176ab1a4e' }
   Plug 'neoclide/coc.nvim', {
         \ 'tag': 'v0.0.82',
-        \ 'do': ':CocInstall coc-json coc-tsserver coc-ultisnips coc-solargraph coc-jedi coc-go coc-snippets coc-emoji',
+        \ 'do': ':CocInstall coc-json coc-tsserver coc-ultisnips coc-solargraph coc-jedi coc-go coc-snippets coc-emoji coc-clangd',
         \ }
   " Plug 'othree/csscomplete.vim', { 'commit': 'f1c7288a4e63b736678dba6fe4f8e825a8a9fd4b' }
   Plug 'octol/vim-cpp-enhanced-highlight', { 'commit': '27e0ffc215b81fa5aa87eca396acd4421d36c060' }
