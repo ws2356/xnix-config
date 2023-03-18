@@ -40,14 +40,14 @@ detectos() {
   os=$(uname -s)
   os_name=$(uname -n)
   if [ "${os,,}" == darwin ] ; then
-    return osx
+    printf '%s' osx
   elif [ "${os,,}" == linux ] && [ "${os_name,,}" == raspberrypi ] ; then
-    return pi
+    printf '%s' pi
   elif [ "${os,,}" == linux ] ; then
-    return lin
+    printf '%s' lin
   else
     echo "win tested yet, risk warned"
-    return win
+    printf '%s' win
   fi
 }
 
@@ -69,23 +69,31 @@ cp_safe() {
   local src=$1
   local dest=$2
   if [ -e "$src" ] ; then
-    src=$(resolve_link "$src")
     [ -e "$dest" ] && mv "$dest" "${dest}.$(date '+%Y-%m-%dT%H:%M:%S%z')"
   fi
   cp "$src" "$dest"
 }
 
+link_safe() {
+  local src=$1
+  local dest=$2
+  if [ -e "$src" ] ; then
+    [ -e "$dest" ] && mv "$dest" "${dest}.$(date '+%Y-%m-%dT%H:%M:%S%z')"
+  fi
+  ln -s "$src" "$dest"
+}
+
 bashrc_file="${proj_root}/.bashrc"
 bashrc_file_local="${proj_root}/$os_name/.bashrc.local${flavor_suffix}"
-ln -s "$bashrc_file" ~/.bashrc
+link_safe "$bashrc_file" ~/.bashrc
 test -e "$bashrc_file_local" && cp_safe "$_" ~/.bashrc.local
 
 gitconfig_file="${proj_root}/gitconfig"
 gitconfig_file_local="${proj_root}/$os_name/gitconfig.local${flavor_suffix}"
-ln -s "$gitconfig_file" ~/.gitconfig
+link_safe "$gitconfig_file" ~/.gitconfig
 test -e "$gitconfig_file_local" && cp_safe "$_" ~/.gitconfig.local
 
 vimrc_file="${proj_root}/.vimrc"
 vimrc_file_local="${proj_root}/$os_name/.vimrc.local${flavor_suffix}"
-ln -s "$vimrc_file" ~/.vimrc
+link_safe "$vimrc_file" ~/.vimrc
 test -e "$vimrc_file_local" && cp_safe "$_" ~/.vimrc.local
