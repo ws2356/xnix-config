@@ -89,7 +89,7 @@ link_safe "$bashrc_file" ~/.bashrc
 test -e "$bashrc_file_local" && cp_safe "$_" ~/.bashrc.local
 
 gitconfig_file="${proj_root}/gitconfig"
-gitconfig_file_local="${proj_root}/$os_name/gitconfig.local${flavor_suffix}"
+gitconfig_file_local="${proj_root}/$os_name/.gitconfig.local${flavor_suffix}"
 link_safe "$gitconfig_file" ~/.gitconfig
 test -e "$gitconfig_file_local" && cp_safe "$_" ~/.gitconfig.local
 
