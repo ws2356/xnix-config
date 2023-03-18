@@ -37,13 +37,13 @@ cd "$this_dir"
 detectos() {
   local os=
   local os_name=
-  os=$(uname -s)
-  os_name=$(uname -n)
-  if [ "${os,,}" == darwin ] ; then
+  os=$(uname -s | tr '[:upper:]' '[:lower:]')
+  os_name=$(uname -n | tr '[:upper:]' '[:lower:]')
+  if [ "$os" == darwin ] ; then
     printf '%s' osx
-  elif [ "${os,,}" == linux ] && [ "${os_name,,}" == raspberrypi ] ; then
+  elif [ "$os" == linux ] && [ "$os_name" == raspberrypi ] ; then
     printf '%s' pi
-  elif [ "${os,,}" == linux ] ; then
+  elif [ "$os" == linux ] ; then
     printf '%s' lin
   else
     echo "win tested yet, risk warned"
