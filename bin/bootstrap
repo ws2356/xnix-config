@@ -1,6 +1,22 @@
 #!/bin/bash
 set -eu
 
+resolve_link() {
+  local the_link=$1
+  local ls_res=
+  local link_target=
+  while [ -h "$the_link" ] ; do
+    ls_res="$(ls -ld "$the_link")"
+    link_target=$(expr "$ls_res" : '.*-> \(.*\)$')
+    if [[ "$link_target" =~ ^/ ]] ; then
+      the_link="$link_target"
+    else
+      the_link="$(dirname "$the_link")/$link_target"
+    fi
+  done
+  printf '%s' "$the_link"
+}
+
 this_file="${BASH_SOURCE[0]}"
 if ! [ -e "$this_file" ] ; then
   this_file="$(type -p "$this_file")"
@@ -12,46 +28,64 @@ fi
 if ! [[ "$this_file" =~ ^/ ]] ; then
   this_file="$(pwd)/$this_file"
 fi
-while [ -h "$this_file" ] ; do
-    ls_res="$(ls -ld "$this_file")"
-    link_target=$(expr "$ls_res" : '.*-> \(.*\)$')
-    if [[ "$link_target" =~ ^/ ]] ; then
-      this_file="$link_target"
-    else
-      this_file="$(dirname "$this_file")/$link_target"
-    fi
-done
+this_file="$(resolve_link "$this_file")"
 this_dir="$(dirname "$this_file")"
 proj_root="${this_dir}/.."
 
+cd "$this_dir"
 
+detectos() {
+  local os=
+  local os_name=
+  os=$(uname -s)
+  os_name=$(uname -n)
+  if [ "${os,,}" == darwin ] ; then
+    return osx
+  elif [ "${os,,}" == linux ] && [ "${os_name,,}" == raspberrypi ] ; then
+    return pi
+  elif [ "${os,,}" == linux ] ; then
+    return lin
+  else
+    echo "win tested yet, risk warned"
+    return win
+  fi
+}
+
+echo "Select flavor: lite/full"
 select flavor in lite full ; do break ; done
 if [ -z "${flavor:-}" ] ; then
   echo "flavor must be one of lite/full"
   exit 1
 fi
 flavor_suffix=".$flavor"
+os_name=".$(detectos)"
+
+# two dimensions for now: os and flavor(full/lite)
+# we use fs hierarchy to implement the matrix
+# when calling this script, the determined os, flavor
+# is used to drill down this tree, locating the actual file
 
 cp_safe() {
   local src=$1
   local dest=$2
   if [ -e "$src" ] ; then
+    src=$(resolve_link "$src")
     [ -e "$dest" ] && mv "$dest" "${dest}.$(date '+%Y-%m-%dT%H:%M:%S%z')"
   fi
   cp "$src" "$dest"
 }
 
 bashrc_file="${proj_root}/.bashrc"
-bashrc_file_local="${proj_root}/.bashrc.local${flavor_suffix}"
+bashrc_file_local="${proj_root}/$os_name/.bashrc.local${flavor_suffix}"
 ln -s "$bashrc_file" ~/.bashrc
 test -e "$bashrc_file_local" && cp_safe "$_" ~/.bashrc.local
 
 gitconfig_file="${proj_root}/gitconfig"
-gitconfig_file_local="${proj_root}/gitconfig.local${flavor_suffix}"
+gitconfig_file_local="${proj_root}/$os_name/gitconfig.local${flavor_suffix}"
 ln -s "$gitconfig_file" ~/.gitconfig
 test -e "$gitconfig_file_local" && cp_safe "$_" ~/.gitconfig.local
 
 vimrc_file="${proj_root}/.vimrc"
-vimrc_file_local="${proj_root}/.vimrc.local${flavor_suffix}"
+vimrc_file_local="${proj_root}/$os_name/.vimrc.local${flavor_suffix}"
 ln -s "$vimrc_file" ~/.vimrc
 test -e "$vimrc_file_local" && cp_safe "$_" ~/.vimrc.local
