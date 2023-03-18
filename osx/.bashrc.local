@@ -1,1 +1,10 @@
 export HOSTNAME_OVERRIDE=mac
+
+additional_cdpath="$HOME"
+if [[ "$CDPATH" =~ ^\..*|:\.: ]] ; then
+  CDPATH="${CDPATH}:$additional_cdpath"
+elif [ -n "$CDPATH" ] ; then
+  CDPATH="${CDPATH}:.:$additional_cdpath"
+else
+  CDPATH=".:$additional_cdpath"
+fi
