@@ -5,13 +5,9 @@
 [color]
 	ui                = auto
 [merge]
-	tool              = kdiff3
+	tool              = vimdiff
 [diff]
-	tool              = kdiff3
-[mergetool "kdiff3"]
-	path              = /Applications/kdiff3.app/Contents/MacOS/kdiff3
-[difftool "kdiff3"]
-	path              = /Applications/kdiff3.app/Contents/MacOS/kdiff3
+	tool              = vimdiff
 [filter "media"]
 	clean             = git-media-clean %f
 	smudge            = git-media-smudge %f
