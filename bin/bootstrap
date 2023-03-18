@@ -58,7 +58,7 @@ if [ -z "${flavor:-}" ] ; then
   exit 1
 fi
 flavor_suffix=".$flavor"
-os_name=".$(detectos)"
+os_name="$(detectos)"
 
 # two dimensions for now: os and flavor(full/lite)
 # we use fs hierarchy to implement the matrix
