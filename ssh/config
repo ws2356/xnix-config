@@ -59,3 +59,11 @@ Host azvm
 Host azvmdeploy
   User deploy
   HostName azure-vm.wansong.vip
+
+Host hwc
+  User ws2356
+  HostName util.wansong.vip
+
+Host hwcr
+  User root
+  HostName util.wansong.vip
