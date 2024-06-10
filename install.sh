@@ -20,6 +20,19 @@ while [ -h "$this_file" ] ; do
 done
 this_dir="$(dirname "$this_file")"
 
+install_file ()
+{
+    local from_file=$1;
+    if ! [[ "$from_file" =~ ^/ ]]; then
+        from_file="$(pwd)/$from_file";
+    fi;
+    local to_file=$2;
+    mkdir -p "$(dirname "$to_file")";
+    backup_file "$to_file";
+    if ! ln -s "$from_file" "$to_file"; then
+        echo "Failed to create symbolic link from $from_file to ${to_file}: maybe parent dir not exist or no permission to do so";
+    fi
+}
 
 install_file "${this_dir}/gitconfig" "$HOME/.gitconfig"
 install_file "${this_dir}/.vimrc" "$HOME/.vimrc" 
