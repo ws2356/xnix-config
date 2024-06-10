@@ -239,7 +239,7 @@ git_completion_bash="${HOME}/.git-completion.bash"
 if [ ! -f $git_completion_bash ] ; then
   echo "Downloading config from github ..."
   curl -o $git_completion_bash -sL \
-    'https://raw.githubusercontent.com/markgandolfo/git-bash-completion/master/git-completion.bash'
+    'https://raw.githubusercontent.com/markgandolfo/git-bash-completion/master/git-completion.bash' &
 fi
 test -f $git_completion_bash && source $_
 
