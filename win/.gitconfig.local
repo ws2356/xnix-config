@@ -1,6 +1,9 @@
 # update the gcm
 # [credential]
 # 	helper = osxkeychain
+[user]
+	name = My name
+	email = My email address
 [core]
 	editor            = vim
 [color]
