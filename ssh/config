@@ -60,10 +60,6 @@ Host azvmdeploy
   User deploy
   HostName azure-vm.wansong.vip
 
-Host hwc
+Host goblin
   User ws2356
-  HostName util.wansong.vip
-
-Host hwcr
-  User root
-  HostName util.wansong.vip
+  HostName 13.90.57.172
