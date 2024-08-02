@@ -112,9 +112,9 @@ function kubeprod {
 
 
 #-----------
-## call this to setup a virtual python 3 env(install if needed)
+## call this to setup a virtual python env(install if needed)
 #-----------
-vpy3() {
+vpy() {
   local self_args=()
   local pass_args=()
   for arg in "$@" ; do
@@ -127,11 +127,16 @@ vpy3() {
 
   set -- "${self_args[@]}"
 
-  local dir="${1:-.venv}"
-  local activate="${dir}/bin/activate"
+  if [ "$#" -lt 1 ] ; then
+    echo "Need to pass the name of python binary as 1st arg, e.g. python3.8"
+    return
+  fi
+  local pythonbin="$1"
+  local envdir=".venv_$pythonbin"
+  local activate="$envdir/bin/activate"
 
   if ! [ -r "$activate" ] ; then
-    python3 -m venv "$dir" "${pass_args[@]}"
+    "$pythonbin" -m venv "$envdir" "${pass_args[@]}"
   fi
   . "$activate"
 }
