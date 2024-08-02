@@ -63,3 +63,7 @@ Host azvmdeploy
 Host goblin
   User ws2356
   HostName 13.90.57.172
+
+Host homepc
+  User wanso
+  HostName pc.home

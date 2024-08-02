@@ -83,8 +83,9 @@ fi
 ## refer to ${HOMEBREW_PREFIX}/etc/privoxy/config
 #-----------
 function use_proxy {
-  export http_proxy='http://127.0.0.1:1087'
-  export https_proxy='http://127.0.0.1:1087'
+  local port=${1:-8400}
+  export http_proxy="http://127.0.0.1:$port"
+  export https_proxy="http://127.0.0.1:$port"
 }
 
 #-----------
