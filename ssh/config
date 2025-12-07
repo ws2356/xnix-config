@@ -8,16 +8,10 @@ Match exec "test -f ~/.ssh/config.private"
 
 Host pi
   User pi
-  HostName pihome
+  HostName piet.home
 Host pipan
   User pi
   HostName 192.168.6.1
-Host pieth
-  User pi
-  HostName pihome
-Host tc
-  User ubuntu
-  HostName tc.vps
 Host mercury
   User root
   HostName 192.168.144.1
@@ -67,3 +61,15 @@ Host goblin
 Host homepc
   User wanso
   HostName pc.home
+Host wms
+  User deploy
+  HostName wms.wanq.net
+Host tc
+  User ubuntu
+  HostName tc.boldman.net
+Host aws
+  User ubuntu
+  HostName aws.boldman.net
+Host tc2
+  User ubuntu
+  HostName 118.89.113.71

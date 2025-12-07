@@ -443,3 +443,8 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 test -r "$HOME/.acme.sh/acme.sh.env" && . "$_"
+
+export PUB_HOSTED_URL="https://pub.flutter-io.cn"
+export FLUTTER_STORAGE_BASE_URL="https://storage.flutter-io.cn"
+
+export PATH="/Users/ws2356/Developer/flutter-sdk/flutter/bin:$PATH"

@@ -103,10 +103,11 @@ test -f "${HOME}/.bashrc" && \. "$_"
 #  fi
 #fi
 
-export PATH="$HOME/.cargo/bin:$PATH"
 
 # set +x
 # exec 2>&3 3>&-
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
 
+export PATH="/usr/local/opt/e2fsprogs/bin:$PATH"
+export PATH="/usr/local/opt/e2fsprogs/sbin:$PATH"

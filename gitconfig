@@ -6,6 +6,7 @@
   tool              = vimdiff
 [core]
   editor = vim
+	quotepath = false
 [pull]
   rebase = false
 [alias]
@@ -21,3 +22,18 @@
 	process = git-lfs filter-process
 	required = true
 	clean = git-lfs clean -- %f
+[credential]
+	azreposCredentialType = oauth
+	helper = 
+	helper = /usr/local/share/gcm-core/git-credential-manager
+[credential "https://dev.azure.com"]
+	useHttpPath = true
+[http]
+	postBuffer = 524288000
+[credential "azrepos:org/msasg"]
+	azureAuthority = https://login.microsoftonline.com/72f988bf-86f1-41af-91ab-2d7cd011db47
+	username = songwan@microsoft.com
+[init]
+  defaultBranch = main
+[credential "https://gitee.com"]
+	provider = generic
