@@ -391,7 +391,7 @@ augroup mygroup
         \ |   exe "normal! g`\""
         \ | endif
   autocmd FileType json syntax match Comment +\/\/.\+$+
-  autocmd FileType * :silent call WSTurnOnOrOffDeoplete()
+  " autocmd FileType * :silent call WSTurnOnOrOffDeoplete()
   autocmd BufRead,BufNewFile {*.markdown,*.md} set filetype=markdown
   autocmd FileType markdown setlocal syntax=off spell
   autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS noci
