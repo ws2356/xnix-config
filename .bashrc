@@ -449,7 +449,7 @@ export NVM_DIR="$HOME/.nvm"
 
 test -r "$HOME/.acme.sh/acme.sh.env" && . "$_"
 
-export PUB_HOSTED_URL="https://pub.flutter-io.cn"
-export FLUTTER_STORAGE_BASE_URL="https://storage.flutter-io.cn"
-
 export PATH="/Users/ws2356/Developer/flutter-sdk/flutter/bin:$PATH"
+
+# opencode
+export PATH=~/.opencode/bin:$PATH

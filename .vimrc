@@ -100,17 +100,6 @@ let g:bookmark_auto_save = 1
 " }}}
 
 
-" config for current environment {{{
-let s:resolved_clangd = trim(system('xcrun -f clangd'))
-let s:resolved_clang = trim(system('xcrun -f clang'))
-let s:ncpucores = str2nr(system('getconf _NPROCESSORS_ONLN 2>/dev/null || sysctl -n hw.ncpu | sed "s/[^0-9]//g"'))
-let s:resolved_resource_dir = trim(system('xcrun clang -print-resource-dir'))
-let s:CLANGD_OPTIONS = ['-completion-style=detailed', '-log=error',
-      \'-pretty', '-limit-results=100', '-j=' . s:ncpucores / 2, '-pch-storage=disk',
-      \'-resource-dir=' . s:resolved_resource_dir]
-" }}}
-
-
 " load my_func.vim
 let s:func_file = s:this_dir . '/my_func.vim'
 :execute 'source ' . s:func_file
@@ -222,33 +211,6 @@ noremap <leader>ee :NERDTree <bar> NERDTreeFind <C-R>%<CR>
 
 
 
-" 配置ale {{{
-" nnoremap <leader>] :ALEGoToDefinition<CR>
-" nnoremap <leader>\ :ALEGoToDefinitionInVSplit<CR>
-" nnoremap <leader>rf :ALEFindReferences<CR>
-" nnoremap <leader>hv :ALEHover<CR>
-" nnoremap <leader>fsm :ALESymbolSearch <cword><CR>
-let g:ale_completion_enabled = 0
-let g:ale_set_highlights = 0 " Disable highligting
-" let g:ale_set_signs = 0
-let g:ale_linters = {
-      \ 'javascript': ['eslint', 'tsserver'],
-      \ 'cpp': ['clangd'],
-      \ 'objc': ['clangd'],
-      \ 'objcpp': ['clangd'],
-      \ }
-let g:ale_cpp_clangd_executable = s:resolved_clangd
-let g:ale_cpp_clangd_options = join(s:CLANGD_OPTIONS)
-let g:ale_objc_clangd_executable = s:resolved_clangd
-let g:ale_objc_clangd_options = join(s:CLANGD_OPTIONS)
-let g:ale_objcpp_clangd_executable = s:resolved_clangd
-let g:ale_objcpp_clangd_options = join(s:CLANGD_OPTIONS)
-if exists('$SOURCEKIT_LSP_PATH')
-  let g:ale_sourcekit_lsp_executable=$SOURCEKIT_LSP_PATH
-endif
-" }}}
-
-
 " coc {{{
 " Remap keys for gotos
 " :CocInstall coc-tsserver
@@ -294,30 +256,6 @@ vmap <C-j> <Plug>(coc-snippets-select)
 let g:coc_snippet_next = '<c-j>'
 " Use <C-k> for jump to previous placeholder, it's default of coc.nvim
 let g:coc_snippet_prev = '<c-k>'
-
-function! s:get_nvm_node_path(node_version)
-  let l:coc_node_path_tmp = trim(system('. "${NVM_DIR}/nvm.sh" >/dev/null 2>&1 ; nvm which ' . a:node_version))
-  if v:shell_error == 0
-    return l:coc_node_path_tmp
-  endif
-  return ''
-endfunction
-
-let s:coc_node_path_tmp = ''
-let s:node_version = 12
-while s:node_version <= 30
-  let s:coc_node_path_tmp = s:get_nvm_node_path(s:node_version)
-  if s:coc_node_path_tmp != ''
-    break
-  endif
-  let s:node_version += 1
-endwhile
-unlet s:node_version
-
-if s:coc_node_path_tmp != ''
-  let g:coc_node_path = s:coc_node_path_tmp
-endif
-unlet s:coc_node_path_tmp
 " }}}
 
 

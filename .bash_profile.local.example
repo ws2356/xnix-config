@@ -1,0 +1,5 @@
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/private/var/folders/4b/cyh40vf54c124ytnhpr4td5r0000gn/T/MicrosoftEdgeDownloads/b6350dfc-a236-40b5-acad-8349a82d2384/google-cloud-sdk/path.bash.inc' ]; then . '/private/var/folders/4b/cyh40vf54c124ytnhpr4td5r0000gn/T/MicrosoftEdgeDownloads/b6350dfc-a236-40b5-acad-8349a82d2384/google-cloud-sdk/path.bash.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/private/var/folders/4b/cyh40vf54c124ytnhpr4td5r0000gn/T/MicrosoftEdgeDownloads/b6350dfc-a236-40b5-acad-8349a82d2384/google-cloud-sdk/completion.bash.inc' ]; then . '/private/var/folders/4b/cyh40vf54c124ytnhpr4td5r0000gn/T/MicrosoftEdgeDownloads/b6350dfc-a236-40b5-acad-8349a82d2384/google-cloud-sdk/completion.bash.inc'; fi

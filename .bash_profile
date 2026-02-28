@@ -111,3 +111,9 @@ test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shel
 
 export PATH="/usr/local/opt/e2fsprogs/bin:$PATH"
 export PATH="/usr/local/opt/e2fsprogs/sbin:$PATH"
+
+# Added by Antigravity
+export PATH="/${HOME}/.antigravity/antigravity/bin:$PATH"
+
+test ~/.bash_profile.local && . "$_"
+
