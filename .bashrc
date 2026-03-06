@@ -453,3 +453,11 @@ export PATH="/Users/ws2356/Developer/flutter-sdk/flutter/bin:$PATH"
 
 # opencode
 export PATH=~/.opencode/bin:$PATH
+
+# pnpm
+export PNPM_HOME="$HOME/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
