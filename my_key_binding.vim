@@ -305,28 +305,6 @@ nnoremap <leader>llnk yy:WSOpenUrl <C-r>0<CR>
 nnoremap <leader>wlnk yy:WSOpenUrl <cWORD><CR>
 
 
-" vim-fugitive {{{
-nnoremap <leader>ge :Gedit<Space>
-nnoremap <leader>gg :Git!<Space>
-nnoremap <leader>gb :Gblame<CR>
-noremap <leader>gbr :Gbrowse<CR>
-nnoremap <leader>gs :Gstatus<CR>
-nnoremap <leader>gvd :Gvdiff<CR>
-nnoremap <leader>gdi :Gvdiff @<CR>
-nnoremap <leader>gdf :Gvdiff :%<Left><Left>
-nnoremap <leader>gdt :Git difftool<Space>
-nnoremap <leader>gwr :Gwrite<CR>
-nnoremap <leader>grd :Gread<CR>
-nnoremap <leader>gll :Git ll<CR>
-nnoremap <leader>glg :Git lg<CR>
-nnoremap <leader>grm :Gremove<CR>
-nnoremap <leader>gmv :Gmove<Space>
-nnoremap <leader>gph :Gpush<Space>
-nnoremap <leader>gpl :Gpull<Space>
-nnoremap <leader>gfh :Gfetch<CR>
-" }}}
-
-
 " 搜索 {{{
 nnoremap <silent> <F3> :redir @a<CR>:g//<CR>:redir END<CR>:tabnew<CR>:put! a<CR>
 " }}}

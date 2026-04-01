@@ -18,10 +18,10 @@ function! StartPlug(plugInDir)
     call PlugLocal()
   endif
 
-  " Plug 'scrooloose/nerdtree', { 'commit': '28eb47e2678cf629d92b4f1f00dd56cba22fc4ae' }
+  Plug 'scrooloose/nerdtree', { 'commit': '28eb47e2678cf629d92b4f1f00dd56cba22fc4ae' }
   " Plug 'ludovicchabant/vim-gutentags', { 'commit': 'eecb136fae97e30d5f01e71f0d3b775c8b017385' }
   " Plug 'w0rp/ale', { 'commit': 'a5240009ba5ff22daad95c306f7dec372d46bda0' }
-  Plug 'bestofsong/vimconfig', { 'tag': 'v*' }
+  Plug 'bestofsong/vimconfig', { 'tag': 'v1.0.0' }
   " Plug 'leafgarland/typescript-vim', { 'commit': '7704fac2c765aaf975ad4034933bf63113dd4a64' }
   Plug 'wellle/targets.vim', { 'commit': 'a79447f261e4b8b4327557aa03726f3849334b84' }
   Plug 'easymotion/vim-easymotion', { 'commit': '85e90c9759e14633d878ed534ef313876ab96555' }
@@ -49,7 +49,7 @@ function! StartPlug(plugInDir)
   " Plug 'tpope/vim-rhubarb', { 'commit': 'c509c7eedeea641f5b0bdae708581ff610fbff5b' }
   " Plug 'vim-scripts/MPage', { 'commit': 'c7915d434d66d51de6f7bb805f353946fd08a5de' }
   " Plug 'dart-lang/dart-vim-plugin', { 'commit': '1dca4e12299e26bf4277992fd9b8b22bcc2f4e56' }
-  Plug 'prabirshrestha/async.vim', { 'commit': '627a8c4092df24260d3dc2104bc1d944c78f91ca' }
+  " Plug 'prabirshrestha/async.vim', { 'commit': '627a8c4092df24260d3dc2104bc1d944c78f91ca' }
   " Plug 'prabirshrestha/vim-lsp', { 'commit': '094a49dccd2d92a57d754bcfaeb5f61b1ead70f4' }
   " Plug 'keith/swift.vim', { 'commit': '245e5f7aae6f1bc96849a0a01a58cb81cf56e721' }
   "Plug 'prabirshrestha/asyncomplete.vim', { 'commit': 'db3ab51ef6d42ac410afaea53fc0513afd0d5e25' }
@@ -215,47 +215,48 @@ noremap <leader>ee :NERDTree <bar> NERDTreeFind <C-R>%<CR>
 " Remap keys for gotos
 " :CocInstall coc-tsserver
 " :CocInstall coc-json
-nmap <leader>gd <Plug>(coc-definition)
-nmap <leader>gy <Plug>(coc-type-definition)
-nmap <leader>gi <Plug>(coc-implementation)
-nmap <leader>gr <Plug>(coc-references)
-nmap <leader>rn <Plug>(coc-rename)
-set statusline^=%{coc#status()}
 
-
-" Use tab for trigger completion with characters ahead and navigate
-" NOTE: There's always complete item selected by default, you may want to enable
-" no select by `"suggest.noselect": true` in your configuration file
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config
-inoremap <silent><expr> <TAB>
-      \ coc#pum#visible() ? coc#pum#next(1) :
-      \ check_back_space() ? "\<Tab>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
-
-" Make <CR> to accept selected completion item or notify coc.nvim to format
-" <C-g>u breaks current undo, please make your own choice
-"inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
-"                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-" use <tab> for trigger completion and navigate to the next complete item
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-inoremap <silent><expr> <c-f> coc#float#has_float() ? coc#float#scroll(1) : "\<c-f>"
-inoremap <silent><expr> <c-b> coc#float#has_float() ? coc#float#scroll(0) : "\<c-b>"
-
-" Use <C-l> for trigger snippet expand.
-imap <C-l> <Plug>(coc-snippets-expand)
-" Use <C-j> for select text for visual placeholder of snippet.
-vmap <C-j> <Plug>(coc-snippets-select)
-" Use <C-j> for jump to next placeholder, it's default of coc.nvim
-let g:coc_snippet_next = '<c-j>'
-" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
-let g:coc_snippet_prev = '<c-k>'
+" nmap <leader>gd <Plug>(coc-definition)
+" nmap <leader>gy <Plug>(coc-type-definition)
+" nmap <leader>gi <Plug>(coc-implementation)
+" nmap <leader>gr <Plug>(coc-references)
+" nmap <leader>rn <Plug>(coc-rename)
+" set statusline^=%{coc#status()}
+" 
+" 
+" " Use tab for trigger completion with characters ahead and navigate
+" " NOTE: There's always complete item selected by default, you may want to enable
+" " no select by `"suggest.noselect": true` in your configuration file
+" " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" " other plugin before putting this into your config
+" inoremap <silent><expr> <TAB>
+"       \ coc#pum#visible() ? coc#pum#next(1) :
+"       \ check_back_space() ? "\<Tab>" :
+"       \ coc#refresh()
+" inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+" 
+" " Make <CR> to accept selected completion item or notify coc.nvim to format
+" " <C-g>u breaks current undo, please make your own choice
+" "inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+" "                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+" 
+" " use <tab> for trigger completion and navigate to the next complete item
+" function! s:check_back_space() abort
+"   let col = col('.') - 1
+"   return !col || getline('.')[col - 1]  =~# '\s'
+" endfunction
+" 
+" inoremap <silent><expr> <c-f> coc#float#has_float() ? coc#float#scroll(1) : "\<c-f>"
+" inoremap <silent><expr> <c-b> coc#float#has_float() ? coc#float#scroll(0) : "\<c-b>"
+" 
+" " Use <C-l> for trigger snippet expand.
+" imap <C-l> <Plug>(coc-snippets-expand)
+" " Use <C-j> for select text for visual placeholder of snippet.
+" vmap <C-j> <Plug>(coc-snippets-select)
+" " Use <C-j> for jump to next placeholder, it's default of coc.nvim
+" let g:coc_snippet_next = '<c-j>'
+" " Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+" let g:coc_snippet_prev = '<c-k>'
 " }}}
 
 
@@ -352,10 +353,6 @@ autocmd mygroup FileType html,css,javascript,typescript,jsx,xml,javascriptreact,
 " }}}
 
 
-" 配置fugitive-gitlab {{{
-let g:fugitive_gitlab_domains = []
-" }}}
-
 
 " 配置tagbar {{{
 let g:tagbar_autoclose = 1
@@ -421,21 +418,21 @@ autocmd mygroup User asyncomplete_setup call asyncomplete#register_source(asynco
 
 
 " vista {{{
-let g:vista_default_executive = 'coc'
-let g:vista_finder_alternative_executives = 'vim-lsp'
-let g:vista_executive_for = {
-  \ 'c': 'coc',
-  \ 'cpp': 'coc',
-  \ 'javascript': 'coc',
-  \ 'javascriptreact': 'coc',
-  \ 'typescript': 'coc',
-  \ 'typescriptreact': 'coc',
-  \ }
-" let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
-" Ensure you have installed some decent font to show these pretty symbols, then you can enable icon for the kind.
-let g:vista#renderer#enable_icon = 0
-
-nnoremap <C-p>n :Vista coc<CR>
+" let g:vista_default_executive = 'coc'
+" let g:vista_finder_alternative_executives = 'vim-lsp'
+" let g:vista_executive_for = {
+"   \ 'c': 'coc',
+"   \ 'cpp': 'coc',
+"   \ 'javascript': 'coc',
+"   \ 'javascriptreact': 'coc',
+"   \ 'typescript': 'coc',
+"   \ 'typescriptreact': 'coc',
+"   \ }
+" " let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
+" " Ensure you have installed some decent font to show these pretty symbols, then you can enable icon for the kind.
+" let g:vista#renderer#enable_icon = 0
+" 
+" nnoremap <C-p>n :Vista coc<CR>
 " affect performance
 " let g:vista_log_file = expand('~/.vista.vim.log')
 " }}}
@@ -469,8 +466,6 @@ let s:my_key_binding_file = s:this_dir . '/my_key_binding.vim'
 :execute 'source ' . s:my_key_binding_file
 let s:my_key_binding_shell_file = s:this_dir . '/my_key_binding_shell.vim'
 :execute 'source ' . s:my_key_binding_shell_file
-let s:my_key_binding_npm_file = s:this_dir . '/my_key_binding_npm.vim'
-:execute 'source ' . s:my_key_binding_npm_file
 
 let s:vimrc_local = expand('~') . '/.vimrc.local'
 if filereadable(s:vimrc_local)

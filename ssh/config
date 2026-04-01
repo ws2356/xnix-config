@@ -25,10 +25,10 @@ Host tcpi
   User pi
   HostName 101.32.244.220
   Port 8302
-Host blackbox
-  User wansong
-  HostName wansong.vip
-  Port 8302
+Host wsl
+  User ws2356
+  HostName wsl.home
+  Port 2222
 Host r0
   User root
   HostName 192.168.2.1

@@ -256,63 +256,63 @@ endif
 " Remap keys for gotos
 " :CocInstall coc-tsserver
 " :CocInstall coc-json
-nmap <leader>gd <Plug>(coc-definition)
-nmap <leader>gy <Plug>(coc-type-definition)
-nmap <leader>gi <Plug>(coc-implementation)
-nmap <leader>gr <Plug>(coc-references)
-nmap <leader>rn <Plug>(coc-rename)
-set statusline^=%{coc#status()}
-let g:coc_snippet_next = '<C-n>'
-let g:coc_snippet_prev = '<C-p>'
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : 
-      \"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-" use <tab> for trigger completion and navigate to the next complete item
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
-
-inoremap <silent><expr> <Tab>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<Tab>" :
-      \ coc#refresh()
-
-inoremap <silent><expr> <c-f> coc#float#has_float() ? coc#float#scroll(1) : "\<c-f>"
-inoremap <silent><expr> <c-b> coc#float#has_float() ? coc#float#scroll(0) : "\<c-b>"
-
-" Use <C-l> for trigger snippet expand.
-imap <C-l> <Plug>(coc-snippets-expand)
-" Use <C-j> for select text for visual placeholder of snippet.
-vmap <C-j> <Plug>(coc-snippets-select)
-" Use <C-j> for jump to next placeholder, it's default of coc.nvim
-let g:coc_snippet_next = '<c-j>'
-" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
-let g:coc_snippet_prev = '<c-k>'
-
-function! s:get_nvm_node_path(node_version)
-  let l:coc_node_path_tmp = trim(system('. "${NVM_DIR}/nvm.sh" >/dev/null 2>&1 ; nvm which ' . a:node_version))
-  if v:shell_error == 0
-    return l:coc_node_path_tmp
-  endif
-  return ''
-endfunction
-
-let s:coc_node_path_tmp = ''
-let s:node_version = 12
-while s:node_version <= 30
-  let s:coc_node_path_tmp = s:get_nvm_node_path(s:node_version)
-  if s:coc_node_path_tmp != ''
-    break
-  endif
-  let s:node_version += 1
-endwhile
-unlet s:node_version
-
-if s:coc_node_path_tmp != ''
-  let g:coc_node_path = s:coc_node_path_tmp
-endif
-unlet s:coc_node_path_tmp
+" nmap <leader>gd <Plug>(coc-definition)
+" nmap <leader>gy <Plug>(coc-type-definition)
+" nmap <leader>gi <Plug>(coc-implementation)
+" nmap <leader>gr <Plug>(coc-references)
+" nmap <leader>rn <Plug>(coc-rename)
+" set statusline^=%{coc#status()}
+" let g:coc_snippet_next = '<C-n>'
+" let g:coc_snippet_prev = '<C-p>'
+" inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : 
+"       \"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+" 
+" " use <tab> for trigger completion and navigate to the next complete item
+" function! s:check_back_space() abort
+"   let col = col('.') - 1
+"   return !col || getline('.')[col - 1]  =~ '\s'
+" endfunction
+" 
+" inoremap <silent><expr> <Tab>
+"       \ pumvisible() ? "\<C-n>" :
+"       \ <SID>check_back_space() ? "\<Tab>" :
+"       \ coc#refresh()
+" 
+" inoremap <silent><expr> <c-f> coc#float#has_float() ? coc#float#scroll(1) : "\<c-f>"
+" inoremap <silent><expr> <c-b> coc#float#has_float() ? coc#float#scroll(0) : "\<c-b>"
+" 
+" " Use <C-l> for trigger snippet expand.
+" imap <C-l> <Plug>(coc-snippets-expand)
+" " Use <C-j> for select text for visual placeholder of snippet.
+" vmap <C-j> <Plug>(coc-snippets-select)
+" " Use <C-j> for jump to next placeholder, it's default of coc.nvim
+" let g:coc_snippet_next = '<c-j>'
+" " Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+" let g:coc_snippet_prev = '<c-k>'
+" 
+" function! s:get_nvm_node_path(node_version)
+"   let l:coc_node_path_tmp = trim(system('. "${NVM_DIR}/nvm.sh" >/dev/null 2>&1 ; nvm which ' . a:node_version))
+"   if v:shell_error == 0
+"     return l:coc_node_path_tmp
+"   endif
+"   return ''
+" endfunction
+" 
+" let s:coc_node_path_tmp = ''
+" let s:node_version = 12
+" while s:node_version <= 30
+"   let s:coc_node_path_tmp = s:get_nvm_node_path(s:node_version)
+"   if s:coc_node_path_tmp != ''
+"     break
+"   endif
+"   let s:node_version += 1
+" endwhile
+" unlet s:node_version
+" 
+" if s:coc_node_path_tmp != ''
+"   let g:coc_node_path = s:coc_node_path_tmp
+" endif
+" unlet s:coc_node_path_tmp
 " }}}
 
 
