@@ -6,7 +6,7 @@
   tool              = vimdiff
 [core]
   editor = vim
-	quotepath = false
+  quotepath = false
 [pull]
   rebase = false
 [alias]
