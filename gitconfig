@@ -37,3 +37,5 @@
   defaultBranch = main
 [credential "https://gitee.com"]
 	provider = generic
+[safe]
+	bareRepository = allow

@@ -65,14 +65,23 @@ if [ -d "${ANDROID_SDK_ROOT}" ] ; then
     "${ANDROID_SDK_ROOT}/tools" \
     "${ANDROID_SDK_ROOT}/tools/bin" \
     "${ANDROID_SDK_ROOT}/platform-tools"
-else
-  unset ANDROID_SDK_ROOT
+elif [ -d "$HOME/Library/Android/sdk" ] ; then
+  ANDROID_SDK_ROOT="$HOME/Library/Android/sdk"
+  # 2. Android SDK 环境变量
+  export ANDROID_HOME=$HOME/Library/Android/sdk
+  # 3. 将 Android 工具和 Java 路径追加到 PATH 中（至关重要！）
+  export PATH=$PATH:$ANDROID_HOME/emulator
+  export PATH=$PATH:$ANDROID_HOME/platform-tools
+  export PATH=$PATH:$ANDROID_HOME/tools
+  export PATH=$PATH:$ANDROID_HOME/tools/bin
+  export PATH=$PATH:$JAVA_HOME/bin
 fi
 
 export ANDROID_NDK_HOME="${HOMEBREW_PREFIX}/share/android-ndk"
 if [ ! -d "${ANDROID_NDK_HOME}" ] ; then
   unset ANDROID_NDK_HOME
 fi
+
 
 # maybe will cause bad things?
 #if [ -d "${HOMEBREW_PREFIX}/opt/llvm/bin" ] ; then
