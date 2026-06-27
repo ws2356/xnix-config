@@ -55,26 +55,29 @@ USE_JDK_VERSION=${USE_JDK_VERSION:=11}
 if POSSIBLE_JAVA_HOME="$(/usr/libexec/java_home -v $USE_JDK_VERSION 2>/dev/null)"; then
   # Do this if you want to export JAVA_HOME
   export JAVA_HOME="$POSSIBLE_JAVA_HOME"
+fi
+if [ -n "$JAVA_HOME" ] ; then
   path_prepend "${JAVA_HOME}/bin"
 fi
 
-export ANDROID_SDK_ROOT="${HOMEBREW_PREFIX}/share/android-sdk"
+ANDROID_SDK_ROOT="${HOMEBREW_PREFIX}/share/android-sdk"
 if [ -d "${ANDROID_SDK_ROOT}" ] ; then
+  export ANDROID_SDK_ROOT
   export ANDROID_HOME="$ANDROID_SDK_ROOT"
+elif [ -d "$HOME/Library/Android/sdk" ] ; then
+  ANDROID_SDK_ROOT="$HOME/Library/Android/sdk"
+  if [ -h "$ANDROID_SDK_ROOT" ] ; then
+    ANDROID_SDK_ROOT="$(realpath "$ANDROID_SDK_ROOT")"
+  fi
+  export ANDROID_SDK_ROOT
+  export ANDROID_HOME="$ANDROID_SDK_ROOT"
+fi
+
+if [ -n "$ANDROID_SDK_ROOT" ] ; then
   path_append "${ANDROID_SDK_ROOT}/emulator" \
     "${ANDROID_SDK_ROOT}/tools" \
     "${ANDROID_SDK_ROOT}/tools/bin" \
     "${ANDROID_SDK_ROOT}/platform-tools"
-elif [ -d "$HOME/Library/Android/sdk" ] ; then
-  ANDROID_SDK_ROOT="$HOME/Library/Android/sdk"
-  # 2. Android SDK 环境变量
-  export ANDROID_HOME=$HOME/Library/Android/sdk
-  # 3. 将 Android 工具和 Java 路径追加到 PATH 中（至关重要！）
-  export PATH=$PATH:$ANDROID_HOME/emulator
-  export PATH=$PATH:$ANDROID_HOME/platform-tools
-  export PATH=$PATH:$ANDROID_HOME/tools
-  export PATH=$PATH:$ANDROID_HOME/tools/bin
-  export PATH=$PATH:$JAVA_HOME/bin
 fi
 
 export ANDROID_NDK_HOME="${HOMEBREW_PREFIX}/share/android-ndk"

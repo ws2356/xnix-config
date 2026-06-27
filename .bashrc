@@ -21,6 +21,13 @@ shopt -s histappend
 HISTSIZE=10000000
 HISTFILESIZE=20000000
 
+# 2. 忽略重复，实时同步
+export HISTCONTROL=ignoredups:erasedups
+shopt -s histappend
+
+# 核心：每次显示提示符（即敲回车后）都追加当前命令并重新读取历史文件
+export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
@@ -461,3 +468,9 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# >>> oh-my-opencode-slim background subagents >>>
+export OPENCODE_EXPERIMENTAL_BACKGROUND_SUBAGENTS=true
+# <<< oh-my-opencode-slim background subagents <<<
