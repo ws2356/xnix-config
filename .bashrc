@@ -23,7 +23,6 @@ HISTFILESIZE=20000000
 
 # 2. 忽略重复，实时同步
 export HISTCONTROL=ignoredups:erasedups
-shopt -s histappend
 
 # 核心：每次显示提示符（即敲回车后）都追加当前命令并重新读取历史文件
 export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
@@ -89,7 +88,7 @@ fi
 ## export two environmental variables: http_proxy, https_proxy for most other cli to use (automatically)
 ## refer to ${HOMEBREW_PREFIX}/etc/privoxy/config
 #-----------
-function use_proxy {
+function proxy_on {
   local port="${1:-}"
   if [ -z "$port" ] ;  then
     echo "current: http_proxy: $http_proxy"
@@ -103,123 +102,9 @@ function use_proxy {
 #-----------
 ## undo the effect of <@function use_proxy>
 #-----------
-function close_proxy {
+function proxy_off {
   unset http_proxy
   unset https_proxy
-}
-
-#ALTOOL=`find "/Applications/Xcode.app/Contents/Applications/Application Loader.app/Contents/"  -iname altool`
-
-function kube {
-  kubectl --kubeconfig=$HOME/Dropbox/wansong.kubeconfig -n c-dev "$@"
-}
-
-function kubesim {
-  kubectl --kubeconfig=$HOME/wansong-production.kubeconfig -n c-test "$@"
-}
-
-function kubeprod {
-  kubectl --kubeconfig=$HOME/wansong-production.kubeconfig -n c-production "$@"
-}
-
-
-#-----------
-## call this to setup a virtual python env(install if needed)
-#-----------
-vpy() {
-  local self_args=()
-  local pass_args=()
-  for arg in "$@" ; do
-    if [ "$arg" == "-g" ] ; then
-      pass_args+=("--system-site-packages")
-    else
-      self_args+=("$arg")
-    fi
-  done
-
-  set -- "${self_args[@]}"
-
-  if [ "$#" -lt 1 ] ; then
-    echo "Need to pass the name of python binary as 1st arg, e.g. python3.8"
-    return
-  fi
-  local pythonbin="$1"
-  local envdir=".venv_$pythonbin"
-  local activate="$envdir/bin/activate"
-
-  if ! [ -r "$activate" ] ; then
-    "$pythonbin" -m venv "$envdir" "${pass_args[@]}"
-  fi
-  . "$activate"
-}
-
-#-----------
-## enabling select, interact with pod in a interactive way
-## @param env
-## @param pod_name_regex
-#-----------
-function kubesel {
-  if [ $# -lt 1 ] ; then
-    return 1
-  elif [ $# -lt 2 ] ; then
-    case "$1" in
-      dev|sim|prod) true ;;
-      *) echo "Bad args" ;  return 2
-    esac
-    local env=$1
-    local pat=$(basename $(pwd))
-  else
-    local env=$1
-    local pat=$2
-  fi
-
-  local lines
-  case "$env" in
-    dev) lines=$(kube get po | grep -E "$pat") ;;
-    sim) lines=$(kubesim get po | grep -E "$pat") ;;
-    prod) lines=$(kubeprod get po | grep -E "$pat") ;;
-    *) echo "Bad args" ; return
-  esac
-
-  local IFSBack=$IFS
-  IFS=$'\n'
-  local lines=($lines)
-  IFS=$IFSBack
-
-  local pod=
-  while [ -z "$pod" ] ; do
-    echo "选择匹配的pod："
-    select pod in "${lines[@]}" ; do
-      if [ -n "$pod" ] ; then
-        break
-      fi
-    done
-  done
-
-  local pod_fields=($pod)
-  local pod=${pod_fields[0]}
-
-  local cmds
-  case "$env" in
-    dev) cmds=("kube logs -f "'${pod}' "kube exec -it "'${pod}'" sh" "custom") ;;
-    sim) cmds=("kubesim logs -f "'${pod}' "kubesim exec -it "'${pod}'" sh" "custom") ;;
-    prod) cmds=("kubeprod logs -f "'${pod}' "kubeprod exec -it "'${pod}'" sh" "custom") ;;
-  esac
-
-  local cmd=
-  while [ -z "$cmd" ] ; do
-    echo "选择命令：1，2执行预置命令，选择3输入自定义命令。"
-    select cmd in "${cmds[@]}"; do
-      if [ -n "$cmd" ] ; then
-        break
-      fi
-    done
-    if [ "$cmd" = "custom" ] ; then
-      echo '输入自定义命令，使用${pod}指代刚才选择的pod。'
-      read cmd
-    fi
-    eval "$cmd"
-  done
 }
 
 # 一键打包所有本地重要文档
@@ -252,34 +137,7 @@ packup() {
 
 set -o vi
 
-# 下载gitcompletion脚本
-git_completion_bash="${HOME}/.git-completion.bash"
-if [ ! -f $git_completion_bash ] ; then
-  echo "Downloading config from github ..."
-  curl -o $git_completion_bash -sL \
-    'https://raw.githubusercontent.com/markgandolfo/git-bash-completion/master/git-completion.bash' &
-fi
-test -f $git_completion_bash && source $_
-
 export TERM="xterm-256color"
-
-# maybe will cause bad things?
-#if [ -d "${HOMEBREW_PREFIX}/opt/llvm/bin" ] ; then
-#  path_prepend "${HOMEBREW_PREFIX}/opt/llvm/bin"
-#  export LDFLAGS="-L${HOMEBREW_PREFIX}/opt/llvm/lib"
-#  export CPPFLAGS="-I${HOMEBREW_PREFIX}/opt/llvm/include"
-#fi
-
-# https://docs.brew.sh/Shell-Completion
-if type brew &>/dev/null; then
-  if [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]; then
-    source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
-  else
-    for COMPLETION in "${HOMEBREW_PREFIX}/etc/bash_completion.d/"*; do
-      [[ -r "$COMPLETION" ]] && source "$COMPLETION"
-    done
-  fi
-fi
 
 javasel() {
   local -a brew_casks
@@ -306,32 +164,16 @@ javasel() {
     version=1.${version}
   fi
   export USE_JDK_VERSION=${version}
-  . ~/.bash_profile
+  local this_dir=
+  this_dir="$(get_containing_dir "${BASH_SOURCE[0]}")"
+  test -f "${this_dir}/set_up_java.sh" && \. "$_"
 }
-
-swift() {
-  local real_swift
-  if real_swift=$(xcrun --toolchain swift --find swift 2>/dev/null) ; then
-    "$real_swift" "$@"
-  else
-    command swift "$@"
-  fi
-}
-
 # sudo locale-gen en_US.UTF-8
 # export LC_ALL=en_GB.UTF-8
 
 # git cli
 # git add -p时控制hunk大小
 # export GIT_DIFF_OPTS=--unified=10
-
-# default SDK_NAME
-export SDK_NAME=macosx
-
-# 快速切换目录
-if [ -z "${CDPATH:-}" ] ; then
-  CDPATH="."
-fi
 
 calc() {
   if [ "$#" -eq 0 ] ; then
@@ -342,135 +184,5 @@ calc() {
   echo "scale=6; ${1}" | bc
 }
 
-webproxy() {
-  if [ $# -le 0 ] ;  then
-    webproxy_
-    return
-  fi
-  local onoff="${1:-on}"
-  local port="${2:-8087}"
-  local serv=
-  {
-    while { serv='' ; read -r serv || [ -n "$serv" ] ; } ; do
-      if ! networksetup -getinfo "$serv" >/dev/null 2>&1 ; then
-        continue
-      fi
-      if [ "$onoff" = "on" ] ; then
-        sudo networksetup -setwebproxy "$serv" 127.0.0.1  "$port" ||  true
-        sudo networksetup -setsecurewebproxy "$serv" 127.0.0.1  "$port" ||  true
-      else
-        sudo networksetup -setwebproxystate "$serv" "$onoff" ||  true
-        sudo networksetup -setsecurewebproxystate "$serv" "$onoff" ||  true
-      fi
-    done
-  } < <(networksetup -listallnetworkservices)
-}
-
-webproxy_() {
-  local serv=
-  {
-    while { serv='' ; read -r serv || [ -n "$serv" ] ; } ; do
-      if networksetup -getinfo "$serv" >/dev/null 2>&1 ; then
-        echo "${serv}:"
-        networksetup -getwebproxy "$serv" ||  true
-        networksetup -getsecurewebproxy "$serv" ||  true
-      fi
-    done
-  } < <(networksetup -listallnetworkservices)
-}
-
-pac() {
-  local onoff="${1:-on}"
-  local serv=
-  {
-    while { serv='' ; read -r serv || [ -n "$serv" ] ; } ; do
-      if ! networksetup -getinfo "$serv" >/dev/null 2>&1 ; then
-        continue
-      fi
-      if [ "$onoff" = "on" ] ; then
-        sudo networksetup -setautoproxyurl "$serv" "http://127.0.0.1:8080/sso.pac" ||  true
-      else
-        sudo networksetup -setautoproxyurl "$serv" "" ||  true
-      fi
-    done
-  } < <(networksetup -listallnetworkservices)
-}
-
-jwtinspect_base64_url_decode_prepare() {
-  local cred="$1"
-  cred="$(printf %s "$cred" | tr '-' '+' | tr '_' '/')"
-  while [ $(( ${#cred} % 4 )) -ne 0 ] ; do
-    cred="${cred}="
-  done
-  printf %s "$cred"
-}
-
-jwtinspect() {
-  local header=
-  local claims=
-  local signature=
-  local IFS_="$IFS"
-  IFS='.' read -r header claims signature
-  IFS="$IFS_"
-
-  echo 'header:'
-  jwtinspect_base64_url_decode_prepare "$header" | base64 -d | jq
-  echo 'claims:'
-  jwtinspect_base64_url_decode_prepare "$claims" | base64 -d | jq
-  echo 'signature:'
-  echo "$signature"
-}
-
-pf80() {
-  sudo pfctl -ef - <<'EOF'
-
-rdr pass inet proto tcp from any to any port 80 -> 127.0.0.1 port 8787
-EOF
-}
-
-pf80off() {
-  sudo pfctl -F all -f /etc/pf.conf
-}
-
-pfshow() {
-  sudo pfctl -s nat
-}
-
-if GOPATH=$(go env GOPATH 2>/dev/null) ; then
-  export GOPATH
-  export PATH=$PATH:${GOPATH}/bin
-  gosrc() {
-    cd "${GOPATH}/src" || true
-  }
-  gobin() {
-    cd "${GOPATH}/bin" || true
-  }
-  gohome() {
-    cd "${GOPATH}" || true
-  }
-fi
-
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-test -r "$HOME/.acme.sh/acme.sh.env" && . "$_"
-
-export PATH="/Users/ws2356/Developer/flutter-sdk/flutter/bin:$PATH"
-
-# opencode
-export PATH=~/.opencode/bin:$PATH
-
-# pnpm
-export PNPM_HOME="$HOME/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end
-
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-
-# >>> oh-my-opencode-slim background subagents >>>
-export OPENCODE_EXPERIMENTAL_BACKGROUND_SUBAGENTS=true
-# <<< oh-my-opencode-slim background subagents <<<

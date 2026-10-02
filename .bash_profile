@@ -1,28 +1,48 @@
-# set -x
-# logfile=/tmp/bashstart.$$.log
-# PS4='+ $(date "+%s.%N")\011 '
-# exec 3>&2 2>"$logfile"
+resolve_link_recur() {
+  local the_link=$1
+  local ls_res=
+  local link_target=
+  while [ -h "$the_link" ] ; do
+    ls_res="$(ls -ld "$the_link")"
+    link_target=$(expr "$ls_res" : '.*-> \(.*\)$')
+    if [ "$(echo "$link_target" | cut -c 1)" = "/" ] ; then
+      the_link="$link_target"
+    else
+      the_link="$(dirname "$the_link")/$link_target"
+    fi
+  done
+  printf '%s' "$the_link"
+}
 
-export BASH_SILENCE_DEPRECATION_WARNING=1
+get_containing_dir() {
+  local this_file=$1
+  if ! [[ "$this_file" =~ ^/ ]] ; then
+    this_file="$(pwd)/$this_file"
+  fi
+  this_file="$(resolve_link_recur "$this_file")"
+  this_dir="$(dirname "$this_file")"
+  echo "$this_dir"
+}
+
+this_dir="$(get_containing_dir "${BASH_SOURCE[0]}")"
+
 # export HOMEBREW_NO_AUTO_UPDATE=1
 HOMEBREW_AUTO_UPDATE_SECS=7200
-# caution: non local, cli completion needs this to work
-HOMEBREW_PREFIX=/usr/local
 
 path_append() {
   for p in "$@"; do
-    if echo "$PATH" | grep -E "(^|:)${p}(:|$)" >/dev/null ; then
-      continue
-    fi
+    case ":$PATH:" in
+      *":${p}:"*) continue ;;
+    esac
     export PATH="${PATH:-''}${PATH:+:}${p}"
   done
 }
 
 path_prepend() {
   for p in "$@"; do
-    if echo "$PATH" | grep -E "(^|:)${p}(:|$)" >/dev/null ; then
-      continue
-    fi
+    case ":$PATH:" in
+      *":${p}:"*) continue ;;
+    esac
     export PATH="${p}${PATH:+:}${PATH:-''}"
   done
 }
@@ -52,81 +72,10 @@ if type -p rbenv >/dev/null 2>&1 ; then
   }
 fi
 
-USE_JDK_VERSION=${USE_JDK_VERSION:=11}
-if POSSIBLE_JAVA_HOME="$(/usr/libexec/java_home -v $USE_JDK_VERSION 2>/dev/null)"; then
-  # Do this if you want to export JAVA_HOME
-  export JAVA_HOME="$POSSIBLE_JAVA_HOME"
-fi
-if [ -n "$JAVA_HOME" ] ; then
-  path_prepend "${JAVA_HOME}/bin"
-fi
+\. "$this_dir/set_up_java.sh"
+\. "$this_dir/set_up_android.sh"
 
-ANDROID_SDK_ROOT="${HOMEBREW_PREFIX}/share/android-sdk"
-if [ -d "${ANDROID_SDK_ROOT}" ] ; then
-  export ANDROID_SDK_ROOT
-  export ANDROID_HOME="$ANDROID_SDK_ROOT"
-elif [ -d "$HOME/Library/Android/sdk" ] ; then
-  ANDROID_SDK_ROOT="$HOME/Library/Android/sdk"
-  if [ -h "$ANDROID_SDK_ROOT" ] ; then
-    ANDROID_SDK_ROOT="$(realpath "$ANDROID_SDK_ROOT")"
-  fi
-  export ANDROID_SDK_ROOT
-  export ANDROID_HOME="$ANDROID_SDK_ROOT"
-fi
-
-if [ -n "$ANDROID_SDK_ROOT" ] ; then
-  path_append "${ANDROID_SDK_ROOT}/emulator" \
-    "${ANDROID_SDK_ROOT}/tools" \
-    "${ANDROID_SDK_ROOT}/tools/bin" \
-    "${ANDROID_SDK_ROOT}/platform-tools"
-fi
-
-export ANDROID_NDK_HOME="${HOMEBREW_PREFIX}/share/android-ndk"
-if [ ! -d "${ANDROID_NDK_HOME}" ] ; then
-  unset ANDROID_NDK_HOME
-fi
-
-
-# maybe will cause bad things?
-#if [ -d "${HOMEBREW_PREFIX}/opt/llvm/bin" ] ; then
-#  path_prepend "${HOMEBREW_PREFIX}/opt/llvm/bin"
-#  export LDFLAGS="-L${HOMEBREW_PREFIX}/opt/llvm/lib"
-#  export CPPFLAGS="-I${HOMEBREW_PREFIX}/opt/llvm/include"
-#fi
+test ~/.bash_profile.local && \. "$_"
 
 # shellcheck source=/dev/null
 test -f "${HOME}/.bashrc" && \. "$_"
-
-# if [ -r "${HOME}/.bashrc" ] ; then
-#   . "${HOME}/.bashrc"
-# else
-#   this_file="${BASH_SOURCE[0]}"
-#   if ! echo "$this_file" | grep -E '^/' ; then
-#     this_file="$(pwd)/$this_file"
-#   fi
-#   this_dir=$(dirname "$this_file")
-#   bundled_rc="${this_dir}/.bashrc"
-#   test -r "$bundled_rc" && . "$_"
-# fi
-
-# not working, comment to save time
-#if type xcrun >/dev/null 2>&1 ; then
-#  if sourcekit_lsp=$(xcrun --toolchain swift --find sourcekit-lsp 2>/dev/null) ; then
-#    export SOURCEKIT_LSP_PATH="$sourcekit_lsp"
-#  fi
-#fi
-
-
-# set +x
-# exec 2>&3 3>&-
-
-test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
-
-export PATH="/usr/local/opt/e2fsprogs/bin:$PATH"
-export PATH="/usr/local/opt/e2fsprogs/sbin:$PATH"
-
-# Added by Antigravity
-export PATH="/${HOME}/.antigravity/antigravity/bin:$PATH"
-
-test ~/.bash_profile.local && . "$_"
-
