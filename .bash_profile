@@ -47,8 +47,6 @@ path_prepend() {
   done
 }
 
-test -f ${HOME}/secrets/env.sh && \. $_
-
 path_append "${HOME}/bin"
 
 # config rbenv

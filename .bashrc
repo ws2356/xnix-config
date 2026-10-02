@@ -139,7 +139,7 @@ set -o vi
 
 export TERM="xterm-256color"
 
-javasel() {
+javasel_macos() {
   local -a brew_casks
   brew_casks=($(brew list))
   local -a jdk_versions
