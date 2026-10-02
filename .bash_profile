@@ -4,7 +4,8 @@
 # exec 3>&2 2>"$logfile"
 
 export BASH_SILENCE_DEPRECATION_WARNING=1
-export HOMEBREW_NO_AUTO_UPDATE=1
+# export HOMEBREW_NO_AUTO_UPDATE=1
+HOMEBREW_AUTO_UPDATE_SECS=7200
 # caution: non local, cli completion needs this to work
 HOMEBREW_PREFIX=/usr/local
 

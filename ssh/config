@@ -73,3 +73,12 @@ Host aws
 Host tc2
   User ubuntu
   HostName 118.89.113.71
+Host mini
+  User ws2356
+  HostName mini.home
+Host miniw
+  User ws2356
+  HostName miniw.home
+Host minil
+  User ws2356
+  HostName Wans-Mac-Mini.local
