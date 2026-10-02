@@ -70,10 +70,10 @@ if type -p rbenv >/dev/null 2>&1 ; then
   }
 fi
 
-\. "$this_dir/set_up_java.sh"
-\. "$this_dir/set_up_android.sh"
+test -f "$this_dir/set_up_java.sh" && \. "$_"
+test -f "$this_dir/set_up_android.sh" && \. "$_"
 
-test ~/.bash_profile.local && \. "$_"
+test -f ~/.bash_profile.local && \. "$_"
 
 # shellcheck source=/dev/null
 test -f "${HOME}/.bashrc" && \. "$_"
