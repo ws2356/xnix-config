@@ -26,9 +26,6 @@ get_containing_dir() {
 
 this_dir="$(get_containing_dir "${BASH_SOURCE[0]}")"
 
-# export HOMEBREW_NO_AUTO_UPDATE=1
-HOMEBREW_AUTO_UPDATE_SECS=7200
-
 path_append() {
   for p in "$@"; do
     case ":$PATH:" in
