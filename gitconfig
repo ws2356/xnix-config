@@ -1,5 +1,8 @@
 [include]
   path = ~/.gitconfig.local
+[user]
+	name = ws2356
+	email = wansong2356@hotmail.com
 [core]
   autocrlf = input
 [diff]
@@ -22,10 +25,6 @@
 	process = git-lfs filter-process
 	required = true
 	clean = git-lfs clean -- %f
-[credential]
-	azreposCredentialType = oauth
-	helper = 
-	helper = /usr/local/share/gcm-core/git-credential-manager
 [credential "https://dev.azure.com"]
 	useHttpPath = true
 [http]

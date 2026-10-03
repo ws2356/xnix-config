@@ -1,9 +1,6 @@
 [credential]
-	helper = osxkeychain
-[core]
-	editor            = vim
-[color]
-	ui                = auto
+	azreposCredentialType = oauth
+	helper = /usr/local/bin/git-credential-manager
 [merge]
 	tool              = kdiff3
 [diff]
