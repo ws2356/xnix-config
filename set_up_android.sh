@@ -16,7 +16,7 @@ elif [ -d "$HOME/Library/Android/sdk" ] ; then
   export ANDROID_HOME="$ANDROID_SDK_ROOT"
 fi
 
-if [ -n "$ANDROID_SDK_ROOT" ] ; then
+if [ -d "$ANDROID_SDK_ROOT" ] ; then
   path_append "${ANDROID_SDK_ROOT}/emulator" \
     "${ANDROID_SDK_ROOT}/tools" \
     "${ANDROID_SDK_ROOT}/tools/bin" \
