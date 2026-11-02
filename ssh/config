@@ -82,3 +82,24 @@ Host miniw
 Host minil
   User ws2356
   HostName Wans-Mac-Mini.local
+Host minilp
+  User ws2356
+  HostName Wans-Mac-Mini.local
+  ServerAliveInterval 30
+  ServerAliveCountMax 3
+  ExitOnForwardFailure yes
+  RemoteForward 127.0.0.1:10808
+Host minir
+  User ws2356
+  HostName localhost
+  Port 48022
+  ProxyJump tc
+Host minirp
+    User ws2356
+    HostName localhost
+    Port 48022
+    ProxyJump tc
+    ServerAliveInterval 30
+    ServerAliveCountMax 3
+    ExitOnForwardFailure yes
+    RemoteForward 127.0.0.1:10808
