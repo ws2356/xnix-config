@@ -85,6 +85,9 @@ function! StartPlug(plugInDir)
   " Plug 'puremourning/vimspector', {
   "       \ 'commit': '4deaffdec34508621934fa4532748ee9deb1f55c'
   "       \ }
+  if has('nvim')
+    Plug 'karb94/neoscroll.nvim'
+  endif
 endfunction
 
 function! EndPlug()
@@ -476,3 +479,15 @@ endif
 call StartPlug('~/.vim/plugged')
 " Plug 'xxx/xxx'
 call EndPlug()
+
+if has('nvim')
+  lua << EOF
+  require('neoscroll').setup({
+    mappings = {
+      '<C-f>', '<C-b>',
+      '<C-d>', '<C-u>',
+    },
+    easing = 'quadratic',
+  })
+EOF
+endif

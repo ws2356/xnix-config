@@ -45,6 +45,7 @@ path_prepend() {
 }
 
 path_append "${HOME}/bin"
+test -d "${HOME}/.local/bin" && path_append "$_"
 
 # config rbenv
 if type -p rbenv >/dev/null 2>&1 ; then
