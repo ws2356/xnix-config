@@ -189,3 +189,6 @@ export NVM_DIR="$HOME/.nvm"
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 alias vim=nvim
+
+export EDITOR=nvim
+export VISUAL=nvim

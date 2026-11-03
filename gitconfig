@@ -8,7 +8,7 @@
 [diff]
   tool              = vimdiff
 [core]
-  editor = vim
+  editor = nvim
   quotepath = false
 [pull]
   rebase = false
