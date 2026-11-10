@@ -193,3 +193,4 @@ alias vim=nvim
 alias vimdiff='nvim -d'
 export EDITOR=nvim
 export VISUAL=nvim
+export GPG_TTY=$(tty)

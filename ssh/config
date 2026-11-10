@@ -103,3 +103,7 @@ Host minirp
     ServerAliveCountMax 3
     ExitOnForwardFailure yes
     RemoteForward 127.0.0.1:10808
+Host safetc
+    User ubuntu
+    HostName tc.boldman.net
+    ProxyCommand /usr/bin/nc -X 5 -x 127.0.0.1:7897 %h %p
