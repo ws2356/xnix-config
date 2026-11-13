@@ -21,9 +21,6 @@ Host kim
 Host pro
   User kimmacjenkins
   HostName 172.17.205.203
-Host tcpi
-  User pi
-  HostName 101.32.244.220
   Port 8302
 Host wsl
   User ws2356
@@ -32,11 +29,6 @@ Host wsl
 Host r0
   User root
   HostName 192.168.2.1
-  
-Host tcpi
-  User pi
-  HostName 101.32.244.220
-  Port 8302
 Host azvm2
   User ws2356
   HostName azurevm2.wansong.vip
@@ -70,9 +62,6 @@ Host tc
 Host aws
   User ubuntu
   HostName aws.boldman.net
-Host tc2
-  User ubuntu
-  HostName 118.89.113.71
 Host mini
   User ws2356
   HostName mini.home
@@ -93,7 +82,7 @@ Host minir
   User ws2356
   HostName localhost
   Port 48022
-  ProxyJump tc
+  ProxyJump safetc
 Host minirp
     User ws2356
     HostName localhost
