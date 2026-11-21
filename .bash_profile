@@ -28,8 +28,17 @@ this_dir="$(get_containing_dir "${BASH_SOURCE[0]}")"
 
 path_append() {
   for p in "$@"; do
-    case ":$PATH:" in
-      *":${p}:"*) continue ;;
+    PATH=":$PATH:"
+    case "$PATH" in
+      *":${p}:"*)
+        PATH="${PATH//:$p:/:}"
+        PATH="${PATH#:}"
+        PATH="${PATH%:}"
+        ;;
+      *)
+        PATH="${PATH#:}"
+        PATH="${PATH%:}"
+        ;;
     esac
     export PATH="${PATH:-''}${PATH:+:}${p}"
   done
@@ -37,8 +46,17 @@ path_append() {
 
 path_prepend() {
   for p in "$@"; do
-    case ":$PATH:" in
-      *":${p}:"*) continue ;;
+    PATH=":$PATH:"
+    case "$PATH" in
+      *":${p}:"*)
+        PATH="${PATH//:$p:/:}"
+        PATH="${PATH#:}"
+        PATH="${PATH%:}"
+        ;;
+      *)
+        PATH="${PATH#:}"
+        PATH="${PATH%:}"
+        ;;
     esac
     export PATH="${p}${PATH:+:}${PATH:-''}"
   done
@@ -66,6 +84,11 @@ if type -p rbenv >/dev/null 2>&1 ; then
       command rbenv "$command" "$@";;
     esac
   }
+fi
+
+brew_bin="$(brew --prefix)/bin"
+if [ -n "$brew_bin" ] ; then
+  path_prepend "$brew_bin"
 fi
 
 test -f "$this_dir/set_up_java.sh" && \. "$_"
