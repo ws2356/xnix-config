@@ -62,6 +62,9 @@ path_prepend() {
   done
 }
 
+export -f path_append
+export -f path_prepend
+
 path_append "${HOME}/bin"
 test -d "${HOME}/.local/bin" && path_append "$_"
 
